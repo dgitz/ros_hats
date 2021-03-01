@@ -7,6 +7,7 @@
 #include <ros_hats/Channel/PWMInputChannel.h>
 #include <ros_hats/Channel/PWMOutputChannel.h>
 #include <ros_hats/Hat/Hat.h>
+#include <ros_hats/Port/DigitalOutputPort.h>
 #include <ros_hats/Port/PWMOutputPort.h>
 #include <ros_hats/Port/Port.h>
 #include <ros_hats/ROSHATS_Definitions.h>
@@ -20,10 +21,10 @@ double time_diff(struct timeval A, struct timeval B) {
 TEST(BasicTest, TestBaseOperation) {
     {
         printf("Testing individual Channel Operations...\n");
-        std::vector<std::unique_ptr<Channel>> channels;
+        std::vector<std::shared_ptr<Channel>> channels;
         channels.emplace_back(new PWMInputChannel("PWMInput0", "P0", 1500, 1000, 2000));
         channels.emplace_back(new PWMOutputChannel("PWMOutput0", "P1", 1500, 1000, 2000));
-        channels.emplace_back(new DigitalOutputChannel("DigitalOutput0", "P2"));
+        channels.emplace_back(new DigitalOutputChannel("DigitalOutput0", "P2", 0, 0, 2000));
 
         std::size_t passed = 0;
         for (std::size_t i = 0; i < channels.size(); ++i) {
@@ -59,7 +60,7 @@ TEST(BasicTest, TestBaseOperation) {
         EXPECT_TRUE(passed == channels.size());
     }
     {
-        printf("Testing Port Operations...\n");
+        printf("Testing Port: PWMOutput Operations...\n");
         PWMOutputPort port("PWMOutputPortA", {"P3", "P5", "P7", "P9"});
         EXPECT_TRUE(port.init());
         EXPECT_TRUE(port.get_port_size() == 4);
@@ -82,7 +83,37 @@ TEST(BasicTest, TestBaseOperation) {
         printf("%s\n", port.pretty().c_str());
         double mtime = time_diff(start, end);
         double avg_time_per_update = mtime / (double)trials;
-        printf("Avg time per 1000000 operations: %4.4f(sec)\n", 1000000.0 * avg_time_per_update);
+        printf("(PWMPort) Avg time per 1000000 operations: %4.4f(sec)\n",
+               1000000.0 * avg_time_per_update);
+    }
+
+    {
+        printf("Testing Port: DigitalOutput Operations...\n");
+        DigitalOutputPort port("DigitalOutputPortA", {"P3", "P5", "P7", "P9"}, 0, 0, 1);
+        EXPECT_TRUE(port.init());
+        EXPECT_TRUE(port.get_port_size() == 4);
+        EXPECT_TRUE(port.get_channels().size() == 4);
+
+        ChannelDefinition::ChannelErrorType status = port.update("P3", 0);
+        EXPECT_TRUE(status == ChannelDefinition::ChannelErrorType::NOERROR);
+        EXPECT_TRUE(port.get_value("P3") == 0);
+        status = port.update("P3", 2);
+        EXPECT_TRUE(status == ChannelDefinition::ChannelErrorType::VALUE_EXCEED_UPPER_BOUND);
+
+        status = port.update("P4", 1);
+        EXPECT_TRUE(status == ChannelDefinition::ChannelErrorType::CHANNEL_NOT_FOUND);
+
+        uint64_t trials = 20000000;
+        struct timeval start, end;
+        gettimeofday(&start, NULL);
+        printf("Runnig Long duration Timing Tests...\n");
+        for (uint64_t i = 0; i < trials; ++i) { status = port.update("P3", 1800); }
+        gettimeofday(&end, NULL);
+        printf("%s\n", port.pretty().c_str());
+        double mtime = time_diff(start, end);
+        double avg_time_per_update = mtime / (double)trials;
+        printf("(DigitalPort) Avg time per 1000000 operations: %4.4f(sec)\n",
+               1000000.0 * avg_time_per_update);
     }
 }
 int main(int argc, char **argv) {

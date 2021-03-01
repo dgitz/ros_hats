@@ -1,0 +1,3 @@
+catkin_add_gtest(test_hatNodeProcess test_HatNodeProcess.cpp)
+target_link_libraries(test_hatNodeProcess ${catkin_LIBRARIES} ${Boost_LIBRARIES} logger hatNodeProcess)
+add_dependencies(test_hatNodeProcess eros_generate_messages_cpp)

@@ -39,6 +39,9 @@ class Channel
     ChannelDefinition::Direction get_direction() {
         return direction;
     }
+    std::string get_pin_name() {
+        return pin_name;
+    }
 
    protected:
     std::string name;

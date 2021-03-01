@@ -2,6 +2,9 @@
  */
 #ifndef ROSHATS_HAT_H
 #define ROSHATS_HAT_H
+#include <eros/Diagnostic.h>
+#include <eros/Logger.h>
+#include <eros/eROS_Definitions.h>
 #include <ros_hats/Channel/Channel.h>
 #include <ros_hats/Port/Port.h>
 #include <stdio.h>
@@ -9,6 +12,8 @@
 #include <unistd.h>
 
 #include <string>
+
+#include "ros/ros.h"
 
 /*! \class Hat
     \brief Hat class
@@ -19,10 +24,18 @@ class Hat
    public:
     Hat();
     ~Hat();
-    bool init();
+    bool base_init(Logger* _logger);
+    virtual bool init_ros(boost::shared_ptr<ros::NodeHandle> n, std::string host_name) = 0;
 
-    std::string pretty();
+    std::string base_pretty();
+    virtual std::string pretty() = 0;
+    Diagnostic::DiagnosticDefinition get_diagnostic() {
+        return diagnostic;
+    }
 
-   private:
+   protected:
+    Logger* logger;
+    Diagnostic diag_helper;
+    Diagnostic::DiagnosticDefinition diagnostic;
 };
 #endif
