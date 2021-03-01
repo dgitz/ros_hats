@@ -34,6 +34,9 @@ class Port
     uint16_t get_port_size() {
         return port_size;
     }
+    std::string get_name() {
+        return name;
+    }
 
     std::string base_pretty();
     virtual std::string pretty() = 0;
@@ -43,6 +46,6 @@ class Port
     uint16_t port_size;
     ChannelDefinition::ChannelType port_type;
     ChannelDefinition::Direction port_direction;
-    std::map<std::string, std::unique_ptr<Channel>> channels;
+    std::map<std::string, std::shared_ptr<Channel>> channels;
 };
 #endif  // ROSHATS_PORT_H
