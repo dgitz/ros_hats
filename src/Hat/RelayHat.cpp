@@ -5,7 +5,10 @@ std::string RelayHat::pretty() {
     std::string str = base_pretty();
     return str;
 }
-bool RelayHat::init(Logger *_logger, std::string _name, std::vector<std::string> _pin_names) {
+bool RelayHat::init(Logger *_logger,
+                    std::string _name,
+                    std::vector<std::string> _pin_names,
+                    std::vector<uint16_t> _pin_numbers) {
     bool v = base_init(_logger);
     if (v == false) {
         return false;
@@ -27,14 +30,15 @@ bool RelayHat::init(Logger *_logger, std::string _name, std::vector<std::string>
     diag_helper.enable_diagnostics(std::vector<Diagnostic::DiagnosticType>{diagnostic.type});
     diagnostic = diag_helper.update_diagnostic(diagnostic);
     name = _name;
-    if (_pin_names.size() == 0) {
-        logger->log_warn("Using Default Values for Model: " + RelayHat::HatModelString(model));
-        if (model == RelayHat::HatModel::RPI_RELAY_HAT) {
+    if (model == RelayHat::HatModel::RPI_RELAY_HAT) {
+        if (_pin_names.size() == 0) {
+            logger->log_warn("Using Default Values for Model: " + RelayHat::HatModelString(model));
             _pin_names = {"21", "20", "26"};
+            _pin_numbers = {0, 1, 2};
         }
     }
 
-    relay_port = DigitalOutputPort("RelayPort0", _pin_names, 0, 0, 1);
+    relay_port = DigitalOutputPort("RelayPort0", _pin_names, _pin_numbers, 0, 0, 1);
     std::vector<DigitalOutputChannel> _channels = relay_port.get_channels();
     for (auto ch : _channels) {
         if (export_gpio(ch.get_pin_name()) == false) {
@@ -65,7 +69,7 @@ bool RelayHat::init_ros(boost::shared_ptr<ros::NodeHandle> _n, std::string host_
         std::string tempstr =
             "/" + host_name + "/" + name + "/" + relay_port.get_name() + "/" + ch.get_pin_name();
         ros::Subscriber sub = nodeHandle->subscribe<std_msgs::Bool>(
-            tempstr, 1, boost::bind(&RelayHat::DigitalOutoutCallback, this, _1, ch.get_pin_name()));
+            tempstr, 1, boost::bind(&RelayHat::DigitalOutputCallback, this, _1, ch.get_pin_name()));
         relayoutput_subs.push_back(sub);
     }
     return true;
@@ -80,7 +84,7 @@ ChannelDefinition::ChannelErrorType RelayHat::update_pin(std::string pin_name, i
     }
     return error;
 }
-void RelayHat::DigitalOutoutCallback(const std_msgs::Bool::ConstPtr &msg,
+void RelayHat::DigitalOutputCallback(const std_msgs::Bool::ConstPtr &msg,
                                      const std::string &pin_name) {
     bool v = msg->data;
     ChannelDefinition::ChannelErrorType error = update_pin(pin_name, (int64_t)v);

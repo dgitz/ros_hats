@@ -20,11 +20,13 @@ class PWMInputChannel : public Channel
     }
     PWMInputChannel(std::string _name,
                     std::string _pin_name,
+                    uint16_t _pin_number,
                     int64_t default_value,
                     int64_t _lower_range,
                     int64_t _upper_range)
         : Channel(_name,
                   _pin_name,
+                  _pin_number,
                   ChannelDefinition::ChannelType::PWM,
                   ChannelDefinition::Direction::INPUT),
           value(default_value),

@@ -20,9 +20,14 @@ class Channel
     }
     Channel(std::string _name,
             std::string _pin_name,
+            uint16_t _pin_number,
             ChannelDefinition::ChannelType _channel_type,
             ChannelDefinition::Direction _direction)
-        : name(_name), pin_name(_pin_name), channel_type(_channel_type), direction(_direction) {
+        : name(_name),
+          pin_name(_pin_name),
+          pin_number(_pin_number),
+          channel_type(_channel_type),
+          direction(_direction) {
     }
 
     ~Channel();
@@ -42,10 +47,14 @@ class Channel
     std::string get_pin_name() {
         return pin_name;
     }
+    uint16_t get_pin_number() {
+        return pin_number;
+    }
 
    protected:
     std::string name;
     std::string pin_name;
+    uint16_t pin_number;
     ChannelDefinition::ChannelType channel_type;
     ChannelDefinition::Direction direction;
 };

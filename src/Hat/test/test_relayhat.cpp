@@ -2,15 +2,9 @@
  */
 #include <eros/Logger.h>
 #include <gtest/gtest.h>
-#include <ros_hats/Channel/Channel.h>
 #include <ros_hats/Channel/DigitalOutputChannel.h>
-#include <ros_hats/Channel/PWMInputChannel.h>
-#include <ros_hats/Channel/PWMOutputChannel.h>
-#include <ros_hats/Hat/Hat.h>
 #include <ros_hats/Hat/RelayHat.h>
 #include <ros_hats/Port/DigitalOutputPort.h>
-#include <ros_hats/Port/PWMOutputPort.h>
-#include <ros_hats/Port/Port.h>
 #include <ros_hats/ROSHATS_Definitions.h>
 #include <stdio.h>
 #include <sys/time.h>
