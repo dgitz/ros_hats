@@ -23,6 +23,7 @@ class Port
     Port();
     Port(std::string _name,
          std::vector<std::string> _pin_names,
+         std::vector<uint16_t> _pin_numbers,
          ChannelDefinition::ChannelType _port_type,
          ChannelDefinition::Direction _direction)
         : name(_name), port_type(_port_type), port_direction(_direction) {

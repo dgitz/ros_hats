@@ -20,11 +20,13 @@ class DigitalOutputChannel : public Channel
     }
     DigitalOutputChannel(std::string _name,
                          std::string _pin_name,
+                         uint16_t _pin_number,
                          int64_t _default_value,
                          int64_t _lower_range,
                          int64_t _upper_range)
         : Channel(_name,
                   _pin_name,
+                  _pin_number,
                   ChannelDefinition::ChannelType::DIGITAL,
                   ChannelDefinition::Direction::OUTPUT),
           value(_default_value),

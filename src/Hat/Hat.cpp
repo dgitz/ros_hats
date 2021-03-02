@@ -4,7 +4,7 @@ Hat::Hat() {
 Hat::~Hat() {
 }
 std::string Hat::base_pretty() {
-    std::string str;
+    std::string str = "--- Hat Name: " + name;
     return str;
 }
 bool Hat::base_init(Logger *_logger) {

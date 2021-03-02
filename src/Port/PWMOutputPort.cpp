@@ -5,6 +5,7 @@ PWMOutputPort::~PWMOutputPort() {
 }
 std::string PWMOutputPort::pretty() {
     std::string str = base_pretty();
+    for (auto ch : channels) { str += ch.second->pretty(); }
     return str;
 }
 bool PWMOutputPort::init() {

@@ -34,6 +34,8 @@ class Hat
     }
 
    protected:
+    boost::shared_ptr<ros::NodeHandle> nodeHandle;
+    std::string name;
     Logger* logger;
     Diagnostic diag_helper;
     Diagnostic::DiagnosticDefinition diagnostic;

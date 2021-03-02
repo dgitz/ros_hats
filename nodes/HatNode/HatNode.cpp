@@ -143,6 +143,21 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
                 hats.emplace(std::make_pair(hat_configs.at(i).hat_name, new RelayHat(model)));
             }
         }
+        if (hat_configs.at(i).hat_type == "PWMHat") {
+            PWMHat::HatModel model = PWMHat::HatModelType(hat_configs.at(i).hat_model);
+            if (model == PWMHat::HatModel::UNKNOWN) {
+                diag = process->update_diagnostic(
+                    Diagnostic::DiagnosticType::DATA_STORAGE,
+                    Level::Type::ERROR,
+                    Diagnostic::Message::INITIALIZING_ERROR,
+                    "Hat Model: " + hat_configs.at(i).hat_model + " Not Supported.");
+                logger->log_diagnostic(diag);
+                return diag;
+            }
+            else {
+                hats.emplace(std::make_pair(hat_configs.at(i).hat_name, new PWMHat(model)));
+            }
+        }
         else {
             diag = process->update_diagnostic(
                 Diagnostic::DiagnosticType::DATA_STORAGE,
@@ -162,34 +177,57 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
         return diag;
     }
     for (auto hat_it : hats) {
-        RelayHat *hat = dynamic_cast<RelayHat *>(hat_it.second.get());
-        if (hat != nullptr) {
-            if (hat->init(logger, hat_it.first) == false) {
-                diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
-                                                  Level::Type::ERROR,
-                                                  Diagnostic::Message::INITIALIZING_ERROR,
-                                                  "Unable to initialize Hat: " + hat_it.first);
-                return diag;
+        {
+            RelayHat *hat = dynamic_cast<RelayHat *>(hat_it.second.get());
+            if (hat != nullptr) {
+                if (hat->init(logger, hat_it.first) == false) {
+                    diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
+                                                      Level::Type::ERROR,
+                                                      Diagnostic::Message::INITIALIZING_ERROR,
+                                                      "Unable to initialize Hat: " + hat_it.first);
+                    return diag;
+                }
+                else {
+                    // Hat Initialized OK.  Now need to setup ROS for the Hat
+                    if (hat->init_ros(n, host_name) == false) {
+                        diag = process->update_diagnostic(
+                            Diagnostic::DiagnosticType::DATA_STORAGE,
+                            Level::Type::ERROR,
+                            Diagnostic::Message::INITIALIZING_ERROR,
+                            "Unable to initialize Hat ROS Connection: " + hat_it.first);
+                        return diag;
+                    }
+                    else {
+                        logger->log_notice("Hat: " + hat_it.first + " Initialized.");
+                    }
+                }
             }
         }
-        else {
-            diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
-                                              Level::Type::ERROR,
-                                              Diagnostic::Message::INITIALIZING_ERROR,
-                                              "Hat has no memory: " + hat_it.first);
-            return diag;
-        }
-        // Hat Initialized OK.  Now need to setup ROS for the Hat
-        if (hat->init_ros(n, host_name) == false) {
-            diag = process->update_diagnostic(
-                Diagnostic::DiagnosticType::DATA_STORAGE,
-                Level::Type::ERROR,
-                Diagnostic::Message::INITIALIZING_ERROR,
-                "Unable to initialize Hat ROS Connection: " + hat_it.first);
-            return diag;
-        }
-        else {
-            logger->log_notice("Hat: " + hat_it.first + " Initialized.");
+        {
+            PWMHat *hat = dynamic_cast<PWMHat *>(hat_it.second.get());
+            if (hat != nullptr) {
+                if (hat->init(logger, hat_it.first) == false) {
+                    diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
+                                                      Level::Type::ERROR,
+                                                      Diagnostic::Message::INITIALIZING_ERROR,
+                                                      "Unable to initialize Hat: " + hat_it.first);
+                    return diag;
+                }
+                else {
+                    // Hat Initialized OK.  Now need to setup ROS for the Hat
+                    if (hat->init_ros(n, host_name) == false) {
+                        diag = process->update_diagnostic(
+                            Diagnostic::DiagnosticType::DATA_STORAGE,
+                            Level::Type::ERROR,
+                            Diagnostic::Message::INITIALIZING_ERROR,
+                            "Unable to initialize Hat ROS Connection: " + hat_it.first);
+                        return diag;
+                    }
+                    else {
+                        logger->log_notice("Hat: " + hat_it.first + " Initialized.");
+                    }
+                }
+            }
         }
     }
 
@@ -262,6 +300,13 @@ bool HatNode::run_1hz() {
                                               "Not able to Change Node State to Running.");
             logger->log_diagnostic(diag);
         }
+    }
+    for (auto hat_it : hats) {
+        Diagnostic::DiagnosticDefinition diag = hat_it.second->get_diagnostic();
+        if (diag.level > Level::Type::NOTICE) {
+            logger->log_diagnostic(diag);
+        }
+        // logger->log_info(hat_it.second->pretty());
     }
     return true;
 }
