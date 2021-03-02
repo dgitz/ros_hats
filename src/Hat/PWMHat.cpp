@@ -40,7 +40,8 @@ bool PWMHat::init(Logger *_logger,
     diagnostic.level = Level::Type::INFO;
     diagnostic.description = "Hat Initializing";
     diag_helper.initialize(diagnostic);
-    diag_helper.enable_diagnostics(std::vector<Diagnostic::DiagnosticType>{diagnostic.type});
+    diag_helper.enable_diagnostics(std::vector<Diagnostic::DiagnosticType>{
+        Diagnostic::DiagnosticType::ACTUATORS, Diagnostic::DiagnosticType::COMMUNICATIONS});
     diagnostic = diag_helper.update_diagnostic(diagnostic);
     name = _name;
     if (model == PWMHat::HatModel::ADAFRUIT_SERVOHAT_16CH) {
@@ -57,23 +58,17 @@ bool PWMHat::init(Logger *_logger,
             "PWMPort2", PWMOutputPort("PWMPort2", {"0", "1", "2", "3"}, {8, 9, 10, 11})));
         pwm_ports.insert(std::make_pair(
             "PWMPort3", PWMOutputPort("PWMPort3", {"0", "1", "2", "3"}, {12, 13, 14, 15})));
-    }
-
-    /*
-    relay_port = DigitalOutputPort("RelayPort0", _pin_names, 0, 0, 1);
-    std::vector<DigitalOutputChannel> _channels = relay_port.get_channels();
-    for (auto ch : _channels) {
-        if (export_gpio(ch.get_pin_name()) == false) {
-            return false;
-        }
-        if (setdir_gpio(ch.get_pin_name(), "out") == false) {
-            return false;
-        }
-        if (setvalue_gpio(ch.get_pin_name(), std::to_string(ch.get_default_value())) == false) {
+        int status = driver.init();
+        if (status < 0) {
+            diagnostic = diag_helper.update_diagnostic(
+                Diagnostic::DiagnosticType::COMMUNICATIONS,
+                Level::Type::ERROR,
+                Diagnostic::Message::INITIALIZING_ERROR,
+                "Unable to Start Servo Hat at Address: " + std::to_string(driver.get_address()));
+            logger->log_diagnostic(diagnostic);
             return false;
         }
     }
-    */
     diagnostic = diag_helper.update_diagnostic(Diagnostic::DiagnosticType::ACTUATORS,
                                                Level::Type::INFO,
                                                Diagnostic::Message::NOERROR,
@@ -114,8 +109,11 @@ ChannelDefinition::ChannelErrorType PWMHat::update_pin(std::string port_name,
         return ChannelDefinition::ChannelErrorType::CHANNEL_NOT_FOUND;
     }
     ChannelDefinition::ChannelErrorType error = port->second.update(pin_name, value);
+    if (error == ChannelDefinition::ChannelErrorType::CHANNEL_NOT_FOUND) {
+        return error;
+    }
     PWMOutputChannel ch = port->second.get_channel(pin_name);
-    printf("xxx0: %d\n", ch.get_pin_number());
+    driver.setServoValue(ch.get_pin_number(), (int)value);
     return error;
 }
 void PWMHat::PWMOutputCallback(const std_msgs::Int64::ConstPtr &msg,
@@ -124,7 +122,12 @@ void PWMHat::PWMOutputCallback(const std_msgs::Int64::ConstPtr &msg,
     int64_t v = msg->data;
     ChannelDefinition::ChannelErrorType error = update_pin(port_name, pin_name, v);
     switch (error) {
-        case ChannelDefinition::ChannelErrorType::NOERROR: return;
+        case ChannelDefinition::ChannelErrorType::NOERROR:
+            diagnostic = diag_helper.update_diagnostic(Diagnostic::DiagnosticType::ACTUATORS,
+                                                       Level::Type::INFO,
+                                                       Diagnostic::Message::NOERROR,
+                                                       "Updated");
+            return;
         case ChannelDefinition::ChannelErrorType::VALUE_EXCEED_LOWER_BOUND:
             diagnostic = diag_helper.update_diagnostic(Diagnostic::DiagnosticType::ACTUATORS,
                                                        Level::Type::WARN,

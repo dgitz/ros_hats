@@ -89,7 +89,12 @@ void RelayHat::DigitalOutputCallback(const std_msgs::Bool::ConstPtr &msg,
     bool v = msg->data;
     ChannelDefinition::ChannelErrorType error = update_pin(pin_name, (int64_t)v);
     switch (error) {
-        case ChannelDefinition::ChannelErrorType::NOERROR: return;
+        case ChannelDefinition::ChannelErrorType::NOERROR:
+            diagnostic = diag_helper.update_diagnostic(Diagnostic::DiagnosticType::ACTUATORS,
+                                                       Level::Type::INFO,
+                                                       Diagnostic::Message::NOERROR,
+                                                       "Updated");
+            return;
         case ChannelDefinition::ChannelErrorType::VALUE_EXCEED_LOWER_BOUND:
             diagnostic = diag_helper.update_diagnostic(Diagnostic::DiagnosticType::ACTUATORS,
                                                        Level::Type::WARN,

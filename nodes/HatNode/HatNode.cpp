@@ -306,7 +306,7 @@ bool HatNode::run_1hz() {
         if (diag.level > Level::Type::NOTICE) {
             logger->log_diagnostic(diag);
         }
-        logger->log_info(hat_it.second->pretty());
+        // logger->log_info(hat_it.second->pretty());
     }
     return true;
 }

@@ -9,7 +9,7 @@ if (${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL armv7l)
         add_library(roshat_relayhat RelayHat.cpp)
         target_link_libraries(roshat_relayhat ${catkin_LIBRARIES} logger roshat_hat roshat_digitaloutputchannel roshat_digitaloutputport)
 
-        add_library(roshat_pwmhat PWMHat.cpp)
+        add_library(roshat_pwmhat PWMHat.cpp Driver/Adafruit16ChServoHat.cpp)
         target_link_libraries(roshat_pwmhat ${catkin_LIBRARIES} wiringPi logger roshat_hat roshat_pwmoutputchannel roshat_pwmoutputport)
 
         add_subdirectory(test)

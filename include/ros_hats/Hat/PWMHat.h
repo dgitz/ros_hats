@@ -3,6 +3,7 @@
 #ifndef ROSHATS_PWMHAT_H
 #define ROSHATS_PWMHAT_H
 #include <ros_hats/Channel/PWMOutputChannel.h>
+#include <ros_hats/Hat/Driver/Adafruit16ChServoHat.h>
 #include <ros_hats/Hat/Hat.h>
 #include <ros_hats/Port/PWMOutputPort.h>
 #include <std_msgs/Int64.h>
@@ -62,6 +63,7 @@ class PWMHat : public Hat
     std::string pretty();
 
    private:
+    Adafruit16ChServoHat driver;
     HatModel model;
     std::map<std::string, PWMOutputPort> pwm_ports;
     std::vector<ros::Subscriber> pwmoutput_subs;
