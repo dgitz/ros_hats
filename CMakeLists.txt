@@ -1,27 +1,19 @@
-cmake_minimum_required(VERSION 3.0.2)
+cmake_minimum_required(VERSION 2.8.3)
 project(ros_hats)
-
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
-
-## Find catkin macros and libraries
-## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
-## is used, also find other catkin packages
+SET(CMAKE_CXX_FLAGS "-std=c++0x")
+add_definitions(-std=c++11 -Wall -Wextra -Wno-switch)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
-  eros
+  rospy
+  std_msgs
+  message_generation
+  genmsg
+  actionlib_msgs
+  rosbag
+  cmake_modules
 )
+find_package(TinyXML REQUIRED)
+find_package(Curses REQUIRED)
+find_package(catkin REQUIRED COMPONENTS roscpp actionlib actionlib_msgs)
 
-
-catkin_package(
-  INCLUDE_DIRS include
-  CATKIN_DEPENDS eros
-)
-
-include_directories(
- include
-  ${catkin_INCLUDE_DIRS}
-
-)
-add_subdirectory(src)
-add_subdirectory(nodes)
