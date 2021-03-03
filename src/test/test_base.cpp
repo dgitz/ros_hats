@@ -22,9 +22,9 @@ TEST(BasicTest, TestBaseOperation) {
     {
         printf("Testing individual Channel Operations...\n");
         std::vector<std::shared_ptr<Channel>> channels;
-        channels.emplace_back(new PWMInputChannel("PWMInput0", "P0", 1500, 1000, 2000));
-        channels.emplace_back(new PWMOutputChannel("PWMOutput0", "P1", 1500, 1000, 2000));
-        channels.emplace_back(new DigitalOutputChannel("DigitalOutput0", "P2", 0, 0, 2000));
+        channels.emplace_back(new PWMInputChannel("PWMInput0", "P0", 0, 1500, 1000, 2000));
+        channels.emplace_back(new PWMOutputChannel("PWMOutput0", "P1", 1, 1500, 1000, 2000));
+        channels.emplace_back(new DigitalOutputChannel("DigitalOutput0", "P2", 2, 0, 0, 2000));
 
         std::size_t passed = 0;
         for (std::size_t i = 0; i < channels.size(); ++i) {
@@ -61,7 +61,7 @@ TEST(BasicTest, TestBaseOperation) {
     }
     {
         printf("Testing Port: PWMOutput Operations...\n");
-        PWMOutputPort port("PWMOutputPortA", {"P3", "P5", "P7", "P9"});
+        PWMOutputPort port("PWMOutputPortA", {"P3", "P5", "P7", "P9"}, {0, 1, 2, 3});
         EXPECT_TRUE(port.init());
         EXPECT_TRUE(port.get_port_size() == 4);
 
@@ -89,7 +89,8 @@ TEST(BasicTest, TestBaseOperation) {
 
     {
         printf("Testing Port: DigitalOutput Operations...\n");
-        DigitalOutputPort port("DigitalOutputPortA", {"P3", "P5", "P7", "P9"}, 0, 0, 1);
+        DigitalOutputPort port(
+            "DigitalOutputPortA", {"P3", "P5", "P7", "P9"}, {0, 1, 2, 3}, 0, 0, 1);
         EXPECT_TRUE(port.init());
         EXPECT_TRUE(port.get_port_size() == 4);
         EXPECT_TRUE(port.get_channels().size() == 4);
