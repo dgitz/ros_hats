@@ -143,7 +143,7 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
                 hats.emplace(std::make_pair(hat_configs.at(i).hat_name, new RelayHat(model)));
             }
         }
-        if (hat_configs.at(i).hat_type == "PWMHat") {
+        else if (hat_configs.at(i).hat_type == "PWMHat") {
             PWMHat::HatModel model = PWMHat::HatModelType(hat_configs.at(i).hat_model);
             if (model == PWMHat::HatModel::UNKNOWN) {
                 diag = process->update_diagnostic(
@@ -258,27 +258,6 @@ bool HatNode::run_01hz() {
 }
 bool HatNode::run_01hz_noisy() {
     Diagnostic::DiagnosticDefinition diag = diagnostic;
-    if ((deviceInfo.received == false) && (disable_device_client == false)) {
-        logger->log_notice("Requesting Device Info");
-        std::string device_topic = "/" + std::string(host_name) + "_master_node/srv_device";
-        ros::ServiceClient client = n->serviceClient<eros::srv_device>(device_topic);
-        eros::srv_device srv;
-        if (client.call(srv)) {
-            deviceInfo.received = true;
-            diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
-                                              Level::Type::INFO,
-                                              Diagnostic::Message::NOERROR,
-                                              "Device Info Received.");
-            logger->log_diagnostic(diag);
-        }
-        else {
-            diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
-                                              Level::Type::WARN,
-                                              Diagnostic::Message::DEVICE_NOT_AVAILABLE,
-                                              "Device Info not received yet.");
-            logger->log_diagnostic(diag);
-        }
-    }
     logger->log_notice("Node State: " + Node::NodeStateString(process->get_nodestate()));
     return true;
 }
@@ -306,7 +285,6 @@ bool HatNode::run_1hz() {
         if (diag.level > Level::Type::NOTICE) {
             logger->log_diagnostic(diag);
         }
-        // logger->log_info(hat_it.second->pretty());
     }
     return true;
 }
