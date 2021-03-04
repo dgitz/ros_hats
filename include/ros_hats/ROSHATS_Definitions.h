@@ -223,4 +223,235 @@ struct HatConfig {
     bool use_default_config;
     std::vector<PortConfig> ports;
 };
+
+class RaspberryPiDefinition
+{
+   public:
+    enum class RaspberryPiModel {
+        UNKNOWN = 0,                   /*!< Uninitialized value. */
+        RASPBERRYPI_2_MODEL_B = 1,     /*!< Raspberry Pi 2 ModelB. */
+        RASPBERRYPI_3_MODEL_B = 2,     /*!<  */
+        RASPBERRYPI_3_MODEL_APLUS = 3, /*!<  */
+        RASPBERRYPI_3_MODEL_BPLUS = 4, /*!<  */
+        RASPBERRYPI_4_MODEL_B = 5,     /*!<  */
+        RASPBERRYPI_ZER0 = 6,          /*!<  */
+        RASPBERRYPI_ZERO_W = 7,        /*!<  */
+        RASPBERRYPI_ZERO_WH = 8,       /*!<  */
+        RASPBERRYPI_400 = 9,           /*!<  */
+        END_OF_LIST = 10               /*!< Last item of list. Used for Range Checks. */
+    };
+    static std::string RaspberryPiModelString(RaspberryPiDefinition::RaspberryPiModel v) {
+        switch (v) {
+            case RaspberryPiDefinition::RaspberryPiModel::UNKNOWN: return "UNKNOWN"; break;
+            case RaspberryPiDefinition::RaspberryPiModel::RASPBERRYPI_2_MODEL_B:
+                return "RASPBERRYPI_2_MODEL_B";
+                break;
+            case RaspberryPiDefinition::RaspberryPiModel::RASPBERRYPI_3_MODEL_B:
+                return "RASPBERRYPI_3_MODEL_B";
+                break;
+            case RaspberryPiDefinition::RaspberryPiModel::RASPBERRYPI_3_MODEL_APLUS:
+                return "RASPBERRYPI_3_MODEL_APLUS";
+                break;
+            case RaspberryPiDefinition::RaspberryPiModel::RASPBERRYPI_3_MODEL_BPLUS:
+                return "RASPBERRYPI_3_MODEL_BPLUS";
+                break;
+            case RaspberryPiDefinition::RaspberryPiModel::RASPBERRYPI_4_MODEL_B:
+                return "RASPBERRYPI_4_MODEL_B";
+                break;
+            case RaspberryPiDefinition::RaspberryPiModel::RASPBERRYPI_ZER0:
+                return "RASPBERRYPI_ZER0";
+                break;
+            case RaspberryPiDefinition::RaspberryPiModel::RASPBERRYPI_ZERO_W:
+                return "RASPBERRYPI_ZERO_W";
+                break;
+            case RaspberryPiDefinition::RaspberryPiModel::RASPBERRYPI_ZERO_WH:
+                return "RASPBERRYPI_ZERO_WH";
+                break;
+            case RaspberryPiDefinition::RaspberryPiModel::RASPBERRYPI_400:
+                return "RASPBERRYPI_400";
+                break;
+            default:
+                return RaspberryPiModelString(RaspberryPiDefinition::RaspberryPiModel::UNKNOWN);
+                break;
+        }
+    }
+
+    enum class PinType {
+        UNKNOWN = 0,    /*!< Uninitialized value. */
+        GPIO = 1,       /*!< General Purpose Input/Output */
+        I2C = 2,        /*!< I2C Pin */
+        SPI = 3,        /*!< SPI Pin */
+        PWM = 4,        /*!< Pin that supports PWM */
+        UART = 5,       /*!< UART Pin */
+        END_OF_LIST = 6 /*!< Last item of list. Used for Range Checks. */
+    };
+    static std::string PinTypeString(RaspberryPiDefinition::PinType v) {
+        switch (v) {
+            case RaspberryPiDefinition::PinType::UNKNOWN: return "UNKNOWN"; break;
+            case RaspberryPiDefinition::PinType::GPIO: return "GPIO"; break;
+            case RaspberryPiDefinition::PinType::I2C: return "I2C"; break;
+            case RaspberryPiDefinition::PinType::SPI: return "SPI"; break;
+            case RaspberryPiDefinition::PinType::PWM: return "PWM"; break;
+            case RaspberryPiDefinition::PinType::UART: return "UART"; break;
+            default: return PinTypeString(RaspberryPiDefinition::PinType::UNKNOWN); break;
+        }
+    }
+
+    struct PinDefinition {
+        PinDefinition(std::string _gpio_pin_name,
+                      uint16_t _pin_number,
+                      std::vector<PinType> _pin_types)
+            : gpio_pin_name(_gpio_pin_name), pin_number(_pin_number), pin_types(_pin_types) {
+        }
+        std::string gpio_pin_name;
+        uint16_t pin_number;
+        std::vector<PinType> pin_types;
+    };
+
+    struct RaspberryPi {
+        RaspberryPi() {
+        }
+        RaspberryPi(RaspberryPiModel _model, std::map<std::string, PinDefinition> _pin_map)
+            : model(_model), pin_map(_pin_map) {
+        }
+        RaspberryPiModel model;
+        std::map<std::string, PinDefinition> pin_map;
+    };
+
+    static std::string pretty(RaspberryPi device) {
+        std::string str = "Raspberry Pi Model: " + RaspberryPiModelString(device.model) + "\n";
+        uint16_t counter = 0;
+        for (auto pin : device.pin_map) {
+            str += "\t[" + std::to_string(counter) + "] GPIO Name: " + pin.second.gpio_pin_name +
+                   " Number: " + std::to_string(pin.second.pin_number) + " Type(s):";
+            if (pin.second.pin_types.size() == 0) {
+                str += " NONE DEFINED.\n";
+            }
+            else if (pin.second.pin_types.size() == 1) {
+                str += " " + PinTypeString(pin.second.pin_types.at(0)) + "\n";
+            }
+            else {
+                str += " " + PinTypeString(pin.second.pin_types.at(0));
+                for (std::size_t i = 1; i < pin.second.pin_types.size(); ++i) {
+                    str += "," + PinTypeString(pin.second.pin_types.at(i));
+                }
+                str += "\n";
+            }
+            counter++;
+        }
+        return str;
+    }
+
+    static std::vector<RaspberryPi> build_RaspberryPi() {
+        std::vector<RaspberryPi> devices;
+        for (uint8_t i = 1; i < (uint8_t)(RaspberryPiDefinition::RaspberryPiModel::END_OF_LIST);
+             ++i) {
+            devices.push_back(build_RaspberryPi((RaspberryPiDefinition::RaspberryPiModel)i));
+        }
+        return devices;
+    }
+    static RaspberryPi build_RaspberryPi(RaspberryPiModel model) {
+        RaspberryPi device;
+        device.model = model;
+        std::string temp_gpio_pin_name;
+        if ((model == RaspberryPiModel::RASPBERRYPI_2_MODEL_B) ||
+            (model == RaspberryPiModel::RASPBERRYPI_3_MODEL_APLUS) ||
+            (model == RaspberryPiModel::RASPBERRYPI_3_MODEL_B) ||
+            (model == RaspberryPiModel::RASPBERRYPI_3_MODEL_BPLUS) ||
+            (model == RaspberryPiModel::RASPBERRYPI_400) ||
+            (model == RaspberryPiModel::RASPBERRYPI_4_MODEL_B) ||
+            (model == RaspberryPiModel::RASPBERRYPI_ZER0) ||
+            (model == RaspberryPiModel::RASPBERRYPI_ZERO_W) ||
+            (model == RaspberryPiModel::RASPBERRYPI_ZERO_WH)) {
+            temp_gpio_pin_name = "GPIO02";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name,
+                PinDefinition(temp_gpio_pin_name, 3, {PinType::GPIO, PinType::I2C})));
+            temp_gpio_pin_name = "GPIO03";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name,
+                PinDefinition(temp_gpio_pin_name, 5, {PinType::GPIO, PinType::I2C})));
+            temp_gpio_pin_name = "GPIO04";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 7, {PinType::GPIO})));
+            temp_gpio_pin_name = "GPIO14";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name,
+                PinDefinition(temp_gpio_pin_name, 8, {PinType::GPIO, PinType::UART})));
+            temp_gpio_pin_name = "GPIO15";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name,
+                PinDefinition(temp_gpio_pin_name, 10, {PinType::GPIO, PinType::UART})));
+            temp_gpio_pin_name = "GPIO17";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 11, {PinType::GPIO})));
+            temp_gpio_pin_name = "GPIO18";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 12, {PinType::GPIO})));
+            temp_gpio_pin_name = "GPIO27";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 13, {PinType::GPIO})));
+            temp_gpio_pin_name = "GPIO22";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 15, {PinType::GPIO})));
+            temp_gpio_pin_name = "GPIO23";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 16, {PinType::GPIO})));
+            temp_gpio_pin_name = "GPIO24";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 18, {PinType::GPIO})));
+            temp_gpio_pin_name = "GPIO10";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name,
+                PinDefinition(temp_gpio_pin_name, 19, {PinType::GPIO, PinType::SPI})));
+            temp_gpio_pin_name = "GPIO09";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name,
+                PinDefinition(temp_gpio_pin_name, 21, {PinType::GPIO, PinType::SPI})));
+            temp_gpio_pin_name = "GPIO25";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 22, {PinType::GPIO})));
+            temp_gpio_pin_name = "GPIO11";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name,
+                PinDefinition(temp_gpio_pin_name, 23, {PinType::GPIO, PinType::SPI})));
+            temp_gpio_pin_name = "GPIO08";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name,
+                PinDefinition(temp_gpio_pin_name, 24, {PinType::GPIO, PinType::SPI})));
+            temp_gpio_pin_name = "GPIO07";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name,
+                PinDefinition(temp_gpio_pin_name, 26, {PinType::GPIO, PinType::SPI})));
+            temp_gpio_pin_name = "GPIO05";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 29, {PinType::GPIO})));
+            temp_gpio_pin_name = "GPIO06";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 31, {PinType::GPIO})));
+            temp_gpio_pin_name = "GPIO12";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 32, {PinType::GPIO})));
+            temp_gpio_pin_name = "GPIO13";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 33, {PinType::GPIO})));
+            temp_gpio_pin_name = "GPIO19";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 35, {PinType::GPIO})));
+            temp_gpio_pin_name = "GPIO16";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 36, {PinType::GPIO})));
+            temp_gpio_pin_name = "GPIO26";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 37, {PinType::GPIO})));
+            temp_gpio_pin_name = "GPIO20";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 38, {PinType::GPIO})));
+            temp_gpio_pin_name = "GPIO21";
+            device.pin_map.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 40, {PinType::GPIO})));
+        }
+        return device;
+    }
+};
 #endif
