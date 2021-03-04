@@ -5,7 +5,8 @@ Port::~Port() {
 }
 std::string Port::base_pretty() {
     std::string str;
-    str = "\tPort: " + name + " Type: " + ChannelDefinition::ChannelTypeString(port_type) + "\n";
+    str = "\tPort: " + port_config.port_name +
+          " Type: " + ChannelDefinition::ChannelTypeString(port_config.port_type) + "\n";
     if (channels.size() == 0) {
         str += "  NO Channels Defined. \n";
     }

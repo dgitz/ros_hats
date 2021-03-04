@@ -18,10 +18,7 @@ std::string PWMHat::pretty() {
     }
     return str;
 }
-bool PWMHat::init(Logger *_logger,
-                  std::string _name,
-                  std::vector<std::string> _pin_names,
-                  std::vector<uint16_t> _pin_numbers) {
+bool PWMHat::init(Logger *_logger, HatConfig _config) {
     bool v = base_init(_logger);
     if (v == false) {
         return false;
@@ -30,8 +27,9 @@ bool PWMHat::init(Logger *_logger,
     if ((model == HatModel::UNKNOWN) || (model == HatModel::END_OF_LIST)) {
         return false;
     }
-    diagnostic.device_name = _name;
-    diagnostic.node_name = _name;
+    hat_config = _config;
+    diagnostic.device_name = hat_config.hat_name;
+    diagnostic.node_name = hat_config.hat_name;
     diagnostic.system = System::MainSystem::ROVER;
     diagnostic.subsystem = System::SubSystem::ROBOT_CONTROLLER;
     diagnostic.component = System::Component::GPIO;
@@ -43,21 +41,11 @@ bool PWMHat::init(Logger *_logger,
     diag_helper.enable_diagnostics(std::vector<Diagnostic::DiagnosticType>{
         Diagnostic::DiagnosticType::ACTUATORS, Diagnostic::DiagnosticType::COMMUNICATIONS});
     diagnostic = diag_helper.update_diagnostic(diagnostic);
-    name = _name;
     if (model == PWMHat::HatModel::ADAFRUIT_SERVOHAT_16CH) {
-        if ((_pin_names.size() != 0) || (_pin_numbers.size() != 0)) {
-            logger->log_warn("Model " + PWMHat::HatModelString(model) +
-                             " Does not support overriding pin names or numbers.  Ignoring pin "
-                             "names and numbers.");
+        if (hat_config.use_default_config == true) {
+            hat_config.ports = create_default_port_configs();
+            logger->log_warn("Using Default Values for Model: " + PWMHat::HatModelString(model));
         }
-        pwm_ports.insert(std::make_pair(
-            "PWMPort0", PWMOutputPort("PWMPort0", {"0", "1", "2", "3"}, {0, 1, 2, 3})));
-        pwm_ports.insert(std::make_pair(
-            "PWMPort1", PWMOutputPort("PWMPort1", {"0", "1", "2", "3"}, {4, 5, 6, 7})));
-        pwm_ports.insert(std::make_pair(
-            "PWMPort2", PWMOutputPort("PWMPort2", {"0", "1", "2", "3"}, {8, 9, 10, 11})));
-        pwm_ports.insert(std::make_pair(
-            "PWMPort3", PWMOutputPort("PWMPort3", {"0", "1", "2", "3"}, {12, 13, 14, 15})));
         int status = driver.init();
         if (status < 0) {
             diagnostic = diag_helper.update_diagnostic(
@@ -69,12 +57,39 @@ bool PWMHat::init(Logger *_logger,
             return false;
         }
     }
+    for (auto port : hat_config.ports) {
+        pwm_ports.insert(std::make_pair(port.port_name, PWMOutputPort(port)));
+    }
+    // relay_port = DigitalOutputPort(hat_config.ports.at(0), {0, 0, 0}, {0, 0, 0}, {1, 1, 1});
     diagnostic = diag_helper.update_diagnostic(Diagnostic::DiagnosticType::ACTUATORS,
                                                Level::Type::INFO,
                                                Diagnostic::Message::NOERROR,
                                                "Initialized Hat.");
 
     return true;
+}
+std::vector<PortConfig> PWMHat::create_default_port_configs() {
+    std::vector<PortConfig> default_ports;
+    if (model == PWMHat::HatModel::ADAFRUIT_SERVOHAT_16CH) {
+        {
+            uint16_t counter = 0;
+            for (int i = 0; i < 4; ++i) {
+                PortConfig port("PWMPort" + std::to_string(i), ChannelDefinition::ChannelType::PWM);
+                for (int j = 0; j < 4; ++j) {
+                    ChannelConfig channel(std::to_string(j),
+                                          ChannelDefinition::ChannelType::PWM,
+                                          ChannelDefinition::Direction::OUTPUT,
+                                          counter);
+                    channel.data_config = std::make_shared<PWMChannelDataConfig>(
+                        PWMChannelDataConfig(1500, 1000, 2000));
+                    port.channels.push_back(channel);
+                    counter++;
+                }
+                default_ports.push_back(port);
+            }
+        }
+    }
+    return default_ports;
 }
 bool PWMHat::init_ros(boost::shared_ptr<ros::NodeHandle> _n, std::string host_name) {
     if (_n == nullptr) {
@@ -86,7 +101,7 @@ bool PWMHat::init_ros(boost::shared_ptr<ros::NodeHandle> _n, std::string host_na
         std::vector<PWMOutputChannel> _channels = port.second.get_channels();
         for (auto ch : _channels) {
             std::string tempstr = "/" + host_name + "/" + name + "/" + port.second.get_name() +
-                                  "/" + ch.get_pin_name();
+                                  "/" + ch.get_channel_name();
             ros::Subscriber sub =
                 nodeHandle->subscribe<std_msgs::Int64>(tempstr,
                                                        1,
@@ -94,7 +109,7 @@ bool PWMHat::init_ros(boost::shared_ptr<ros::NodeHandle> _n, std::string host_na
                                                                    this,
                                                                    _1,
                                                                    port.second.get_name(),
-                                                                   ch.get_pin_name()));
+                                                                   ch.get_channel_name()));
             pwmoutput_subs.push_back(sub);
         }
     }
@@ -102,25 +117,25 @@ bool PWMHat::init_ros(boost::shared_ptr<ros::NodeHandle> _n, std::string host_na
     return true;
 }
 ChannelDefinition::ChannelErrorType PWMHat::update_pin(std::string port_name,
-                                                       std::string pin_name,
+                                                       std::string channel_name,
                                                        int64_t value) {
     auto port = pwm_ports.find(port_name);
     if (port == pwm_ports.end()) {
         return ChannelDefinition::ChannelErrorType::CHANNEL_NOT_FOUND;
     }
-    ChannelDefinition::ChannelErrorType error = port->second.update(pin_name, value);
+    ChannelDefinition::ChannelErrorType error = port->second.update(channel_name, value);
     if (error == ChannelDefinition::ChannelErrorType::CHANNEL_NOT_FOUND) {
         return error;
     }
-    PWMOutputChannel ch = port->second.get_channel(pin_name);
+    PWMOutputChannel ch = port->second.get_channel(channel_name);
     driver.setServoValue(ch.get_pin_number(), (int)value);
     return error;
 }
 void PWMHat::PWMOutputCallback(const std_msgs::Int64::ConstPtr &msg,
                                const std::string &port_name,
-                               const std::string &pin_name) {
+                               const std::string &channel_name) {
     int64_t v = msg->data;
-    ChannelDefinition::ChannelErrorType error = update_pin(port_name, pin_name, v);
+    ChannelDefinition::ChannelErrorType error = update_pin(port_name, channel_name, v);
     switch (error) {
         case ChannelDefinition::ChannelErrorType::NOERROR:
             diagnostic = diag_helper.update_diagnostic(Diagnostic::DiagnosticType::ACTUATORS,
@@ -147,7 +162,7 @@ void PWMHat::PWMOutputCallback(const std_msgs::Int64::ConstPtr &msg,
                 Diagnostic::DiagnosticType::ACTUATORS,
                 Level::Type::ERROR,
                 Diagnostic::Message::DEVICE_NOT_AVAILABLE,
-                "Port: " + port_name + " Pin: " + pin_name + " Not Found.");
+                "Port: " + port_name + " Channel: " + channel_name + " Not Found.");
             logger->log_diagnostic(diagnostic);
             return;
         default:

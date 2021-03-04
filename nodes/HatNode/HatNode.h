@@ -8,7 +8,9 @@
 // ROS Messages
 // Project
 #include <eros/BaseNode.h>
+#ifdef __arm__
 #include <ros_hats/Hat/PWMHat.h>
+#endif
 #include <ros_hats/Hat/RelayHat.h>
 
 #include "HatNodeProcess.h"

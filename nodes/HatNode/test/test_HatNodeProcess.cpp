@@ -5,18 +5,26 @@
 
 #include "../HatNodeProcess.h"
 
-class
-HatNodeProcessTester : public HatNodeProcess {
-    public :
-        HatNodeProcessTester(){}
-        ~HatNodeProcessTester(){}
+static std::string get_hostname() {
+    char name[1024];
+    name[1023] = '\0';
+    gethostname(name, 1023);
+    return std::string(name);
+}
+class HatNodeProcessTester : public HatNodeProcess
+{
+   public:
+    HatNodeProcessTester() {
+    }
+    ~HatNodeProcessTester() {
+    }
 };
 TEST(BasicTest, TestOperation) {
     Logger* logger = new Logger("DEBUG", "UnitTestHatNodeProcess");
     HatNodeProcessTester* tester = new HatNodeProcessTester;
     tester->initialize("UnitTestHatNodeProcess",
                        "UnitTestHatNodeProcess",
-                       "MyHost",
+                       "ControlModule2",
                        System::MainSystem::SIMROVER,
                        System::SubSystem::ENTIRE_SYSTEM,
                        System::Component::ENTIRE_SUBSYSTEM,
@@ -30,6 +38,12 @@ TEST(BasicTest, TestOperation) {
     EXPECT_TRUE(tester->get_logger()->log_warn("A Log to Write") ==
                 Logger::LoggerStatus::LOG_WRITTEN);
 
+    std::map<std::string, HatConfig> hat_configs =
+        tester->load_hat_config("/home/robot/config/DeviceList.json");
+    printf("%s\n", HatNodeProcess::pretty(hat_configs).c_str());
+    EXPECT_TRUE(hat_configs.size() > 0);
+    EXPECT_TRUE(hat_configs.begin()->second.ports.size() > 0);
+    EXPECT_TRUE(hat_configs.begin()->second.ports.at(0).channels.size() > 0);
     delete logger;
     delete tester;
 }

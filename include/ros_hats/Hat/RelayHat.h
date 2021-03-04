@@ -49,20 +49,19 @@ class RelayHat : public Hat
     RelayHat(HatModel _model) : model(_model) {
     }
     ~RelayHat();
-    bool init(Logger *_logger,
-              std::string _name_name,
-              std::vector<std::string> _pin_names = {},
-              std::vector<uint16_t> _pin_numbers = {});
+    bool init(Logger *_logger, HatConfig _config);
     ChannelDefinition::ChannelErrorType update_pin(std::string pin_name, int64_t value);
     bool init_ros(boost::shared_ptr<ros::NodeHandle>, std::string host_name);
     void DigitalOutputCallback(const std_msgs::Bool::ConstPtr &msg, const std::string &pin_name);
     std::string pretty();
+    std::vector<PortConfig> create_default_port_configs();
 
    private:
     bool export_gpio(std::string pin_name);
     bool setdir_gpio(std::string pin_name, std::string dir);
     bool setvalue_gpio(std::string pin_name, std::string value);
     HatModel model;
+    HatConfig hat_config;
     DigitalOutputPort relay_port;
     std::vector<ros::Subscriber> relayoutput_subs;
 };

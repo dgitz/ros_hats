@@ -4,6 +4,8 @@
 #define ROSHATS_DEFINITIONS_H
 #include <eros/eROS_Definitions.h>
 
+#include <memory>
+#include <vector>
 /*! \class Hat
     \brief Hat class
     Holds Hat Definitions
@@ -92,6 +94,20 @@ class ChannelDefinition
             default: return ChannelTypeString(ChannelDefinition::ChannelType::UNKNOWN); break;
         }
     }
+    static ChannelType ChannelTypeEnum(std::string v) {
+        if (v == "DIGITAL") {
+            return ChannelDefinition::ChannelType::DIGITAL;
+        }
+        else if (v == "ANALOG") {
+            return ChannelDefinition::ChannelType::ANALOG;
+        }
+        else if (v == "PWM") {
+            return ChannelDefinition::ChannelType::PWM;
+        }
+        else {
+            return ChannelDefinition::ChannelType::UNKNOWN;
+        }
+    }
 
     enum class Direction {
         UNKNOWN = 0, /*!< Uninitialized value. */
@@ -118,5 +134,93 @@ class ChannelDefinition
             default: return ChannelDirectionString(ChannelDefinition::Direction::UNKNOWN); break;
         }
     }
+
+    static Direction DirectionEnum(std::string v) {
+        if (v == "INPUT") {
+            return ChannelDefinition::Direction::INPUT;
+        }
+        else if (v == "OUTPUT") {
+            return ChannelDefinition::Direction::OUTPUT;
+        }
+        else if (v == "INPUTOUTPUT") {
+            return ChannelDefinition::Direction::INPUTOUTPUT;
+        }
+        else {
+            ChannelDefinition::Direction::UNKNOWN;
+        }
+    }
+};
+struct ChannelDataConfig {};
+struct DigitalChannelDataConfig : public ChannelDataConfig {
+    DigitalChannelDataConfig(int64_t _default_value, int64_t _min_value, int64_t _max_value)
+        : default_value(_default_value), min_value(_min_value), max_value(_max_value) {
+    }
+    int64_t default_value;
+    int64_t min_value;
+    int64_t max_value;
+};
+struct PWMChannelDataConfig : public ChannelDataConfig {
+    PWMChannelDataConfig(int64_t _default_value, int64_t _min_value, int64_t _max_value)
+        : default_value(_default_value), min_value(_min_value), max_value(_max_value) {
+    }
+    int64_t default_value;
+    int64_t min_value;
+    int64_t max_value;
+};
+struct AnalogChannelDataConfig : public ChannelDataConfig {
+    double default_value;
+    double min_value;
+    double max_value;
+};
+struct ChannelConfig {
+    ChannelConfig() {
+    }
+    ChannelConfig(std::string _channel_name,
+                  ChannelDefinition::ChannelType _channel_type,
+                  ChannelDefinition::Direction _direction,
+                  uint16_t _pin_number)
+        : channel_name(_channel_name),
+          channel_type(_channel_type),
+          direction(_direction),
+          pin_number(_pin_number) {
+    }
+    std::string channel_name;
+    ChannelDefinition::ChannelType channel_type;
+    ChannelDefinition::Direction direction;
+    uint16_t pin_number;
+    std::shared_ptr<ChannelDataConfig> data_config;
+};
+struct PortConfig {
+    PortConfig() {
+    }
+    PortConfig(std::string _port_name, ChannelDefinition::ChannelType _port_type)
+        : port_name(_port_name), port_type(_port_type) {
+    }
+    PortConfig(std::string _port_name,
+               ChannelDefinition::ChannelType _port_type,
+               std::vector<ChannelConfig> _channels)
+        : port_name(_port_name), port_type(_port_type), channels(_channels) {
+    }
+    std::string port_name;
+    ChannelDefinition::ChannelType port_type;
+    std::vector<ChannelConfig> channels;
+};
+struct HatConfig {
+    HatConfig() {
+    }
+    HatConfig(std::string _hat_name,
+              std::string _hat_type,
+              std::string _hat_model,
+              bool _use_default_config)
+        : hat_name(_hat_name),
+          hat_type(_hat_type),
+          hat_model(_hat_model),
+          use_default_config(_use_default_config) {
+    }
+    std::string hat_name;
+    std::string hat_type;
+    std::string hat_model;
+    bool use_default_config;
+    std::vector<PortConfig> ports;
 };
 #endif

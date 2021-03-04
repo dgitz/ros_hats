@@ -88,82 +88,47 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
     nodestate_srv =
         n->advertiseService(srv_nodestate_topic, &HatNode::changenodestate_service, this);
     // Read Hat Configuration
-    uint16_t index = 0;
-    bool hat_search = true;
-    std::vector<hat_config> hat_configs;
-    while (hat_search == true) {
-        std::string hat_name;
-        std::string hat_type;
-        std::string hat_model;
-        {
-            char param_str[512];
-            sprintf(param_str, "/%s/Hat%03d_name", node_name.c_str(), index);
-            if (n->getParam(param_str, hat_name) == false) {
-                hat_search = false;
-                break;
-            }
-        }
-        {
-            char param_str[512];
-            sprintf(param_str, "/%s/Hat%03d_type", node_name.c_str(), index);
-            if (n->getParam(param_str, hat_type) == false) {
-                hat_search = false;
-                break;
-            }
-        }
-        {
-            char param_str[512];
-            sprintf(param_str, "/%s/Hat%03d_model", node_name.c_str(), index);
-            if (n->getParam(param_str, hat_model) == false) {
-                hat_search = false;
-                break;
-            }
-        }
-        hat_config config;
-        config.hat_name = hat_name;
-        config.hat_type = hat_type;
-        config.hat_model = hat_model;
-        hat_configs.push_back(config);
-        index++;
-    }
+    std::map<std::string, HatConfig> hat_configs = process->load_hat_config();
     // Create Hats
-    for (std::size_t i = 0; i < hat_configs.size(); ++i) {
-        if (hat_configs.at(i).hat_type == "RelayHat") {
-            RelayHat::HatModel model = RelayHat::HatModelType(hat_configs.at(i).hat_model);
+    for (auto hat_it : hat_configs) {
+        if (hat_it.second.hat_type == "RelayHat") {
+            RelayHat::HatModel model = RelayHat::HatModelType(hat_it.second.hat_model);
             if (model == RelayHat::HatModel::UNKNOWN) {
                 diag = process->update_diagnostic(
                     Diagnostic::DiagnosticType::DATA_STORAGE,
                     Level::Type::ERROR,
                     Diagnostic::Message::INITIALIZING_ERROR,
-                    "Hat Model: " + hat_configs.at(i).hat_model + " Not Supported.");
+                    "Hat Model: " + hat_it.second.hat_model + " Not Supported.");
                 logger->log_diagnostic(diag);
                 return diag;
             }
             else {
-                hats.emplace(std::make_pair(hat_configs.at(i).hat_name, new RelayHat(model)));
+                hats.emplace(std::make_pair(hat_it.second.hat_name, new RelayHat(model)));
             }
         }
-        else if (hat_configs.at(i).hat_type == "PWMHat") {
-            PWMHat::HatModel model = PWMHat::HatModelType(hat_configs.at(i).hat_model);
+#ifdef __arm__
+        else if (hat_it.second.hat_type == "PWMHat") {
+            PWMHat::HatModel model = PWMHat::HatModelType(hat_it.second.hat_model);
             if (model == PWMHat::HatModel::UNKNOWN) {
                 diag = process->update_diagnostic(
                     Diagnostic::DiagnosticType::DATA_STORAGE,
                     Level::Type::ERROR,
                     Diagnostic::Message::INITIALIZING_ERROR,
-                    "Hat Model: " + hat_configs.at(i).hat_model + " Not Supported.");
+                    "Hat Model: " + hat_it.second.hat_model + " Not Supported.");
                 logger->log_diagnostic(diag);
                 return diag;
             }
             else {
-                hats.emplace(std::make_pair(hat_configs.at(i).hat_name, new PWMHat(model)));
+                hats.emplace(std::make_pair(hat_it.second.hat_name, new PWMHat(model)));
             }
         }
+#endif
         else {
             diag = process->update_diagnostic(
                 Diagnostic::DiagnosticType::DATA_STORAGE,
                 Level::Type::ERROR,
                 Diagnostic::Message::INITIALIZING_ERROR,
-                "Hat Type: " + hat_configs.at(i).hat_type + " Not Supported.");
+                "Hat Type: " + hat_it.second.hat_type + " Not Supported.");
             logger->log_diagnostic(diag);
             return diag;
         }
@@ -177,10 +142,19 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
         return diag;
     }
     for (auto hat_it : hats) {
+        auto config = hat_configs.find(hat_it.first);
+        if (config == hat_configs.end()) {
+            diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
+                                              Level::Type::ERROR,
+                                              Diagnostic::Message::INITIALIZING_ERROR,
+                                              "Cannot lookup Hat: " + hat_it.first);
+            logger->log_diagnostic(diag);
+            return diag;
+        }
         {
             RelayHat *hat = dynamic_cast<RelayHat *>(hat_it.second.get());
             if (hat != nullptr) {
-                if (hat->init(logger, hat_it.first) == false) {
+                if (hat->init(logger, config->second) == false) {
                     diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
                                                       Level::Type::ERROR,
                                                       Diagnostic::Message::INITIALIZING_ERROR,
@@ -203,10 +177,12 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
                 }
             }
         }
+#ifdef __arm__
         {
             PWMHat *hat = dynamic_cast<PWMHat *>(hat_it.second.get());
             if (hat != nullptr) {
-                if (hat->init(logger, hat_it.first) == false) {
+                if (config->second.use_default_config == true) {}
+                if (hat->init(logger, config->second) == false) {
                     diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
                                                       Level::Type::ERROR,
                                                       Diagnostic::Message::INITIALIZING_ERROR,
@@ -229,6 +205,7 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
                 }
             }
         }
+#endif
     }
 
     diag = process->update_diagnostic(Diagnostic::DiagnosticType::SOFTWARE,

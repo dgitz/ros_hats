@@ -5,10 +5,7 @@ std::string RelayHat::pretty() {
     std::string str = base_pretty();
     return str;
 }
-bool RelayHat::init(Logger *_logger,
-                    std::string _name,
-                    std::vector<std::string> _pin_names,
-                    std::vector<uint16_t> _pin_numbers) {
+bool RelayHat::init(Logger *_logger, HatConfig _config) {
     bool v = base_init(_logger);
     if (v == false) {
         return false;
@@ -17,8 +14,18 @@ bool RelayHat::init(Logger *_logger,
     if ((model == HatModel::UNKNOWN) || (model == HatModel::END_OF_LIST)) {
         return false;
     }
-    diagnostic.device_name = _name;
-    diagnostic.node_name = _name;
+
+    hat_config = _config;
+    for (auto port : hat_config.ports) {
+        for (auto ch : port.channels) {
+            auto test = std::static_pointer_cast<DigitalChannelDataConfig>(ch.data_config);
+            if (test != nullptr) {
+                printf("OkC\n");
+            }
+        }
+    }
+    diagnostic.device_name = hat_config.hat_name;
+    diagnostic.node_name = hat_config.hat_name;
     diagnostic.system = System::MainSystem::ROVER;
     diagnostic.subsystem = System::SubSystem::ROBOT_CONTROLLER;
     diagnostic.component = System::Component::GPIO;
@@ -29,25 +36,26 @@ bool RelayHat::init(Logger *_logger,
     diag_helper.initialize(diagnostic);
     diag_helper.enable_diagnostics(std::vector<Diagnostic::DiagnosticType>{diagnostic.type});
     diagnostic = diag_helper.update_diagnostic(diagnostic);
-    name = _name;
     if (model == RelayHat::HatModel::RPI_RELAY_HAT) {
-        if (_pin_names.size() == 0) {
+        if (hat_config.use_default_config == true) {
             logger->log_warn("Using Default Values for Model: " + RelayHat::HatModelString(model));
-            _pin_names = {"21", "20", "26"};
-            _pin_numbers = {0, 1, 2};
+            hat_config.ports = create_default_port_configs();
+        }
+        else {
+            logger->log_error("Only default config currently supported. Exiting.");
+            return false;
         }
     }
-
-    relay_port = DigitalOutputPort("RelayPort0", _pin_names, _pin_numbers, 0, 0, 1);
+    relay_port = DigitalOutputPort(hat_config.ports.at(0));
     std::vector<DigitalOutputChannel> _channels = relay_port.get_channels();
     for (auto ch : _channels) {
-        if (export_gpio(ch.get_pin_name()) == false) {
+        if (export_gpio(ch.get_channel_name()) == false) {
             return false;
         }
-        if (setdir_gpio(ch.get_pin_name(), "out") == false) {
+        if (setdir_gpio(ch.get_channel_name(), "out") == false) {
             return false;
         }
-        if (setvalue_gpio(ch.get_pin_name(), std::to_string(ch.get_default_value())) == false) {
+        if (setvalue_gpio(ch.get_channel_name(), std::to_string(ch.get_default_value())) == false) {
             return false;
         }
     }
@@ -58,6 +66,43 @@ bool RelayHat::init(Logger *_logger,
 
     return true;
 }
+std::vector<PortConfig> RelayHat::create_default_port_configs() {
+    std::vector<PortConfig> default_ports;
+    if (model == RelayHat::HatModel::RPI_RELAY_HAT) {
+        {
+            PortConfig port("DigitalPort0", ChannelDefinition::ChannelType::DIGITAL);
+            {
+                ChannelConfig channel("20",
+                                      ChannelDefinition::ChannelType::DIGITAL,
+                                      ChannelDefinition::Direction::OUTPUT,
+                                      0);
+                channel.data_config =
+                    std::make_shared<DigitalChannelDataConfig>(DigitalChannelDataConfig(0, 0, 1));
+                port.channels.push_back(channel);
+            }
+            {
+                ChannelConfig channel("21",
+                                      ChannelDefinition::ChannelType::DIGITAL,
+                                      ChannelDefinition::Direction::OUTPUT,
+                                      1);
+                channel.data_config =
+                    std::make_shared<DigitalChannelDataConfig>(DigitalChannelDataConfig(0, 0, 1));
+                port.channels.push_back(channel);
+            }
+            {
+                ChannelConfig channel("26",
+                                      ChannelDefinition::ChannelType::DIGITAL,
+                                      ChannelDefinition::Direction::OUTPUT,
+                                      2);
+                channel.data_config =
+                    std::make_shared<DigitalChannelDataConfig>(DigitalChannelDataConfig(0, 0, 1));
+                port.channels.push_back(channel);
+            }
+            default_ports.push_back(port);
+        }
+    }
+    return default_ports;
+}
 bool RelayHat::init_ros(boost::shared_ptr<ros::NodeHandle> _n, std::string host_name) {
     if (_n == nullptr) {
         logger->log_error("Node Handle has No Memory.");
@@ -66,10 +111,12 @@ bool RelayHat::init_ros(boost::shared_ptr<ros::NodeHandle> _n, std::string host_
     nodeHandle = _n;
     std::vector<DigitalOutputChannel> _channels = relay_port.get_channels();
     for (auto ch : _channels) {
-        std::string tempstr =
-            "/" + host_name + "/" + name + "/" + relay_port.get_name() + "/" + ch.get_pin_name();
+        std::string tempstr = "/" + host_name + "/" + name + "/" + relay_port.get_name() + "/" +
+                              ch.get_channel_name();
         ros::Subscriber sub = nodeHandle->subscribe<std_msgs::Bool>(
-            tempstr, 1, boost::bind(&RelayHat::DigitalOutputCallback, this, _1, ch.get_pin_name()));
+            tempstr,
+            1,
+            boost::bind(&RelayHat::DigitalOutputCallback, this, _1, ch.get_channel_name()));
         relayoutput_subs.push_back(sub);
     }
     return true;
@@ -85,9 +132,9 @@ ChannelDefinition::ChannelErrorType RelayHat::update_pin(std::string pin_name, i
     return error;
 }
 void RelayHat::DigitalOutputCallback(const std_msgs::Bool::ConstPtr &msg,
-                                     const std::string &pin_name) {
+                                     const std::string &channel_name) {
     bool v = msg->data;
-    ChannelDefinition::ChannelErrorType error = update_pin(pin_name, (int64_t)v);
+    ChannelDefinition::ChannelErrorType error = update_pin(channel_name, (int64_t)v);
     switch (error) {
         case ChannelDefinition::ChannelErrorType::NOERROR:
             diagnostic = diag_helper.update_diagnostic(Diagnostic::DiagnosticType::ACTUATORS,
@@ -113,7 +160,7 @@ void RelayHat::DigitalOutputCallback(const std_msgs::Bool::ConstPtr &msg,
             diagnostic = diag_helper.update_diagnostic(Diagnostic::DiagnosticType::ACTUATORS,
                                                        Level::Type::ERROR,
                                                        Diagnostic::Message::DEVICE_NOT_AVAILABLE,
-                                                       "Pin: " + pin_name + " Not Found.");
+                                                       "Pin: " + channel_name + " Not Found.");
             logger->log_diagnostic(diagnostic);
             return;
         default:
