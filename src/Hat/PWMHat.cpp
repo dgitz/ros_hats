@@ -174,3 +174,8 @@ void PWMHat::PWMOutputCallback(const std_msgs::Int64::ConstPtr &msg,
             return;
     }
 }
+bool PWMHat::cleanup() {
+    driver.resetAllServo();
+    logger->log_notice("PWMHat Cleaned Up.");
+    return true;
+}

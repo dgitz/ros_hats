@@ -43,13 +43,42 @@ bool RelayHat::init(Logger *_logger, HatConfig _config) {
     relay_port = DigitalOutputPort(hat_config.ports.at(0));
     std::vector<DigitalOutputChannel> _channels = relay_port.get_channels();
     for (auto ch : _channels) {
-        if (export_gpio(ch.get_channel_name()) == false) {
+        int counter = 0;
+        int tries = 10;
+        bool success = false;
+        while (counter < tries) {
+            if (export_gpio(ch.get_channel_name()) == true) {
+                success = true;
+                break;
+            }
+        }
+        if (success == false) {
+            logger->log_error("Not able to Export GPIO.  Exiting.");
             return false;
         }
-        if (setdir_gpio(ch.get_channel_name(), "out") == false) {
+        counter = 0;
+        success = false;
+        while (counter < tries) {
+            if (setdir_gpio(ch.get_channel_name(), "out") == true) {
+                success = true;
+                break;
+            }
+        }
+        if (success == false) {
+            logger->log_error("Not able to Set Direction on GPIO.  Exiting.");
             return false;
         }
-        if (setvalue_gpio(ch.get_channel_name(), std::to_string(ch.get_default_value())) == false) {
+        counter = 0;
+        success = false;
+        while (counter < tries) {
+            if (setvalue_gpio(ch.get_channel_name(), std::to_string(ch.get_default_value())) ==
+                true) {
+                success = true;
+                break;
+            }
+        }
+        if (success == false) {
+            logger->log_error("Not able to Set Value on GPIO.  Exiting.");
             return false;
         }
     }
@@ -170,8 +199,8 @@ void RelayHat::DigitalOutputCallback(const std_msgs::Bool::ConstPtr &msg,
 }
 bool RelayHat::export_gpio(std::string pin_name) {
     std::string export_str = "/sys/class/gpio/export";
-    std::ofstream export_gpio(export_str.c_str());
-    if (export_gpio.is_open() == false) {
+    std::ofstream export_gpio_fd(export_str.c_str());
+    if (export_gpio_fd.is_open() == false) {
         std::string tempstr = "OPERATION FAILED: Unable to export GPIO:" + export_str;
         diagnostic = diag_helper.update_diagnostic(Diagnostic::DiagnosticType::ACTUATORS,
                                                    Level::Type::ERROR,
@@ -181,14 +210,33 @@ bool RelayHat::export_gpio(std::string pin_name) {
         return false;
     }
 
-    export_gpio << pin_name;
-    export_gpio.close();
+    export_gpio_fd << pin_name;
+    export_gpio_fd.close();
+    usleep(DELAY_GPIOEXPORT_MS);
+    return true;
+}
+bool RelayHat::unexport_gpio(std::string pin_name) {
+    std::string unexport_str = "/sys/class/gpio/unexport";
+    std::ofstream unexport_gpio_fd(unexport_str.c_str());
+    if (unexport_gpio_fd.is_open() == false) {
+        std::string tempstr = "OPERATION FAILED: Unable to unexport GPIO:" + unexport_str;
+        diagnostic = diag_helper.update_diagnostic(Diagnostic::DiagnosticType::ACTUATORS,
+                                                   Level::Type::ERROR,
+                                                   Diagnostic::Message::INITIALIZING_ERROR,
+                                                   tempstr);
+        logger->log_diagnostic(diagnostic);
+        return false;
+    }
+
+    unexport_gpio_fd << pin_name;
+    unexport_gpio_fd.close();
+    usleep(DELAY_GPIOEXPORT_MS);
     return true;
 }
 bool RelayHat::setdir_gpio(std::string pin_name, std::string dir) {
     std::string out_str = "/sys/class/gpio/gpio" + pin_name + "/direction";
-    std::ofstream setdir_gpio(out_str.c_str());
-    if (setdir_gpio.is_open() == false) {
+    std::ofstream setdir_gpio_fd(out_str.c_str());
+    if (setdir_gpio_fd.is_open() == false) {
         std::string tempstr = "OPERATION FAILED: Unable to Set Direction on GPIO:" + out_str;
         diagnostic = diag_helper.update_diagnostic(Diagnostic::DiagnosticType::ACTUATORS,
                                                    Level::Type::ERROR,
@@ -197,14 +245,14 @@ bool RelayHat::setdir_gpio(std::string pin_name, std::string dir) {
         logger->log_diagnostic(diagnostic);
         return false;
     }
-    setdir_gpio << dir;
-    setdir_gpio.close();
+    setdir_gpio_fd << dir;
+    setdir_gpio_fd.close();
     return true;
 }
 bool RelayHat::setvalue_gpio(std::string pin_name, std::string value) {
     std::string out_str = "/sys/class/gpio/gpio" + pin_name + "/value";
-    std::ofstream setvalue_gpio(out_str.c_str());
-    if (setvalue_gpio.is_open() == false) {
+    std::ofstream setvalue_gpio_fd(out_str.c_str());
+    if (setvalue_gpio_fd.is_open() == false) {
         std::string tempstr = "OPERATION FAILED: Unable to Set Value on GPIO:" + out_str;
         diagnostic = diag_helper.update_diagnostic(Diagnostic::DiagnosticType::ACTUATORS,
                                                    Level::Type::ERROR,
@@ -213,7 +261,28 @@ bool RelayHat::setvalue_gpio(std::string pin_name, std::string value) {
         logger->log_diagnostic(diagnostic);
         return false;
     }
-    setvalue_gpio << value;
-    setvalue_gpio.close();
+    setvalue_gpio_fd << value;
+    setvalue_gpio_fd.close();
     return true;
+}
+bool RelayHat::cleanup() {
+    bool cleanup_ok = true;
+    std::vector<DigitalOutputChannel> _channels = relay_port.get_channels();
+    if (_channels.size() == 0) {
+        logger->log_warn("No RelayHat Channels Defined.  Not cleaning up.");
+    }
+    for (auto ch : _channels) {
+        if (setdir_gpio(ch.get_channel_name(), "in") == false) {
+            cleanup_ok = false;
+            logger->log_warn("Reset Direction Channel: " + ch.get_channel_name() + " Failed.");
+        }
+        if (unexport_gpio(ch.get_channel_name()) == false) {
+            cleanup_ok = false;
+            logger->log_warn("Unexport on Channel: " + ch.get_channel_name() + " Failed.");
+        }
+    }
+    if (cleanup_ok == true) {
+        logger->log_notice("RelayHat Cleaned Up Successfully.");
+    }
+    return cleanup_ok;
 }

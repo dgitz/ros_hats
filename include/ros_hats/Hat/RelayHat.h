@@ -20,6 +20,7 @@
 class RelayHat : public Hat
 {
    public:
+    const uint64_t DELAY_GPIOEXPORT_MS = 30000; /*!< How long to allow GPIO sysfs to update. */
     enum class HatModel {
         UNKNOWN = 0,       /*!< Uninitialized value. */
         RPI_RELAY_HAT = 1, /*!< RPi Relay Hat, also known as: "Electronics-Salon RPi Power Relay
@@ -56,8 +57,11 @@ class RelayHat : public Hat
     std::string pretty(std::string pre);
     std::vector<PortConfig> create_default_port_configs();
 
+    bool cleanup();
+
    private:
     bool export_gpio(std::string pin_name);
+    bool unexport_gpio(std::string pin_name);
     bool setdir_gpio(std::string pin_name, std::string dir);
     bool setvalue_gpio(std::string pin_name, std::string value);
     HatModel model;
