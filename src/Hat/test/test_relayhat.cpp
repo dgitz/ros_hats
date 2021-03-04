@@ -69,6 +69,8 @@ TEST(BasicTest, TestOperation_RelayHat) {
                     ChannelDefinition::ChannelErrorType::CHANNEL_NOT_FOUND);
         usleep(5000000);
         EXPECT_TRUE(hat.get_diagnostic().level <= Level::Type::NOTICE);
+
+        EXPECT_TRUE(hat.cleanup() == true);
     }
 #else
     printf("[WARN]: Not running tests as this is only supported on Raspberry Pi's.\n");

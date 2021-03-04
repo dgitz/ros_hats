@@ -274,6 +274,7 @@ void HatNode::thread_loop() {
     while (kill_node == false) { ros::Duration(1.0).sleep(); }
 }
 void HatNode::cleanup() {
+    for (auto hat_it : hats) { hat_it.second->cleanup(); }
     process->request_statechange(Node::State::FINISHED);
     process->cleanup();
     delete process;

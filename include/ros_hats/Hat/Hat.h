@@ -32,6 +32,7 @@ class Hat
     Diagnostic::DiagnosticDefinition get_diagnostic() {
         return diagnostic;
     }
+    virtual bool cleanup() = 0;
 
    protected:
     boost::shared_ptr<ros::NodeHandle> nodeHandle;
