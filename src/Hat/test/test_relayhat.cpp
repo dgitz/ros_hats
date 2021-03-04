@@ -40,7 +40,8 @@ TEST(BasicTest, TestOperation_RelayHat) {
             "installed.\n");
         Logger* logger = new Logger("DEBUG", "UnitTest_RelayHat");
         RelayHat hat(RelayHat::HatModel::RPI_RELAY_HAT);
-        EXPECT_TRUE(hat.init(logger, "RelayHat"));
+        HatConfig _config("RelayHat1", "RelayHat", "RPi Relay Hat", true);
+        EXPECT_TRUE(hat.init(logger, _config));
         EXPECT_TRUE(hat.get_diagnostic().level <= Level::Type::NOTICE);
 
         int v = 0;

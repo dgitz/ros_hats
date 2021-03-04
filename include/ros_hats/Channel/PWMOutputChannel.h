@@ -18,21 +18,16 @@ class PWMOutputChannel : public Channel
    public:
     PWMOutputChannel() {
     }
-    PWMOutputChannel(std::string _name,
-                     std::string _pin_name,
-                     uint16_t _pin_number,
-                     int64_t default_value,
-                     int64_t _lower_range,
-                     int64_t _upper_range)
-        : Channel(_name,
-                  _pin_name,
-                  _pin_number,
-                  ChannelDefinition::ChannelType::PWM,
-                  ChannelDefinition::Direction::OUTPUT),
-          value(default_value),
-          lower_range(_lower_range),
-          upper_range(_upper_range),
-          update_count(0) {
+    PWMOutputChannel(ChannelConfig _config) : update_count(0) {
+        channel_config = _config;
+        auto data_config =
+            std::static_pointer_cast<PWMChannelDataConfig>(channel_config.data_config);
+        value = data_config->default_value;
+        default_value = value;
+        upper_range = data_config->max_value;
+        lower_range = data_config->min_value;
+        channel_config.channel_type = ChannelDefinition::ChannelType::PWM;
+        channel_config.direction = ChannelDefinition::Direction::OUTPUT;
     }
     ~PWMOutputChannel();
 
@@ -63,6 +58,7 @@ class PWMOutputChannel : public Channel
 
    private:
     int64_t value;
+    int64_t default_value;
     int64_t lower_range;
     int64_t upper_range;
     uint64_t update_count;

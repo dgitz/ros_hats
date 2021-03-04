@@ -49,10 +49,7 @@ class PWMHat : public Hat
     PWMHat(HatModel _model) : model(_model) {
     }
     ~PWMHat();
-    bool init(Logger *_logger,
-              std::string _name_name,
-              std::vector<std::string> _pin_names = {},
-              std::vector<uint16_t> _pin_numbers = {});
+    bool init(Logger *_logger, HatConfig _config);
     ChannelDefinition::ChannelErrorType update_pin(std::string port_name,
                                                    std::string pin_name,
                                                    int64_t value);
@@ -61,10 +58,12 @@ class PWMHat : public Hat
                            const std::string &port_name,
                            const std::string &pin_name);
     std::string pretty();
+    std::vector<PortConfig> create_default_port_configs();
 
    private:
     Adafruit16ChServoHat driver;
     HatModel model;
+    HatConfig hat_config;
     std::map<std::string, PWMOutputPort> pwm_ports;
     std::vector<ros::Subscriber> pwmoutput_subs;
 };

@@ -7,8 +7,5 @@
         <param name="loop1_rate"            value="1"/> 
         <param name="loop2_rate"            value="10"/>
         <param name="loop3_rate"            value="5"/>
-        <param name="Hat000_name"           value="PWMHat1"/>
-        <param name="Hat000_type"           value="PWMHat"/>
-        <param name="Hat000_model"          value="Adafruit 16Ch Servo Hat"/>
 </node>
 </launch>

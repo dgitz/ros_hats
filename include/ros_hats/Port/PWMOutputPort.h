@@ -18,31 +18,17 @@ class PWMOutputPort : public Port
 {
    public:
     PWMOutputPort();
-    PWMOutputPort(std::string _name,
-                  std::vector<std::string> _pin_names,
-                  std::vector<uint16_t> _pin_numbers)
-        : Port(_name,
-               _pin_names,
-               _pin_numbers,
-               ChannelDefinition::ChannelType::PWM,
-               ChannelDefinition::Direction::OUTPUT) {
-        if (_pin_names.size() != _pin_numbers.size()) {
-            return;
-        }
-        for (uint16_t i = 0; i < port_size; ++i) {
-            channels.emplace(std::make_pair(_pin_names.at(i),
-                                            new PWMOutputChannel(_name + "_" + std::to_string(i),
-                                                                 _pin_names.at(i),
-                                                                 _pin_numbers.at(i),
-                                                                 1500,
-                                                                 1000,
-                                                                 2000)));
+    PWMOutputPort(PortConfig _config) : Port(_config) {
+        port_config.port_type = ChannelDefinition::ChannelType::PWM;
+        for (uint16_t i = 0; i < port_config.channels.size(); ++i) {
+            channels.emplace(std::make_pair(port_config.channels.at(i).channel_name,
+                                            new PWMOutputChannel(port_config.channels.at(i))));
         }
     }
     ~PWMOutputPort();
     bool init();
     std::string get_name() {
-        return name;
+        return port_config.port_name;
     }
     std::vector<PWMOutputChannel> get_channels() {
         std::vector<PWMOutputChannel> _channels;

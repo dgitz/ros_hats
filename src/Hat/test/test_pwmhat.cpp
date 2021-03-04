@@ -26,8 +26,7 @@ TEST(BasicTest, Definitions) {
         }
     }
 }
-TEST(BasicTest, TestOperation_RelayHat) {
-    //#ifdef __arm__
+TEST(BasicTest, TestOperation_PWMHat) {
     printf(
         "NOTE: Executing this test DOES Require to be ran with a Hat Installed.  It SHOULD "
         "Only be ran on a Raspberry Pi.\n");
@@ -35,40 +34,20 @@ TEST(BasicTest, TestOperation_RelayHat) {
         printf("Testing Adafruit Servo Hat.\n");
         Logger* logger = new Logger("DEBUG", "UnitTest_PWMHat");
         PWMHat hat(PWMHat::HatModel::ADAFRUIT_SERVOHAT_16CH);
-        EXPECT_TRUE(hat.init(logger, "PWMHat"));
-        EXPECT_TRUE(hat.get_diagnostic().level <= Level::Type::NOTICE);
+        HatConfig _config("PWMHat1", "PWMHat", "Adafruit 16Ch Servo Hat", true);
+
+        bool status = hat.init(logger, _config);
+        EXPECT_TRUE(hat.get_diagnostic().level <= Level::Type::ERROR);
 
         printf("%s\n", hat.pretty().c_str());
-        /*
-                int v = 0;
-                for (int i = 0; i < 10; ++i) {
-                    EXPECT_TRUE(hat.update_pin("20", v) !=
-                                ChannelDefinition::ChannelErrorType::CHANNEL_NOT_FOUND);
-                    usleep(500000);
-                    EXPECT_TRUE(hat.get_diagnostic().level <= Level::Type::NOTICE);
-                    if (v == 0) {
-                        v = 1;
-                    }
-                    else {
-                        v = 0;
-                    }
-                }
-
-                EXPECT_TRUE(hat.update_pin("20", 0) !=
-                            ChannelDefinition::ChannelErrorType::CHANNEL_NOT_FOUND);
-                usleep(5000000);
-                EXPECT_TRUE(hat.update_pin("20", 1) !=
-                            ChannelDefinition::ChannelErrorType::CHANNEL_NOT_FOUND);
-                usleep(5000000);
-                EXPECT_TRUE(hat.update_pin("20", 0) !=
-                            ChannelDefinition::ChannelErrorType::CHANNEL_NOT_FOUND);
-                usleep(5000000);
-                EXPECT_TRUE(hat.get_diagnostic().level <= Level::Type::NOTICE);
-        */
+        if (status == true) {
+            logger->log_notice("Continuing tests...");
+        }
+        else {
+            logger->log_warn("Not running anymore tests.");
+            return;
+        }
     }
-    //#else
-    // printf("[WARN]: Not running tests as this is only supported on Raspberry Pi's.\n");
-    //#endif
 }
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);

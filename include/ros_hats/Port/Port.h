@@ -21,32 +21,23 @@ class Port
 {
    public:
     Port();
-    Port(std::string _name,
-         std::vector<std::string> _pin_names,
-         std::vector<uint16_t> _pin_numbers,
-         ChannelDefinition::ChannelType _port_type,
-         ChannelDefinition::Direction _direction)
-        : name(_name), port_type(_port_type), port_direction(_direction) {
-        port_size = (uint16_t)_pin_names.size();
+    Port(PortConfig _config) : port_config(_config) {
     }
     ~Port();
     bool base_init();
     virtual bool init() = 0;
     uint16_t get_port_size() {
-        return port_size;
+        return channels.size();
     }
     std::string get_name() {
-        return name;
+        return port_config.port_name;
     }
 
     std::string base_pretty();
     virtual std::string pretty() = 0;
 
    protected:
-    std::string name;
-    uint16_t port_size;
-    ChannelDefinition::ChannelType port_type;
-    ChannelDefinition::Direction port_direction;
+    PortConfig port_config;
     std::map<std::string, std::shared_ptr<Channel>> channels;
 };
 #endif  // ROSHATS_PORT_H
