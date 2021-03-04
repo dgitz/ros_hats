@@ -27,8 +27,8 @@ class Hat
     bool base_init(Logger* _logger);
     virtual bool init_ros(boost::shared_ptr<ros::NodeHandle> n, std::string host_name) = 0;
 
-    std::string base_pretty();
-    virtual std::string pretty() = 0;
+    std::string base_pretty(std::string pre);
+    virtual std::string pretty(std::string pre) = 0;
     Diagnostic::DiagnosticDefinition get_diagnostic() {
         return diagnostic;
     }

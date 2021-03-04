@@ -33,8 +33,8 @@ class Port
         return port_config.port_name;
     }
 
-    std::string base_pretty();
-    virtual std::string pretty() = 0;
+    std::string base_pretty(std::string pre);
+    virtual std::string pretty(std::string pre) = 0;
 
    protected:
     PortConfig port_config;

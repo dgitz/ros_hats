@@ -54,7 +54,7 @@ class PWMOutputPort : public Port
     }
     ChannelDefinition::ChannelErrorType update(std::string pin_name, int64_t value);
     int64_t get_value(std::string pin_name);
-    std::string pretty();
+    std::string pretty(std::string pre);
 
    private:
 };

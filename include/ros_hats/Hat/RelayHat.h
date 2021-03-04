@@ -53,7 +53,7 @@ class RelayHat : public Hat
     ChannelDefinition::ChannelErrorType update_pin(std::string pin_name, int64_t value);
     bool init_ros(boost::shared_ptr<ros::NodeHandle>, std::string host_name);
     void DigitalOutputCallback(const std_msgs::Bool::ConstPtr &msg, const std::string &pin_name);
-    std::string pretty();
+    std::string pretty(std::string pre);
     std::vector<PortConfig> create_default_port_configs();
 
    private:

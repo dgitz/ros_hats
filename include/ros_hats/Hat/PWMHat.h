@@ -57,7 +57,7 @@ class PWMHat : public Hat
     void PWMOutputCallback(const std_msgs::Int64::ConstPtr &msg,
                            const std::string &port_name,
                            const std::string &pin_name);
-    std::string pretty();
+    std::string pretty(std::string pre);
     std::vector<PortConfig> create_default_port_configs();
 
    private:

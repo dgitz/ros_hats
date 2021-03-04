@@ -1,18 +1,18 @@
 #include <ros_hats/Hat/PWMHat.h>
 PWMHat::~PWMHat() {
 }
-std::string PWMHat::pretty() {
-    std::string str = base_pretty();
-    str += " Type: PWMHat Model: " + HatModelString(model) + " --- \n";
+std::string PWMHat::pretty(std::string pre) {
+    std::string str = base_pretty(pre);
+    str += "Type: PWMHat Model: " + HatModelString(model) + " --- \n";
 
     if (pwm_ports.size() == 0) {
-        str += "  NO Ports Defined.\n";
+        str += pre + "\tNO Ports Defined.\n";
     }
     else {
         uint16_t counter = 0;
         for (auto port : pwm_ports) {
-            str += "  Port: " + std::to_string(counter);
-            str += port.second.pretty();
+            str += pre + "Port: " + std::to_string(counter);
+            str += port.second.pretty(pre + "\t") + "\n";
             counter++;
         }
     }
@@ -128,7 +128,7 @@ ChannelDefinition::ChannelErrorType PWMHat::update_pin(std::string port_name,
         return error;
     }
     PWMOutputChannel ch = port->second.get_channel(channel_name);
-    driver.setServoValue(ch.get_pin_number(), (int)value);
+    driver.setServoValue(ch.get_pin_number(), ch.get_value());
     return error;
 }
 void PWMHat::PWMOutputCallback(const std_msgs::Int64::ConstPtr &msg,

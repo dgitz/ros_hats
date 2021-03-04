@@ -33,18 +33,18 @@ class PWMOutputChannel : public Channel
 
     bool init();
 
-    std::string pretty();
+    std::string pretty(std::string pre);
 
     int64_t get_value() {
         return value;
     }
     ChannelDefinition::ChannelErrorType update_value(int64_t v) {
-        if (v >= upper_range) {
+        if (v > upper_range) {
             value = upper_range;
             update_count++;
             return ChannelDefinition::ChannelErrorType::VALUE_EXCEED_UPPER_BOUND;
         }
-        else if (v <= lower_range) {
+        else if (v < lower_range) {
             value = lower_range;
             update_count++;
             return ChannelDefinition::ChannelErrorType::VALUE_EXCEED_LOWER_BOUND;
