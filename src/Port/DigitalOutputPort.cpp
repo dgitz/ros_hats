@@ -3,8 +3,9 @@ DigitalOutputPort::DigitalOutputPort() {
 }
 DigitalOutputPort::~DigitalOutputPort() {
 }
-std::string DigitalOutputPort::pretty() {
-    std::string str = base_pretty();
+std::string DigitalOutputPort::pretty(std::string pre) {
+    std::string str = base_pretty(pre);
+    for (auto ch : channels) { str += ch.second->pretty(pre + "\t") + "\n"; }
     return str;
 }
 bool DigitalOutputPort::init() {

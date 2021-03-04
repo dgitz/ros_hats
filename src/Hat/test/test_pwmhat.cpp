@@ -39,7 +39,7 @@ TEST(BasicTest, TestOperation_PWMHat) {
         bool status = hat.init(logger, _config);
         EXPECT_TRUE(hat.get_diagnostic().level <= Level::Type::ERROR);
 
-        printf("%s\n", hat.pretty().c_str());
+        printf("%s\n", hat.pretty(" ").c_str());
         if (status == true) {
             logger->log_notice("Continuing tests...");
         }

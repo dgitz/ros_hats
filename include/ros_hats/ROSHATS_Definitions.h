@@ -4,6 +4,7 @@
 #define ROSHATS_DEFINITIONS_H
 #include <eros/eROS_Definitions.h>
 
+#include <map>
 #include <memory>
 #include <vector>
 /*! \class Hat

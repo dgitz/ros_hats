@@ -3,8 +3,8 @@ Hat::Hat() {
 }
 Hat::~Hat() {
 }
-std::string Hat::base_pretty() {
-    std::string str = "--- Hat Name: " + name;
+std::string Hat::base_pretty(std::string pre) {
+    std::string str = pre + "Hat: " + name;
     return str;
 }
 bool Hat::base_init(Logger *_logger) {

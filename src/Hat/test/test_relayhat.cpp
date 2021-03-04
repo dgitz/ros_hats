@@ -42,6 +42,7 @@ TEST(BasicTest, TestOperation_RelayHat) {
         RelayHat hat(RelayHat::HatModel::RPI_RELAY_HAT);
         HatConfig _config("RelayHat1", "RelayHat", "RPi Relay Hat", true);
         EXPECT_TRUE(hat.init(logger, _config));
+        printf("%s\n", hat.pretty(" ").c_str());
         EXPECT_TRUE(hat.get_diagnostic().level <= Level::Type::NOTICE);
 
         int v = 0;

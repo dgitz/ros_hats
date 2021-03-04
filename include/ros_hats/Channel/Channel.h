@@ -26,8 +26,8 @@ class Channel
     bool base_init();
     virtual bool init() = 0;
 
-    std::string base_pretty();
-    virtual std::string pretty() = 0;
+    std::string base_pretty(std::string pre);
+    virtual std::string pretty(std::string pre) = 0;
 
     ChannelDefinition::ChannelType get_channel_type() {
         return channel_config.channel_type;

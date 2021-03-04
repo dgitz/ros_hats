@@ -236,6 +236,7 @@ bool HatNode::run_01hz() {
 bool HatNode::run_01hz_noisy() {
     Diagnostic::DiagnosticDefinition diag = diagnostic;
     logger->log_notice("Node State: " + Node::NodeStateString(process->get_nodestate()));
+    for (auto hat_it : hats) { logger->log_debug("\n" + hat_it.second->pretty(" ")); }
     return true;
 }
 bool HatNode::run_1hz() {

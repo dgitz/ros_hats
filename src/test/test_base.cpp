@@ -34,7 +34,7 @@ TEST(BasicTest, TestBaseOperation) {
         digital_output_channel_config.pin_number = 0;
         digital_output_channel_config.data_config =
             std::make_shared<DigitalChannelDataConfig>(DigitalChannelDataConfig(0, 0, 100));
-        printf("Testing individual Channel Operations...\n");
+        printf("\nTesting individual Channel Operations...\n");
         std::vector<std::shared_ptr<Channel>> channels;
         channels.emplace_back(new PWMOutputChannel(pwm_output_channel_config));
         channels.emplace_back(new DigitalOutputChannel(digital_output_channel_config));
@@ -46,7 +46,7 @@ TEST(BasicTest, TestBaseOperation) {
                     DigitalOutputChannel *channel =
                         dynamic_cast<DigitalOutputChannel *>(channels.at(i).get());
                     if (channel != nullptr) {
-                        printf("%s\n", channel->pretty().c_str());
+                        printf("%s\n", channel->pretty(" ").c_str());
                         passed++;
                     }
                 }
@@ -54,7 +54,7 @@ TEST(BasicTest, TestBaseOperation) {
                     PWMOutputChannel *channel =
                         dynamic_cast<PWMOutputChannel *>(channels.at(i).get());
                     if (channel != nullptr) {
-                        printf("%s\n", channel->pretty().c_str());
+                        printf("%s\n", channel->pretty(" ").c_str());
                         passed++;
                     }
                 }
@@ -63,7 +63,7 @@ TEST(BasicTest, TestBaseOperation) {
         EXPECT_TRUE(passed == channels.size());
     }
     {
-        printf("Testing Port: PWMOutput Operations...\n");
+        printf("\nTesting Port: PWMOutput Operations...\n");
         PortConfig port_config;
         for (int i = 0; i < 4; ++i) {
             ChannelConfig pwm_output_channel_config;
@@ -81,6 +81,7 @@ TEST(BasicTest, TestBaseOperation) {
         EXPECT_TRUE(port.get_port_size() == 4);
         ChannelDefinition::ChannelErrorType status = port.update("P3", 1800);
         EXPECT_TRUE(status == ChannelDefinition::ChannelErrorType::NOERROR);
+        printf("%s\n", port.pretty(" ").c_str());
         EXPECT_TRUE(port.get_value("P3") == 1800);
         status = port.update("P3", 4000);
         EXPECT_TRUE(status == ChannelDefinition::ChannelErrorType::VALUE_EXCEED_UPPER_BOUND);
@@ -91,18 +92,18 @@ TEST(BasicTest, TestBaseOperation) {
         uint64_t trials = 20000000;
         struct timeval start, end;
         gettimeofday(&start, NULL);
-        printf("Runnig Long duration Timing Tests...\n");
+        printf("\nRunning Long duration Timing Tests...\n");
         for (uint64_t i = 0; i < trials; ++i) { status = port.update("P3", 1800); }
         gettimeofday(&end, NULL);
         double mtime = time_diff(start, end);
         double avg_time_per_update = mtime / (double)trials;
-        printf("%s\n", port.pretty().c_str());
+        printf("%s\n", port.pretty(" ").c_str());
         printf("(PWMPort) Avg time per 1000000 operations: %4.4f(sec)\n",
                1000000.0 * avg_time_per_update);
     }
 
     {
-        printf("Testing Port: DigitalOutput Operations...\n");
+        printf("\nTesting Port: DigitalOutput Operations...\n");
         PortConfig port_config;
         for (int i = 0; i < 1; ++i) {
             ChannelConfig digital_output_channel_config;
@@ -131,10 +132,10 @@ TEST(BasicTest, TestBaseOperation) {
         uint64_t trials = 20000000;
         struct timeval start, end;
         gettimeofday(&start, NULL);
-        printf("Runnig Long duration Timing Tests...\n");
+        printf("\nRunning Long duration Timing Tests...\n");
         for (uint64_t i = 0; i < trials; ++i) { status = port.update("D0", 50); }
         gettimeofday(&end, NULL);
-        printf("%s\n", port.pretty().c_str());
+        printf("%s\n", port.pretty(" ").c_str());
         double mtime = time_diff(start, end);
         double avg_time_per_update = mtime / (double)trials;
         printf("(DigitalPort) Avg time per 1000000 operations: %4.4f(sec)\n",

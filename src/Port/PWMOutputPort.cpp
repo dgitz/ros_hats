@@ -3,9 +3,9 @@ PWMOutputPort::PWMOutputPort() {
 }
 PWMOutputPort::~PWMOutputPort() {
 }
-std::string PWMOutputPort::pretty() {
-    std::string str = base_pretty();
-    for (auto ch : channels) { str += ch.second->pretty(); }
+std::string PWMOutputPort::pretty(std::string pre) {
+    std::string str = base_pretty(pre);
+    for (auto ch : channels) { str += ch.second->pretty(pre + "\t") + "\n"; }
     return str;
 }
 bool PWMOutputPort::init() {

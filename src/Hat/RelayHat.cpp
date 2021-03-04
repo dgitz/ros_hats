@@ -1,8 +1,10 @@
 #include <ros_hats/Hat/RelayHat.h>
 RelayHat::~RelayHat() {
 }
-std::string RelayHat::pretty() {
-    std::string str = base_pretty();
+std::string RelayHat::pretty(std::string pre) {
+    std::string str = base_pretty(pre);
+    str += "Type: RelayHat Model: " + HatModelString(model) + " --- \n";
+    str += relay_port.pretty(pre + "\t") + "\n";
     return str;
 }
 bool RelayHat::init(Logger *_logger, HatConfig _config) {
@@ -16,14 +18,6 @@ bool RelayHat::init(Logger *_logger, HatConfig _config) {
     }
 
     hat_config = _config;
-    for (auto port : hat_config.ports) {
-        for (auto ch : port.channels) {
-            auto test = std::static_pointer_cast<DigitalChannelDataConfig>(ch.data_config);
-            if (test != nullptr) {
-                printf("OkC\n");
-            }
-        }
-    }
     diagnostic.device_name = hat_config.hat_name;
     diagnostic.node_name = hat_config.hat_name;
     diagnostic.system = System::MainSystem::ROVER;
@@ -121,10 +115,12 @@ bool RelayHat::init_ros(boost::shared_ptr<ros::NodeHandle> _n, std::string host_
     }
     return true;
 }
-ChannelDefinition::ChannelErrorType RelayHat::update_pin(std::string pin_name, int64_t value) {
-    ChannelDefinition::ChannelErrorType error = relay_port.update(pin_name, value);
+ChannelDefinition::ChannelErrorType RelayHat::update_pin(std::string channel_name, int64_t value) {
+    ChannelDefinition::ChannelErrorType error = relay_port.update(channel_name, value);
+
     if (error != ChannelDefinition::ChannelErrorType::CHANNEL_NOT_FOUND) {
-        bool v = setvalue_gpio(pin_name, std::to_string(value));
+        DigitalOutputChannel ch = relay_port.get_channel(channel_name);
+        bool v = setvalue_gpio(channel_name, std::to_string(ch.get_value()));
         if (v == false) {
             return ChannelDefinition::ChannelErrorType::CHANNEL_NOT_FOUND;
         }
