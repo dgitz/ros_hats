@@ -4,6 +4,28 @@
 #include <ros_hats/ROSHATS_Definitions.h>
 #include <stdio.h>
 TEST(BasicTest, TestDefintions) {
+    // Test Class: RaspberryPiDefinition
+    {
+        // {
+        // Test Type: RaspberryPiModel
+        for (uint8_t i = 1; i < (uint8_t)(RaspberryPiDefinition::RaspberryPiModel::END_OF_LIST);
+             ++i) {
+            EXPECT_FALSE(RaspberryPiDefinition::RaspberryPiModelString(
+                             (RaspberryPiDefinition::RaspberryPiModel)(i)) == "UNKNOWN");
+        }
+        for (uint8_t i = 1; i < (uint8_t)(RaspberryPiDefinition::PinType::END_OF_LIST); ++i) {
+            EXPECT_FALSE(RaspberryPiDefinition::PinTypeString(
+                             (RaspberryPiDefinition::PinType)(i)) == "UNKNOWN");
+        }
+
+        std::vector<RaspberryPiDefinition::RaspberryPi> devices =
+            RaspberryPiDefinition::build_RaspberryPi();
+        EXPECT_TRUE(devices.size() > 0);
+        for (auto device : devices) {
+            printf("%s\n", RaspberryPiDefinition::pretty(device).c_str());
+            EXPECT_TRUE(device.pin_map.size() > 0);
+        }
+    }
     // Test Class: HatDefinition
     {
         // Test Type: HatType
