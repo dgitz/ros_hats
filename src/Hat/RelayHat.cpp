@@ -93,7 +93,9 @@ std::vector<PortConfig> RelayHat::create_default_port_configs() {
     std::vector<PortConfig> default_ports;
     if (model == RelayHat::HatModel::RPI_RELAY_HAT) {
         {
-            PortConfig port("DigitalPort0", ChannelDefinition::ChannelType::DIGITAL);
+            PortConfig port("DigitalPort0",
+                            ChannelDefinition::ChannelType::DIGITAL,
+                            ChannelDefinition::Direction::OUTPUT);
             {
                 ChannelConfig channel("20",
                                       ChannelDefinition::ChannelType::DIGITAL,

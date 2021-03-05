@@ -15,8 +15,8 @@ class HatDefinition
 {
    public:
     enum class HatType {
-        UNKNOWN = 0, /*!< Uninitialized value. */
-        PWM_HAT = 1, /*!< A Hat that is capable of PWM Input or Output.  This includes Servo Hats.*/
+        UNKNOWN = 0,     /*!< Uninitialized value. */
+        SERVO_HAT = 1,   /*!< A Hat that is capable of Servo Outputs.*/
         RELAY_HAT = 2,   /*!< A Hat that is capable of Relay Outputs. */
         ARDUINO_HAT = 3, /*!< A Hat that has an onboard Arduino. */
         END_OF_LIST = 4  /*!< Last item of list. Used for Range Checks. */
@@ -29,7 +29,7 @@ class HatDefinition
     static std::string HatTypeString(HatDefinition::HatType v) {
         switch (v) {
             case HatDefinition::HatType::UNKNOWN: return "UNKNOWN"; break;
-            case HatDefinition::HatType::PWM_HAT: return "PWM_HAT"; break;
+            case HatDefinition::HatType::SERVO_HAT: return "SERVO_HAT"; break;
             case HatDefinition::HatType::RELAY_HAT: return "RELAY_HAT"; break;
             case HatDefinition::HatType::ARDUINO_HAT: return "ARDUINO_HAT"; break;
             default: return HatTypeString(HatDefinition::HatType::UNKNOWN); break;
@@ -77,8 +77,8 @@ class ChannelDefinition
         UNKNOWN = 0, /*!< Uninitialized value. */
         DIGITAL = 1, /*!< A Digital Channel represnts a value ranging from -long/2 to long/2 */
         ANALOG = 2,  /*!< An Analog Channel represnts a value ranging from -double/2 to double/2 */
-        PWM = 3, /*!< A PWM Channel is a special type of Digital Channel that only supports values
-                    ranging from 0-4096.*/
+        SERVO = 3,   /*!< A Servo Channel is a special type of Digital Channel that only supports
+                      values   ranging from 0-4096.*/
         END_OF_LIST = 4 /*!< Last item of list. Used for Range Checks. */
     };
     //! Convert ChannelDefinition::ChannelType to human readable string
@@ -91,7 +91,7 @@ class ChannelDefinition
             case ChannelDefinition::ChannelType::UNKNOWN: return "UNKNOWN"; break;
             case ChannelDefinition::ChannelType::DIGITAL: return "DIGITAL"; break;
             case ChannelDefinition::ChannelType::ANALOG: return "ANALOG"; break;
-            case ChannelDefinition::ChannelType::PWM: return "PWM"; break;
+            case ChannelDefinition::ChannelType::SERVO: return "SERVO"; break;
             default: return ChannelTypeString(ChannelDefinition::ChannelType::UNKNOWN); break;
         }
     }
@@ -102,8 +102,8 @@ class ChannelDefinition
         else if (v == "ANALOG") {
             return ChannelDefinition::ChannelType::ANALOG;
         }
-        else if (v == "PWM") {
-            return ChannelDefinition::ChannelType::PWM;
+        else if (v == "SERVO") {
+            return ChannelDefinition::ChannelType::SERVO;
         }
         else {
             return ChannelDefinition::ChannelType::UNKNOWN;
@@ -160,8 +160,8 @@ struct DigitalChannelDataConfig : public ChannelDataConfig {
     int64_t min_value;
     int64_t max_value;
 };
-struct PWMChannelDataConfig : public ChannelDataConfig {
-    PWMChannelDataConfig(int64_t _default_value, int64_t _min_value, int64_t _max_value)
+struct ServoChannelDataConfig : public ChannelDataConfig {
+    ServoChannelDataConfig(int64_t _default_value, int64_t _min_value, int64_t _max_value)
         : default_value(_default_value), min_value(_min_value), max_value(_max_value) {
     }
     int64_t default_value;
@@ -194,16 +194,20 @@ struct ChannelConfig {
 struct PortConfig {
     PortConfig() {
     }
-    PortConfig(std::string _port_name, ChannelDefinition::ChannelType _port_type)
-        : port_name(_port_name), port_type(_port_type) {
+    PortConfig(std::string _port_name,
+               ChannelDefinition::ChannelType _port_type,
+               ChannelDefinition::Direction _direction)
+        : port_name(_port_name), port_type(_port_type), direction(_direction) {
     }
     PortConfig(std::string _port_name,
                ChannelDefinition::ChannelType _port_type,
+               ChannelDefinition::Direction _direction,
                std::vector<ChannelConfig> _channels)
-        : port_name(_port_name), port_type(_port_type), channels(_channels) {
+        : port_name(_port_name), port_type(_port_type), direction(_direction), channels(_channels) {
     }
     std::string port_name;
     ChannelDefinition::ChannelType port_type;
+    ChannelDefinition::Direction direction;
     std::vector<ChannelConfig> channels;
 };
 struct HatConfig {

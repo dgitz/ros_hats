@@ -1,21 +1,21 @@
-#include <ros_hats/Port/PWMOutputPort.h>
-PWMOutputPort::PWMOutputPort() {
+#include <ros_hats/Port/DigitalInputPort.h>
+DigitalInputPort::DigitalInputPort() {
 }
-PWMOutputPort::~PWMOutputPort() {
+DigitalInputPort::~DigitalInputPort() {
 }
-std::string PWMOutputPort::pretty(std::string pre) {
+std::string DigitalInputPort::pretty(std::string pre) {
     std::string str = base_pretty(pre);
     for (auto ch : channels) { str += ch.second->pretty(pre + "\t") + "\n"; }
     return str;
 }
-bool PWMOutputPort::init() {
+bool DigitalInputPort::init() {
     bool v = base_init();
     return v;
 }
-ChannelDefinition::ChannelErrorType PWMOutputPort::update(std::string pin_name, int64_t value) {
+ChannelDefinition::ChannelErrorType DigitalInputPort::update(std::string pin_name, int64_t value) {
     auto found = channels.find(pin_name);
     if (found != channels.end()) {
-        PWMOutputChannel *channel = dynamic_cast<PWMOutputChannel *>(found->second.get());
+        DigitalInputChannel *channel = dynamic_cast<DigitalInputChannel *>(found->second.get());
         if (channel == nullptr) {
             return ChannelDefinition::ChannelErrorType::CHANNEL_NOT_FOUND;
         }
@@ -25,10 +25,10 @@ ChannelDefinition::ChannelErrorType PWMOutputPort::update(std::string pin_name, 
         return ChannelDefinition::ChannelErrorType::CHANNEL_NOT_FOUND;
     }
 }
-int64_t PWMOutputPort::get_value(std::string pin_name) {
+int64_t DigitalInputPort::get_value(std::string pin_name) {
     auto found = channels.find(pin_name);
     if (found != channels.end()) {
-        PWMOutputChannel *channel = dynamic_cast<PWMOutputChannel *>(found->second.get());
+        DigitalInputChannel *channel = dynamic_cast<DigitalInputChannel *>(found->second.get());
         if (channel == nullptr) {
             return 0;
         }

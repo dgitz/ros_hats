@@ -1,4 +1,4 @@
-/*! \file test_definitions.cpp
+/*! \file test_relayhat.cpp
  */
 #include <eros/Logger.h>
 #include <gtest/gtest.h>

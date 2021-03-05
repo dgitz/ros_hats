@@ -47,7 +47,8 @@ std::map<std::string, HatConfig> HatNodeProcess::load_hat_config(std::string fil
         auto find_type = obj.find("Type");
         if (find_type != obj.end()) {
             device_type = *find_type;
-            if ((device_type == "PWMHat") || (device_type == "RelayHat")) {
+            if ((device_type == "ServoHat") || (device_type == "RelayHat") ||
+                (device_type == "TerminalHat")) {
                 auto find_model = obj.find("Model");
                 if (find_model != obj.end()) {
                     device_model = *find_model;
@@ -68,8 +69,10 @@ std::map<std::string, HatConfig> HatNodeProcess::load_hat_config(std::string fil
                     auto port_name = port_it.value().find("Name");
                     port.port_name = *port_name;
                     auto port_type = port_it.value().find("Type");
+                    auto port_direction = port_it.value().find("Direction");
                     std::string tempstr = *port_type;
                     port.port_type = ChannelDefinition::ChannelTypeEnum(*port_type);
+                    port.direction = ChannelDefinition::DirectionEnum(*port_direction);
                     for (auto& channel_it : port_it.value()["Channels"].items()) {
                         ChannelConfig channel;
                         auto channel_name = channel_it.value().find("ChannelName");
@@ -92,12 +95,12 @@ std::map<std::string, HatConfig> HatNodeProcess::load_hat_config(std::string fil
                             auto test = std::static_pointer_cast<DigitalChannelDataConfig>(
                                 channel.data_config);
                         }
-                        else if (channel.channel_type == ChannelDefinition::ChannelType::PWM) {
+                        else if (channel.channel_type == ChannelDefinition::ChannelType::SERVO) {
                             int64_t v1 = *default_value;
                             int64_t v2 = *min_value;
                             int64_t v3 = *max_value;
-                            channel.data_config = std::make_shared<PWMChannelDataConfig>(
-                                PWMChannelDataConfig(v1, v2, v3));
+                            channel.data_config = std::make_shared<ServoChannelDataConfig>(
+                                ServoChannelDataConfig(v1, v2, v3));
                         }
                         port.channels.push_back(channel);
                     }
