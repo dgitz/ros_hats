@@ -47,8 +47,7 @@ std::map<std::string, HatConfig> HatNodeProcess::load_hat_config(std::string fil
         auto find_type = obj.find("Type");
         if (find_type != obj.end()) {
             device_type = *find_type;
-            if ((device_type == "ServoHat") || (device_type == "RelayHat") ||
-                (device_type == "TerminalHat")) {
+            if ((device_type == "ServoHat") || (device_type == "RelayHat")) {
                 auto find_model = obj.find("Model");
                 if (find_model != obj.end()) {
                     device_model = *find_model;

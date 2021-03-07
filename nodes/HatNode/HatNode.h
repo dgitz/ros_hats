@@ -12,7 +12,6 @@
 #include <ros_hats/Hat/ServoHat.h>
 #endif
 #include <ros_hats/Hat/RelayHat.h>
-#include <ros_hats/Hat/TerminalHat.h>
 
 #include "HatNodeProcess.h"
 

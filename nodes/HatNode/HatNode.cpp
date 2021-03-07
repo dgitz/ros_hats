@@ -106,21 +106,6 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
                 hats.emplace(std::make_pair(hat_it.second.hat_name, new RelayHat(model)));
             }
         }
-        else if (hat_it.second.hat_type == "TerminalHat") {
-            TerminalHat::HatModel model = TerminalHat::HatModelType(hat_it.second.hat_model);
-            if (model == TerminalHat::HatModel::UNKNOWN) {
-                diag = process->update_diagnostic(
-                    Diagnostic::DiagnosticType::DATA_STORAGE,
-                    Level::Type::ERROR,
-                    Diagnostic::Message::INITIALIZING_ERROR,
-                    "Hat Model: " + hat_it.second.hat_model + " Not Supported.");
-                logger->log_diagnostic(diag);
-                return diag;
-            }
-            else {
-                hats.emplace(std::make_pair(hat_it.second.hat_name, new TerminalHat(model)));
-            }
-        }
 #ifdef __arm__
         else if (hat_it.second.hat_type == "ServoHat") {
             ServoHat::HatModel model = ServoHat::HatModelType(hat_it.second.hat_model);
@@ -168,32 +153,6 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
         }
         {
             RelayHat *hat = dynamic_cast<RelayHat *>(hat_it.second.get());
-            if (hat != nullptr) {
-                if (hat->init(logger, config->second) == false) {
-                    diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
-                                                      Level::Type::ERROR,
-                                                      Diagnostic::Message::INITIALIZING_ERROR,
-                                                      "Unable to initialize Hat: " + hat_it.first);
-                    return diag;
-                }
-                else {
-                    // Hat Initialized OK.  Now need to setup ROS for the Hat
-                    if (hat->init_ros(n, host_name) == false) {
-                        diag = process->update_diagnostic(
-                            Diagnostic::DiagnosticType::DATA_STORAGE,
-                            Level::Type::ERROR,
-                            Diagnostic::Message::INITIALIZING_ERROR,
-                            "Unable to initialize Hat ROS Connection: " + hat_it.first);
-                        return diag;
-                    }
-                    else {
-                        logger->log_notice("Hat: " + hat_it.first + " Initialized.");
-                    }
-                }
-            }
-        }
-        {
-            TerminalHat *hat = dynamic_cast<TerminalHat *>(hat_it.second.get());
             if (hat != nullptr) {
                 if (hat->init(logger, config->second) == false) {
                     diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
