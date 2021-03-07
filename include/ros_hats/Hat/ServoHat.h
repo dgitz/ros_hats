@@ -60,6 +60,7 @@ class ServoHat : public Hat
                              const std::string &pin_name);
     std::string pretty(std::string pre);
     std::vector<PortConfig> create_default_port_configs();
+    bool update(double dt);
     bool cleanup();
 
    private:

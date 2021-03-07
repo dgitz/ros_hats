@@ -3,7 +3,7 @@ target_link_libraries(hatNodeProcess ${catkin_LIBRARIES} baseNodeProcess)
 add_subdirectory(test)
 
 add_executable(hat_node HatNode.cpp) 
-target_link_libraries(hat_node ${catkin_LIBRARIES} ${Boost_LIBRARIES} hatNodeProcess baseNode roshat_relayhat)
+target_link_libraries(hat_node ${catkin_LIBRARIES} ${Boost_LIBRARIES} hatNodeProcess baseNode roshat_relayhat roshat_gpshat)
 if (${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL armv7l)
     target_link_libraries(hat_node roshat_servohat) 
 endif ()

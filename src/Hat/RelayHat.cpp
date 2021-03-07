@@ -128,6 +128,9 @@ std::vector<PortConfig> RelayHat::create_default_port_configs() {
     }
     return default_ports;
 }
+bool RelayHat::update(double dt) {
+    return true;
+}
 bool RelayHat::init_ros(boost::shared_ptr<ros::NodeHandle> _n, std::string host_name) {
     if (_n == nullptr) {
         logger->log_error("Node Handle has No Memory.");

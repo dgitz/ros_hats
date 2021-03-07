@@ -94,11 +94,12 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
         if (hat_it.second.hat_type == "RelayHat") {
             RelayHat::HatModel model = RelayHat::HatModelType(hat_it.second.hat_model);
             if (model == RelayHat::HatModel::UNKNOWN) {
-                diag = process->update_diagnostic(
-                    Diagnostic::DiagnosticType::DATA_STORAGE,
-                    Level::Type::ERROR,
-                    Diagnostic::Message::INITIALIZING_ERROR,
-                    "Hat Model: " + hat_it.second.hat_model + " Not Supported.");
+                diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
+                                                  Level::Type::ERROR,
+                                                  Diagnostic::Message::INITIALIZING_ERROR,
+                                                  "Hat Type: " + hat_it.second.hat_type +
+                                                      " Model: " + hat_it.second.hat_model +
+                                                      " Not Supported.");
                 logger->log_diagnostic(diag);
                 return diag;
             }
@@ -106,15 +107,32 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
                 hats.emplace(std::make_pair(hat_it.second.hat_name, new RelayHat(model)));
             }
         }
+        else if (hat_it.second.hat_type == "GPSHat") {
+            GPSHat::HatModel model = GPSHat::HatModelType(hat_it.second.hat_model);
+            if (model == GPSHat::HatModel::UNKNOWN) {
+                diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
+                                                  Level::Type::ERROR,
+                                                  Diagnostic::Message::INITIALIZING_ERROR,
+                                                  "Hat Type: " + hat_it.second.hat_type +
+                                                      " Model: " + hat_it.second.hat_model +
+                                                      " Not Supported.");
+                logger->log_diagnostic(diag);
+                return diag;
+            }
+            else {
+                hats.emplace(std::make_pair(hat_it.second.hat_name, new GPSHat(model)));
+            }
+        }
 #ifdef __arm__
         else if (hat_it.second.hat_type == "ServoHat") {
             ServoHat::HatModel model = ServoHat::HatModelType(hat_it.second.hat_model);
             if (model == ServoHat::HatModel::UNKNOWN) {
-                diag = process->update_diagnostic(
-                    Diagnostic::DiagnosticType::DATA_STORAGE,
-                    Level::Type::ERROR,
-                    Diagnostic::Message::INITIALIZING_ERROR,
-                    "Hat Model: " + hat_it.second.hat_model + " Not Supported.");
+                diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
+                                                  Level::Type::ERROR,
+                                                  Diagnostic::Message::INITIALIZING_ERROR,
+                                                  "Hat Type: " + hat_it.second.hat_type +
+                                                      " Model: " + hat_it.second.hat_model +
+                                                      " Not Supported.");
                 logger->log_diagnostic(diag);
                 return diag;
             }
@@ -153,6 +171,32 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
         }
         {
             RelayHat *hat = dynamic_cast<RelayHat *>(hat_it.second.get());
+            if (hat != nullptr) {
+                if (hat->init(logger, config->second) == false) {
+                    diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
+                                                      Level::Type::ERROR,
+                                                      Diagnostic::Message::INITIALIZING_ERROR,
+                                                      "Unable to initialize Hat: " + hat_it.first);
+                    return diag;
+                }
+                else {
+                    // Hat Initialized OK.  Now need to setup ROS for the Hat
+                    if (hat->init_ros(n, host_name) == false) {
+                        diag = process->update_diagnostic(
+                            Diagnostic::DiagnosticType::DATA_STORAGE,
+                            Level::Type::ERROR,
+                            Diagnostic::Message::INITIALIZING_ERROR,
+                            "Unable to initialize Hat ROS Connection: " + hat_it.first);
+                        return diag;
+                    }
+                    else {
+                        logger->log_notice("Hat: " + hat_it.first + " Initialized.");
+                    }
+                }
+            }
+        }
+        {
+            GPSHat *hat = dynamic_cast<GPSHat *>(hat_it.second.get());
             if (hat != nullptr) {
                 if (hat->init(logger, config->second) == false) {
                     diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
@@ -222,6 +266,7 @@ bool HatNode::run_loop1() {
     return true;
 }
 bool HatNode::run_loop2() {
+    for (auto hat_it : hats) { hat_it.second->update(1.0 / loop2_rate); }
     return true;
 }
 bool HatNode::run_loop3() {
