@@ -56,7 +56,7 @@ class RelayHat : public Hat
     void DigitalOutputCallback(const std_msgs::Bool::ConstPtr &msg, const std::string &pin_name);
     std::string pretty(std::string pre);
     std::vector<PortConfig> create_default_port_configs();
-
+    bool update(double dt);
     bool cleanup();
 
    private:

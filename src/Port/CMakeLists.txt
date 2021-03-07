@@ -10,7 +10,10 @@ target_link_libraries(roshat_digitaloutputport ${catkin_LIBRARIES} roshat_port r
 add_library(roshat_digitalinputport DigitalInputPort.cpp)
 target_link_libraries(roshat_digitalinputport ${catkin_LIBRARIES} roshat_port roshat_digitalinputchannel)
 
-install(TARGETS roshat_port roshat_digitaloutputport roshat_servooutputport roshat_digitalinputport
+add_library(roshat_gpsinputport GPSInputPort.cpp)
+target_link_libraries(roshat_gpsinputport ${catkin_LIBRARIES} roshat_port roshat_gpsinputchannel)
+
+install(TARGETS roshat_port roshat_digitaloutputport roshat_servooutputport roshat_digitalinputport roshat_gpsinputport
         ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
         LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
         RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})

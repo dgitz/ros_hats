@@ -47,7 +47,8 @@ std::map<std::string, HatConfig> HatNodeProcess::load_hat_config(std::string fil
         auto find_type = obj.find("Type");
         if (find_type != obj.end()) {
             device_type = *find_type;
-            if ((device_type == "ServoHat") || (device_type == "RelayHat")) {
+            if ((device_type == "ServoHat") || (device_type == "RelayHat") ||
+                (device_type == "GPSHat")) {
                 auto find_model = obj.find("Model");
                 if (find_model != obj.end()) {
                     device_model = *find_model;
@@ -78,14 +79,14 @@ std::map<std::string, HatConfig> HatNodeProcess::load_hat_config(std::string fil
                         channel.channel_name = *channel_name;
                         auto channel_type = channel_it.value().find("Type");
                         channel.channel_type = ChannelDefinition::ChannelTypeEnum(*channel_type);
-                        auto pin_number = channel_it.value().find("PinNumber");
-                        channel.pin_number = *pin_number;
-                        auto direction = channel_it.value().find("Direction");
-                        channel.direction = ChannelDefinition::DirectionEnum(*direction);
-                        auto default_value = channel_it.value().find("DefaultValue");
-                        auto max_value = channel_it.value().find("MaxValue");
-                        auto min_value = channel_it.value().find("MinValue");
                         if (channel.channel_type == ChannelDefinition::ChannelType::DIGITAL) {
+                            auto pin_number = channel_it.value().find("PinNumber");
+                            channel.pin_number = *pin_number;
+                            auto direction = channel_it.value().find("Direction");
+                            channel.direction = ChannelDefinition::DirectionEnum(*direction);
+                            auto default_value = channel_it.value().find("DefaultValue");
+                            auto max_value = channel_it.value().find("MaxValue");
+                            auto min_value = channel_it.value().find("MinValue");
                             int64_t v1 = *default_value;
                             int64_t v2 = *min_value;
                             int64_t v3 = *max_value;
@@ -95,6 +96,13 @@ std::map<std::string, HatConfig> HatNodeProcess::load_hat_config(std::string fil
                                 channel.data_config);
                         }
                         else if (channel.channel_type == ChannelDefinition::ChannelType::SERVO) {
+                            auto pin_number = channel_it.value().find("PinNumber");
+                            channel.pin_number = *pin_number;
+                            auto direction = channel_it.value().find("Direction");
+                            channel.direction = ChannelDefinition::DirectionEnum(*direction);
+                            auto default_value = channel_it.value().find("DefaultValue");
+                            auto max_value = channel_it.value().find("MaxValue");
+                            auto min_value = channel_it.value().find("MinValue");
                             int64_t v1 = *default_value;
                             int64_t v2 = *min_value;
                             int64_t v3 = *max_value;

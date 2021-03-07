@@ -32,6 +32,7 @@ class Hat
     Diagnostic::DiagnosticDefinition get_diagnostic() {
         return diagnostic;
     }
+    virtual bool update(double dt) = 0;
     virtual bool cleanup() = 0;
 
    protected:
@@ -40,5 +41,6 @@ class Hat
     Logger* logger;
     Diagnostic diag_helper;
     Diagnostic::DiagnosticDefinition diagnostic;
+    bool ros_initialized;
 };
 #endif

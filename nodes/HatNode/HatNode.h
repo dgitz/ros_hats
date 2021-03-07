@@ -11,6 +11,7 @@
 #ifdef __arm__
 #include <ros_hats/Hat/ServoHat.h>
 #endif
+#include <ros_hats/Hat/GPSHat.h>
 #include <ros_hats/Hat/RelayHat.h>
 
 #include "HatNodeProcess.h"

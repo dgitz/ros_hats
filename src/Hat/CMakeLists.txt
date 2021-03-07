@@ -8,6 +8,9 @@ install(TARGETS roshat_hat
 add_library(roshat_relayhat RelayHat.cpp)
 target_link_libraries(roshat_relayhat ${catkin_LIBRARIES} logger roshat_hat roshat_digitaloutputchannel roshat_digitaloutputport)
 
+add_library(roshat_gpshat GPSHat.cpp Driver/GPSHatDriver.cpp)
+target_link_libraries(roshat_gpshat ${catkin_LIBRARIES} gps logger roshat_hat roshat_gpsinputchannel roshat_gpsinputport)
+
 add_subdirectory(test)
 
 install(TARGETS roshat_relayhat

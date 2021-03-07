@@ -92,6 +92,9 @@ std::vector<PortConfig> ServoHat::create_default_port_configs() {
     }
     return default_ports;
 }
+bool ServoHat::update(double dt) {
+    return true;
+}
 bool ServoHat::init_ros(boost::shared_ptr<ros::NodeHandle> _n, std::string host_name) {
     if (_n == nullptr) {
         logger->log_error("Node Handle has No Memory.");

@@ -19,7 +19,8 @@ class HatDefinition
         SERVO_HAT = 1,   /*!< A Hat that is capable of Servo Outputs.*/
         RELAY_HAT = 2,   /*!< A Hat that is capable of Relay Outputs. */
         ARDUINO_HAT = 3, /*!< A Hat that has an onboard Arduino. */
-        END_OF_LIST = 4  /*!< Last item of list. Used for Range Checks. */
+        GPS_HAT = 4,     /*!< A Hat that has a GPS Receiver. */
+        END_OF_LIST = 5  /*!< Last item of list. Used for Range Checks. */
     };
     //! Convert HatDefinition::HatType to human readable string
     /*!
@@ -32,6 +33,7 @@ class HatDefinition
             case HatDefinition::HatType::SERVO_HAT: return "SERVO_HAT"; break;
             case HatDefinition::HatType::RELAY_HAT: return "RELAY_HAT"; break;
             case HatDefinition::HatType::ARDUINO_HAT: return "ARDUINO_HAT"; break;
+            case HatDefinition::HatType::GPS_HAT: return "GPS_HAT"; break;
             default: return HatTypeString(HatDefinition::HatType::UNKNOWN); break;
         }
     }
@@ -79,7 +81,8 @@ class ChannelDefinition
         ANALOG = 2,  /*!< An Analog Channel represnts a value ranging from -double/2 to double/2 */
         SERVO = 3,   /*!< A Servo Channel is a special type of Digital Channel that only supports
                       values   ranging from 0-4096.*/
-        END_OF_LIST = 4 /*!< Last item of list. Used for Range Checks. */
+        GPS = 4,     /*!< Generic GPS Channel*/
+        END_OF_LIST = 5 /*!< Last item of list. Used for Range Checks. */
     };
     //! Convert ChannelDefinition::ChannelType to human readable string
     /*!
@@ -92,6 +95,7 @@ class ChannelDefinition
             case ChannelDefinition::ChannelType::DIGITAL: return "DIGITAL"; break;
             case ChannelDefinition::ChannelType::ANALOG: return "ANALOG"; break;
             case ChannelDefinition::ChannelType::SERVO: return "SERVO"; break;
+            case ChannelDefinition::ChannelType::GPS: return "GPS"; break;
             default: return ChannelTypeString(ChannelDefinition::ChannelType::UNKNOWN); break;
         }
     }
@@ -104,6 +108,9 @@ class ChannelDefinition
         }
         else if (v == "SERVO") {
             return ChannelDefinition::ChannelType::SERVO;
+        }
+        else if (v == "GPS") {
+            return ChannelDefinition::ChannelType::GPS;
         }
         else {
             return ChannelDefinition::ChannelType::UNKNOWN;
@@ -173,6 +180,7 @@ struct AnalogChannelDataConfig : public ChannelDataConfig {
     double min_value;
     double max_value;
 };
+struct GPSChannelDataConfig : public ChannelDataConfig {};
 struct ChannelConfig {
     ChannelConfig() {
     }

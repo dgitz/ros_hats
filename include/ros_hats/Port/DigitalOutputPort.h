@@ -24,12 +24,6 @@ class DigitalOutputPort : public Port
         for (uint16_t i = 0; i < port_config.channels.size(); ++i) {
             channels.emplace(std::make_pair(port_config.channels.at(i).channel_name,
                                             new DigitalOutputChannel(port_config.channels.at(i))));
-            /*
-            auto ch = std::make_shared<DigitalOutputChannel>(
-                DigitalOutputChannel(port_config.channels.at(i)));
-            channels.insert(std::pair<std::string, std::shared_ptr<Channel>>(
-                port_config.channels.at(i).channel_name, ch));
-                */
         }
     }
     ~DigitalOutputPort();
