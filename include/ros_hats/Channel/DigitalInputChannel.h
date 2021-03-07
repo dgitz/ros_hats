@@ -1,7 +1,7 @@
-/*! \file PWMOutputChannel.h
+/*! \file DigitalInputChannel.h
  */
-#ifndef ROSHATS_PWMOUTPUT_CHANNEL_H
-#define ROSHATS_PWMOUTPUT_CHANNEL_H
+#ifndef ROSHATS_DIGITALINPUT_CHANNEL_H
+#define ROSHATS_DIGITALINPUT_CHANNEL_H
 #include <ros_hats/Channel/Channel.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,27 +9,26 @@
 
 #include <string>
 
-/*! \class PWMOutputChannel
-    \brief PWMOutputChannel class
-    Basic container for a PWMOutputChannel
+/*! \class DigitalInputChannel
+    \brief DigitalInputChannel class
+    Basic container for a DigitalInputChannel
 */
-class PWMOutputChannel : public Channel
+class DigitalInputChannel : public Channel
 {
    public:
-    PWMOutputChannel() {
+    DigitalInputChannel() {
     }
-    PWMOutputChannel(ChannelConfig _config) : update_count(0) {
+    DigitalInputChannel(ChannelConfig _config) : update_count(0) {
         channel_config = _config;
-        auto data_config =
-            std::static_pointer_cast<PWMChannelDataConfig>(channel_config.data_config);
+        auto data_config = std::static_pointer_cast<DigitalChannelDataConfig>(_config.data_config);
         value = data_config->default_value;
         default_value = value;
         upper_range = data_config->max_value;
         lower_range = data_config->min_value;
-        channel_config.channel_type = ChannelDefinition::ChannelType::PWM;
-        channel_config.direction = ChannelDefinition::Direction::OUTPUT;
+        channel_config.channel_type = ChannelDefinition::ChannelType::DIGITAL;
+        channel_config.direction = ChannelDefinition::Direction::INPUT;
     }
-    ~PWMOutputChannel();
+    ~DigitalInputChannel();
 
     bool init();
 
@@ -37,6 +36,9 @@ class PWMOutputChannel : public Channel
 
     int64_t get_value() {
         return value;
+    }
+    int64_t get_default_value() {
+        return default_value;
     }
     ChannelDefinition::ChannelErrorType update_value(int64_t v) {
         if (v > upper_range) {
@@ -58,9 +60,9 @@ class PWMOutputChannel : public Channel
 
    private:
     int64_t value;
-    int64_t default_value;
     int64_t lower_range;
     int64_t upper_range;
     uint64_t update_count;
+    int64_t default_value;
 };
-#endif  // ROSHATS_PWMOUTPUT_CHANNEL_H
+#endif  // ROSHATS_DIGITALINPUT_CHANNEL_H

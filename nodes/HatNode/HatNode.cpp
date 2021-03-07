@@ -107,9 +107,9 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
             }
         }
 #ifdef __arm__
-        else if (hat_it.second.hat_type == "PWMHat") {
-            PWMHat::HatModel model = PWMHat::HatModelType(hat_it.second.hat_model);
-            if (model == PWMHat::HatModel::UNKNOWN) {
+        else if (hat_it.second.hat_type == "ServoHat") {
+            ServoHat::HatModel model = ServoHat::HatModelType(hat_it.second.hat_model);
+            if (model == ServoHat::HatModel::UNKNOWN) {
                 diag = process->update_diagnostic(
                     Diagnostic::DiagnosticType::DATA_STORAGE,
                     Level::Type::ERROR,
@@ -119,7 +119,7 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
                 return diag;
             }
             else {
-                hats.emplace(std::make_pair(hat_it.second.hat_name, new PWMHat(model)));
+                hats.emplace(std::make_pair(hat_it.second.hat_name, new ServoHat(model)));
             }
         }
 #endif
@@ -179,7 +179,7 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
         }
 #ifdef __arm__
         {
-            PWMHat *hat = dynamic_cast<PWMHat *>(hat_it.second.get());
+            ServoHat *hat = dynamic_cast<ServoHat *>(hat_it.second.get());
             if (hat != nullptr) {
                 if (config->second.use_default_config == true) {}
                 if (hat->init(logger, config->second) == false) {

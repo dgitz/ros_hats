@@ -4,8 +4,9 @@ target_link_libraries(test_roshat_definitions ${catkin_LIBRARIES} ${Boost_LIBRAR
 
 catkin_add_gtest(test_roshat_base test_base.cpp)
 target_link_libraries(test_roshat_base ${catkin_LIBRARIES} ${Boost_LIBRARIES} 
-    roshat_pwmoutputchannel 
+    roshat_servooutputchannel 
     roshat_digitaloutputchannel 
-    roshat_digitaloutputchannel 
-    roshat_pwmoutputport
-    roshat_digitaloutputport)
+    roshat_digitalinputchannel
+    roshat_servooutputport
+    roshat_digitaloutputport
+    roshat_digitalinputport)

@@ -1,8 +1,8 @@
-/*! \file PWMOutputPort.h
+/*! \file ServoOutputPort.h
  */
-#ifndef ROSHATS_PWMOUTPUTPORT_H
-#define ROSHATS_PWMOUTPUTPORT_H
-#include <ros_hats/Channel/PWMOutputChannel.h>
+#ifndef ROSHATS_SERVOOUTPUTPORT_H
+#define ROSHATS_SERVOOUTPUTPORT_H
+#include <ros_hats/Channel/ServoOutputChannel.h>
 #include <ros_hats/Port/Port.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,43 +10,43 @@
 
 #include <string>
 
-/*! \class PWMOutputPort
-    \brief PWMOutputPort class
-    Basic container for a PWMOutputPort
+/*! \class ServoOutputPort
+    \brief ServoOutputPort class
+    Basic container for a ServoOutputPort
 */
-class PWMOutputPort : public Port
+class ServoOutputPort : public Port
 {
    public:
-    PWMOutputPort();
-    PWMOutputPort(PortConfig _config) : Port(_config) {
-        port_config.port_type = ChannelDefinition::ChannelType::PWM;
+    ServoOutputPort();
+    ServoOutputPort(PortConfig _config) : Port(_config) {
+        port_config.port_type = ChannelDefinition::ChannelType::SERVO;
         for (uint16_t i = 0; i < port_config.channels.size(); ++i) {
             channels.emplace(std::make_pair(port_config.channels.at(i).channel_name,
-                                            new PWMOutputChannel(port_config.channels.at(i))));
+                                            new ServoOutputChannel(port_config.channels.at(i))));
         }
     }
-    ~PWMOutputPort();
+    ~ServoOutputPort();
     bool init();
     std::string get_name() {
         return port_config.port_name;
     }
-    std::vector<PWMOutputChannel> get_channels() {
-        std::vector<PWMOutputChannel> _channels;
+    std::vector<ServoOutputChannel> get_channels() {
+        std::vector<ServoOutputChannel> _channels;
         for (auto ch : channels) {
-            PWMOutputChannel *channel = dynamic_cast<PWMOutputChannel *>(ch.second.get());
+            ServoOutputChannel *channel = dynamic_cast<ServoOutputChannel *>(ch.second.get());
             if (channel != nullptr) {
                 _channels.push_back(*channel);
             }
         }
         return _channels;
     }
-    PWMOutputChannel get_channel(std::string pin_name) {
-        PWMOutputChannel empty;
+    ServoOutputChannel get_channel(std::string pin_name) {
+        ServoOutputChannel empty;
         std::map<std::string, std::shared_ptr<Channel>>::iterator ch_it = channels.find(pin_name);
         if (ch_it == channels.end()) {
             return empty;
         }
-        PWMOutputChannel *channel = dynamic_cast<PWMOutputChannel *>(ch_it->second.get());
+        ServoOutputChannel *channel = dynamic_cast<ServoOutputChannel *>(ch_it->second.get());
         if (channel == nullptr) {
             return empty;
         }
@@ -58,4 +58,4 @@ class PWMOutputPort : public Port
 
    private:
 };
-#endif  // ROSHATS_PWMOUTPUTPORT_H
+#endif  // ROSHATS_SERVOOUTPUTPORT_H

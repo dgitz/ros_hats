@@ -3,12 +3,14 @@
 #include <eros/Logger.h>
 #include <gtest/gtest.h>
 #include <ros_hats/Channel/Channel.h>
+#include <ros_hats/Channel/DigitalInputChannel.h>
 #include <ros_hats/Channel/DigitalOutputChannel.h>
-#include <ros_hats/Channel/PWMOutputChannel.h>
+#include <ros_hats/Channel/ServoOutputChannel.h>
 #include <ros_hats/Hat/Hat.h>
+#include <ros_hats/Port/DigitalInputPort.h>
 #include <ros_hats/Port/DigitalOutputPort.h>
-#include <ros_hats/Port/PWMOutputPort.h>
 #include <ros_hats/Port/Port.h>
+#include <ros_hats/Port/ServoOutputPort.h>
 #include <ros_hats/ROSHATS_Definitions.h>
 #include <stdio.h>
 #include <sys/time.h>
@@ -19,13 +21,13 @@ double time_diff(struct timeval A, struct timeval B) {
 }
 TEST(BasicTest, TestBaseOperation) {
     {
-        ChannelConfig pwm_output_channel_config;
-        pwm_output_channel_config.channel_name = "PWMOutput1";
-        pwm_output_channel_config.channel_type = ChannelDefinition::ChannelType::PWM;
-        pwm_output_channel_config.direction = ChannelDefinition::Direction::OUTPUT;
-        pwm_output_channel_config.pin_number = 0;
-        pwm_output_channel_config.data_config =
-            std::make_shared<PWMChannelDataConfig>(PWMChannelDataConfig(1500, 1000, 2000));
+        ChannelConfig servo_output_channel_config;
+        servo_output_channel_config.channel_name = "ServoOutput1";
+        servo_output_channel_config.channel_type = ChannelDefinition::ChannelType::SERVO;
+        servo_output_channel_config.direction = ChannelDefinition::Direction::OUTPUT;
+        servo_output_channel_config.pin_number = 0;
+        servo_output_channel_config.data_config =
+            std::make_shared<ServoChannelDataConfig>(ServoChannelDataConfig(1500, 1000, 2000));
 
         ChannelConfig digital_output_channel_config;
         digital_output_channel_config.channel_name = "DigitalOutput1";
@@ -34,10 +36,20 @@ TEST(BasicTest, TestBaseOperation) {
         digital_output_channel_config.pin_number = 0;
         digital_output_channel_config.data_config =
             std::make_shared<DigitalChannelDataConfig>(DigitalChannelDataConfig(0, 0, 100));
+
+        ChannelConfig digital_input_channel_config;
+        digital_input_channel_config.channel_name = "DigitalInput1";
+        digital_input_channel_config.channel_type = ChannelDefinition::ChannelType::DIGITAL;
+        digital_input_channel_config.direction = ChannelDefinition::Direction::OUTPUT;
+        digital_input_channel_config.pin_number = 1;
+        digital_input_channel_config.data_config =
+            std::make_shared<DigitalChannelDataConfig>(DigitalChannelDataConfig(0, 0, 100));
+
         printf("\nTesting individual Channel Operations...\n");
         std::vector<std::shared_ptr<Channel>> channels;
-        channels.emplace_back(new PWMOutputChannel(pwm_output_channel_config));
+        channels.emplace_back(new ServoOutputChannel(servo_output_channel_config));
         channels.emplace_back(new DigitalOutputChannel(digital_output_channel_config));
+        channels.emplace_back(new DigitalInputChannel(digital_input_channel_config));
 
         std::size_t passed = 0;
         for (std::size_t i = 0; i < channels.size(); ++i) {
@@ -45,14 +57,27 @@ TEST(BasicTest, TestBaseOperation) {
                 if (channels.at(i)->get_channel_type() == ChannelDefinition::ChannelType::DIGITAL) {
                     DigitalOutputChannel *channel =
                         dynamic_cast<DigitalOutputChannel *>(channels.at(i).get());
+                    EXPECT_TRUE(channel != nullptr);
                     if (channel != nullptr) {
                         printf("%s\n", channel->pretty(" ").c_str());
                         passed++;
                     }
                 }
-                if (channels.at(i)->get_channel_type() == ChannelDefinition::ChannelType::PWM) {
-                    PWMOutputChannel *channel =
-                        dynamic_cast<PWMOutputChannel *>(channels.at(i).get());
+                if (channels.at(i)->get_channel_type() == ChannelDefinition::ChannelType::SERVO) {
+                    ServoOutputChannel *channel =
+                        dynamic_cast<ServoOutputChannel *>(channels.at(i).get());
+                    EXPECT_TRUE(channel != nullptr);
+                    if (channel != nullptr) {
+                        printf("%s\n", channel->pretty(" ").c_str());
+                        passed++;
+                    }
+                }
+            }
+            else if (channels.at(i)->get_direction() == ChannelDefinition::Direction::INPUT) {
+                if (channels.at(i)->get_channel_type() == ChannelDefinition::ChannelType::DIGITAL) {
+                    DigitalInputChannel *channel =
+                        dynamic_cast<DigitalInputChannel *>(channels.at(i).get());
+                    EXPECT_TRUE(channel != nullptr);
                     if (channel != nullptr) {
                         printf("%s\n", channel->pretty(" ").c_str());
                         passed++;
@@ -63,20 +88,20 @@ TEST(BasicTest, TestBaseOperation) {
         EXPECT_TRUE(passed == channels.size());
     }
     {
-        printf("\nTesting Port: PWMOutput Operations...\n");
+        printf("\nTesting Port: ServoOutput Operations...\n");
         PortConfig port_config;
         for (int i = 0; i < 4; ++i) {
-            ChannelConfig pwm_output_channel_config;
-            pwm_output_channel_config.channel_name = "P" + std::to_string(i);
-            pwm_output_channel_config.channel_type = ChannelDefinition::ChannelType::PWM;
-            pwm_output_channel_config.direction = ChannelDefinition::Direction::OUTPUT;
-            pwm_output_channel_config.pin_number = i;
-            pwm_output_channel_config.data_config =
-                std::make_shared<PWMChannelDataConfig>(PWMChannelDataConfig(1500, 1000, 2000));
-            port_config.channels.push_back(pwm_output_channel_config);
+            ChannelConfig servo_output_channel_config;
+            servo_output_channel_config.channel_name = "P" + std::to_string(i);
+            servo_output_channel_config.channel_type = ChannelDefinition::ChannelType::SERVO;
+            servo_output_channel_config.direction = ChannelDefinition::Direction::OUTPUT;
+            servo_output_channel_config.pin_number = i;
+            servo_output_channel_config.data_config =
+                std::make_shared<ServoChannelDataConfig>(ServoChannelDataConfig(1500, 1000, 2000));
+            port_config.channels.push_back(servo_output_channel_config);
         }
 
-        PWMOutputPort port(port_config);
+        ServoOutputPort port(port_config);
         EXPECT_TRUE(port.init());
         EXPECT_TRUE(port.get_port_size() == 4);
         ChannelDefinition::ChannelErrorType status = port.update("P3", 1800);
@@ -98,7 +123,7 @@ TEST(BasicTest, TestBaseOperation) {
         double mtime = time_diff(start, end);
         double avg_time_per_update = mtime / (double)trials;
         printf("%s\n", port.pretty(" ").c_str());
-        printf("(PWMPort) Avg time per 1000000 operations: %4.4f(sec)\n",
+        printf("(ServoPort) Avg time per 1000000 operations: %4.4f(sec)\n",
                1000000.0 * avg_time_per_update);
     }
 
@@ -108,7 +133,7 @@ TEST(BasicTest, TestBaseOperation) {
         for (int i = 0; i < 1; ++i) {
             ChannelConfig digital_output_channel_config;
             digital_output_channel_config.channel_name = "D" + std::to_string(i);
-            digital_output_channel_config.channel_type = ChannelDefinition::ChannelType::PWM;
+            digital_output_channel_config.channel_type = ChannelDefinition::ChannelType::SERVO;
             digital_output_channel_config.direction = ChannelDefinition::Direction::OUTPUT;
             digital_output_channel_config.pin_number = i;
             digital_output_channel_config.data_config =
