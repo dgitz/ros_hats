@@ -25,8 +25,8 @@ class TerminalHat : public Hat
 {
    public:
     enum class HatModel {
-        UNKNOWN = 0, /*!< Uninitialized value. */
-        GENERIC = 1, /*!< Generic Terminal Hat.  Essentially acts as if no hat is connected."  */
+        UNKNOWN = 0,     /*!< Uninitialized value. */
+        GENERIC = 1,     /*!< Generic Terminal Hat.  Essentially acts as if no hat is connected.  */
         END_OF_LIST = 2, /*!< Last item of list. Used for Range Checks. */
     };
     //! Convert TerminalHat::HatModel to human readable string
