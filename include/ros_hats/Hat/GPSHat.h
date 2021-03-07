@@ -24,8 +24,9 @@ class GPSHat : public Hat
 {
    public:
     enum class HatModel {
-        UNKNOWN = 0,     /*!< Uninitialized value. */
-        STANDARD = 1,    /*!< Standard GPS Hat that is connected via Serial Port.  */
+        UNKNOWN = 0,  /*!< Uninitialized value. */
+        STANDARD = 1, /*!< Standard GPS Hat that is connected via Serial Port.  Uses GPS Daemon to
+                         processing. */
         END_OF_LIST = 2, /*!< Last item of list. Used for Range Checks. */
     };
     //! Convert GPSHat::HatModel to human readable string
