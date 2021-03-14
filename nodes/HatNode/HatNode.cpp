@@ -91,6 +91,7 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
     std::map<std::string, HatConfig> hat_configs = process->load_hat_config();
     // Create Hats
     for (auto hat_it : hat_configs) {
+#ifdef __arm__
         if (hat_it.second.hat_type == "RelayHat") {
             RelayHat::HatModel model = RelayHat::HatModelType(hat_it.second.hat_model);
             if (model == RelayHat::HatModel::UNKNOWN) {
@@ -123,7 +124,22 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
                 hats.emplace(std::make_pair(hat_it.second.hat_name, new GPSHat(model)));
             }
         }
-#ifdef __arm__
+        else if (hat_it.second.hat_type == "TerminalHat") {
+            TerminalHat::HatModel model = TerminalHat::HatModelType(hat_it.second.hat_model);
+            if (model == TerminalHat::HatModel::UNKNOWN) {
+                diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
+                                                  Level::Type::ERROR,
+                                                  Diagnostic::Message::INITIALIZING_ERROR,
+                                                  "Hat Type: " + hat_it.second.hat_type +
+                                                      " Model: " + hat_it.second.hat_model +
+                                                      " Not Supported.");
+                logger->log_diagnostic(diag);
+                return diag;
+            }
+            else {
+                hats.emplace(std::make_pair(hat_it.second.hat_name, new TerminalHat(model)));
+            }
+        }
         else if (hat_it.second.hat_type == "ServoHat") {
             ServoHat::HatModel model = ServoHat::HatModelType(hat_it.second.hat_model);
             if (model == ServoHat::HatModel::UNKNOWN) {
@@ -140,7 +156,6 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
                 hats.emplace(std::make_pair(hat_it.second.hat_name, new ServoHat(model)));
             }
         }
-#endif
         else {
             diag = process->update_diagnostic(
                 Diagnostic::DiagnosticType::DATA_STORAGE,
@@ -150,6 +165,7 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
             logger->log_diagnostic(diag);
             return diag;
         }
+#endif
     }
     if (hat_configs.size() == 0) {
         diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
@@ -159,6 +175,19 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
         logger->log_diagnostic(diag);
         return diag;
     }
+    std::string board_version = process->exec(RaspberryPiDefinition::boardversion_check, true);
+    RaspberryPiDefinition::RaspberryPiModel pi_model =
+        RaspberryPiDefinition::RaspberryPiModelFromVersion(board_version);
+    if (pi_model == RaspberryPiDefinition::RaspberryPiModel::UNKNOWN) {
+        diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
+                                          Level::Type::ERROR,
+                                          Diagnostic::Message::INITIALIZING_ERROR,
+                                          "Unsupported Raspberry Pi Version: " + board_version);
+        logger->log_diagnostic(diag);
+        return diag;
+    }
+    logger->log_warn("Detected Board Version: " +
+                     RaspberryPiDefinition::RaspberryPiModelString(pi_model));
     for (auto hat_it : hats) {
         auto config = hat_configs.find(hat_it.first);
         if (config == hat_configs.end()) {
@@ -169,10 +198,38 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
             logger->log_diagnostic(diag);
             return diag;
         }
+
+#ifdef __arm__
         {
             RelayHat *hat = dynamic_cast<RelayHat *>(hat_it.second.get());
             if (hat != nullptr) {
-                if (hat->init(logger, config->second) == false) {
+                if (hat->init(logger, pi_model, config->second) == false) {
+                    diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
+                                                      Level::Type::ERROR,
+                                                      Diagnostic::Message::INITIALIZING_ERROR,
+                                                      "Unable to initialize Hat: " + hat_it.first);
+                    return diag;
+                }
+                else {
+                    // Hat Initialized OK.  Now need to setup ROS for the Hat
+                    if (hat->init_ros(n, host_name) == false) {
+                        diag = process->update_diagnostic(
+                            Diagnostic::DiagnosticType::DATA_STORAGE,
+                            Level::Type::ERROR,
+                            Diagnostic::Message::INITIALIZING_ERROR,
+                            "Unable to initialize Hat ROS Connection: " + hat_it.first);
+                        return diag;
+                    }
+                    else {
+                        logger->log_notice("Hat: " + hat_it.first + " Initialized.");
+                    }
+                }
+            }
+        }
+        {
+            TerminalHat *hat = dynamic_cast<TerminalHat *>(hat_it.second.get());
+            if (hat != nullptr) {
+                if (hat->init(logger, pi_model, config->second) == false) {
                     diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
                                                       Level::Type::ERROR,
                                                       Diagnostic::Message::INITIALIZING_ERROR,
@@ -198,7 +255,7 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
         {
             GPSHat *hat = dynamic_cast<GPSHat *>(hat_it.second.get());
             if (hat != nullptr) {
-                if (hat->init(logger, config->second) == false) {
+                if (hat->init(logger, pi_model, config->second) == false) {
                     diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
                                                       Level::Type::ERROR,
                                                       Diagnostic::Message::INITIALIZING_ERROR,
@@ -221,12 +278,11 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
                 }
             }
         }
-#ifdef __arm__
         {
             ServoHat *hat = dynamic_cast<ServoHat *>(hat_it.second.get());
             if (hat != nullptr) {
                 if (config->second.use_default_config == true) {}
-                if (hat->init(logger, config->second) == false) {
+                if (hat->init(logger, pi_model, config->second) == false) {
                     diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
                                                       Level::Type::ERROR,
                                                       Diagnostic::Message::INITIALIZING_ERROR,
@@ -322,7 +378,10 @@ void HatNode::cleanup() {
     for (auto hat_it : hats) { hat_it.second->cleanup(); }
     process->request_statechange(Node::State::FINISHED);
     process->cleanup();
-    delete process;
+    if (process != nullptr) {
+        delete process;
+    }
+    process = nullptr;
     base_cleanup();
 }
 void signalinterrupt_handler(int sig) {
@@ -345,6 +404,9 @@ int main(int argc, char **argv) {
     }
     node->cleanup();
     thread.detach();
-    delete node;
+    if (node != nullptr) {
+        delete node;
+    }
+    node = nullptr;
     return 0;
 }

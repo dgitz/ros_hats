@@ -46,7 +46,7 @@ class GPSInputChannel : public Channel
         channel_config = _config;
         auto data_config = std::static_pointer_cast<GPSChannelDataConfig>(_config.data_config);
         channel_config.channel_type = ChannelDefinition::ChannelType::GPS;
-        channel_config.direction = ChannelDefinition::Direction::INPUT;
+        channel_config.direction = ChannelDefinition::Direction::CH_INPUT;
     }
     ~GPSInputChannel();
 

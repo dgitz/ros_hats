@@ -50,7 +50,7 @@ class RelayHat : public Hat
     RelayHat(HatModel _model) : model(_model) {
     }
     ~RelayHat();
-    bool init(Logger *_logger, HatConfig _config);
+    bool init(Logger *_logger, RaspberryPiDefinition::RaspberryPiModel _board, HatConfig _config);
     ChannelDefinition::ChannelErrorType update_pin(std::string pin_name, int64_t value);
     bool init_ros(boost::shared_ptr<ros::NodeHandle>, std::string host_name);
     void DigitalOutputCallback(const std_msgs::Bool::ConstPtr &msg, const std::string &pin_name);

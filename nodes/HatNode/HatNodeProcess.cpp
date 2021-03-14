@@ -48,7 +48,7 @@ std::map<std::string, HatConfig> HatNodeProcess::load_hat_config(std::string fil
         if (find_type != obj.end()) {
             device_type = *find_type;
             if ((device_type == "ServoHat") || (device_type == "RelayHat") ||
-                (device_type == "GPSHat")) {
+                (device_type == "GPSHat") || (device_type == "TerminalHat")) {
                 auto find_model = obj.find("Model");
                 if (find_model != obj.end()) {
                     device_model = *find_model;
@@ -92,8 +92,6 @@ std::map<std::string, HatConfig> HatNodeProcess::load_hat_config(std::string fil
                             int64_t v3 = *max_value;
                             channel.data_config = std::make_shared<DigitalChannelDataConfig>(
                                 DigitalChannelDataConfig(v1, v2, v3));
-                            auto test = std::static_pointer_cast<DigitalChannelDataConfig>(
-                                channel.data_config);
                         }
                         else if (channel.channel_type == ChannelDefinition::ChannelType::SERVO) {
                             auto pin_number = channel_it.value().find("PinNumber");

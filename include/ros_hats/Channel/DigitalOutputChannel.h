@@ -26,7 +26,7 @@ class DigitalOutputChannel : public Channel
         upper_range = data_config->max_value;
         lower_range = data_config->min_value;
         channel_config.channel_type = ChannelDefinition::ChannelType::DIGITAL;
-        channel_config.direction = ChannelDefinition::Direction::OUTPUT;
+        channel_config.direction = ChannelDefinition::Direction::CH_OUTPUT;
     }
     ~DigitalOutputChannel();
 

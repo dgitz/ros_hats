@@ -52,7 +52,7 @@ class GPSHat : public Hat
     GPSHat(HatModel _model) : model(_model) {
     }
     ~GPSHat();
-    bool init(Logger *_logger, HatConfig _config);
+    bool init(Logger *_logger, RaspberryPiDefinition::RaspberryPiModel _board, HatConfig _config);
     ChannelDefinition::ChannelErrorType update_pin(std::string pin_name, int64_t value);
     bool init_ros(boost::shared_ptr<ros::NodeHandle>, std::string host_name);
     std::string pretty(std::string pre);

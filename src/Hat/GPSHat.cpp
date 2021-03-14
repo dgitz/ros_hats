@@ -7,8 +7,10 @@ std::string GPSHat::pretty(std::string pre) {
     str += gps_port.pretty(pre + "\t") + "\n";
     return str;
 }
-bool GPSHat::init(Logger *_logger, HatConfig _config) {
-    bool v = base_init(_logger);
+bool GPSHat::init(Logger *_logger,
+                  RaspberryPiDefinition::RaspberryPiModel _board,
+                  HatConfig _config) {
+    bool v = base_init(_logger, _board);
     if (v == false) {
         return false;
     }
@@ -32,7 +34,8 @@ bool GPSHat::init(Logger *_logger, HatConfig _config) {
     diagnostic = diag_helper.update_diagnostic(diagnostic);
     if (model == GPSHat::HatModel::STANDARD) {
         if (hat_config.use_default_config == true) {
-            logger->log_warn("Using Default Values for Model: " + GPSHat::HatModelString(model));
+            logger->log_warn("[GPSHat] Using Default Values for Model: " +
+                             GPSHat::HatModelString(model));
             hat_config.ports = create_default_port_configs();
         }
         else {
@@ -64,11 +67,11 @@ std::vector<PortConfig> GPSHat::create_default_port_configs() {
         {
             PortConfig port("GPSPort0",
                             ChannelDefinition::ChannelType::GPS,
-                            ChannelDefinition::Direction::INPUT);
+                            ChannelDefinition::Direction::CH_INPUT);
             {
                 ChannelConfig channel("GPS0",
                                       ChannelDefinition::ChannelType::GPS,
-                                      ChannelDefinition::Direction::INPUT,
+                                      ChannelDefinition::Direction::CH_INPUT,
                                       0);
                 channel.data_config =
                     std::make_shared<GPSChannelDataConfig>(GPSChannelDataConfig());
@@ -146,7 +149,10 @@ bool GPSHat::cleanup() {
     if (v == false) {
         cleanup_ok = false;
     }
-    delete driver;
+    if (driver != nullptr) {
+        delete driver;
+    }
+    driver = nullptr;
     if (cleanup_ok == true) {
         logger->log_notice("GPSHat Cleaned Up Successfully.");
     }

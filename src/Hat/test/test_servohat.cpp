@@ -34,7 +34,8 @@ TEST(BasicTest, TestOperation_ServoHat) {
         ServoHat hat(ServoHat::HatModel::ADAFRUIT_SERVOHAT_16CH);
         HatConfig _config("ServoHat1", "ServoHat", "Adafruit 16Ch Servo Hat", true);
 
-        bool status = hat.init(logger, _config);
+        bool status = hat.init(
+            logger, RaspberryPiDefinition::RaspberryPiModel::RASPBERRYPI_4_MODEL_B, _config);
         EXPECT_TRUE(hat.get_diagnostic().level <= Level::Type::ERROR);
 
         printf("%s\n", hat.pretty(" ").c_str());
@@ -45,6 +46,7 @@ TEST(BasicTest, TestOperation_ServoHat) {
             logger->log_warn("Not running anymore tests.");
             return;
         }
+        delete logger;
     }
 }
 int main(int argc, char** argv) {

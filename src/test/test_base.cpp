@@ -24,7 +24,7 @@ TEST(BasicTest, TestBaseOperation) {
         ChannelConfig servo_output_channel_config;
         servo_output_channel_config.channel_name = "ServoOutput1";
         servo_output_channel_config.channel_type = ChannelDefinition::ChannelType::SERVO;
-        servo_output_channel_config.direction = ChannelDefinition::Direction::OUTPUT;
+        servo_output_channel_config.direction = ChannelDefinition::Direction::CH_OUTPUT;
         servo_output_channel_config.pin_number = 0;
         servo_output_channel_config.data_config =
             std::make_shared<ServoChannelDataConfig>(ServoChannelDataConfig(1500, 1000, 2000));
@@ -32,7 +32,7 @@ TEST(BasicTest, TestBaseOperation) {
         ChannelConfig digital_output_channel_config;
         digital_output_channel_config.channel_name = "DigitalOutput1";
         digital_output_channel_config.channel_type = ChannelDefinition::ChannelType::DIGITAL;
-        digital_output_channel_config.direction = ChannelDefinition::Direction::OUTPUT;
+        digital_output_channel_config.direction = ChannelDefinition::Direction::CH_OUTPUT;
         digital_output_channel_config.pin_number = 0;
         digital_output_channel_config.data_config =
             std::make_shared<DigitalChannelDataConfig>(DigitalChannelDataConfig(0, 0, 100));
@@ -40,7 +40,7 @@ TEST(BasicTest, TestBaseOperation) {
         ChannelConfig digital_input_channel_config;
         digital_input_channel_config.channel_name = "DigitalInput1";
         digital_input_channel_config.channel_type = ChannelDefinition::ChannelType::DIGITAL;
-        digital_input_channel_config.direction = ChannelDefinition::Direction::OUTPUT;
+        digital_input_channel_config.direction = ChannelDefinition::Direction::CH_OUTPUT;
         digital_input_channel_config.pin_number = 1;
         digital_input_channel_config.data_config =
             std::make_shared<DigitalChannelDataConfig>(DigitalChannelDataConfig(0, 0, 100));
@@ -53,7 +53,7 @@ TEST(BasicTest, TestBaseOperation) {
 
         std::size_t passed = 0;
         for (std::size_t i = 0; i < channels.size(); ++i) {
-            if (channels.at(i)->get_direction() == ChannelDefinition::Direction::OUTPUT) {
+            if (channels.at(i)->get_direction() == ChannelDefinition::Direction::CH_OUTPUT) {
                 if (channels.at(i)->get_channel_type() == ChannelDefinition::ChannelType::DIGITAL) {
                     DigitalOutputChannel *channel =
                         dynamic_cast<DigitalOutputChannel *>(channels.at(i).get());
@@ -73,7 +73,7 @@ TEST(BasicTest, TestBaseOperation) {
                     }
                 }
             }
-            else if (channels.at(i)->get_direction() == ChannelDefinition::Direction::INPUT) {
+            else if (channels.at(i)->get_direction() == ChannelDefinition::Direction::CH_INPUT) {
                 if (channels.at(i)->get_channel_type() == ChannelDefinition::ChannelType::DIGITAL) {
                     DigitalInputChannel *channel =
                         dynamic_cast<DigitalInputChannel *>(channels.at(i).get());
@@ -94,7 +94,7 @@ TEST(BasicTest, TestBaseOperation) {
             ChannelConfig servo_output_channel_config;
             servo_output_channel_config.channel_name = "P" + std::to_string(i);
             servo_output_channel_config.channel_type = ChannelDefinition::ChannelType::SERVO;
-            servo_output_channel_config.direction = ChannelDefinition::Direction::OUTPUT;
+            servo_output_channel_config.direction = ChannelDefinition::Direction::CH_OUTPUT;
             servo_output_channel_config.pin_number = i;
             servo_output_channel_config.data_config =
                 std::make_shared<ServoChannelDataConfig>(ServoChannelDataConfig(1500, 1000, 2000));
@@ -134,7 +134,7 @@ TEST(BasicTest, TestBaseOperation) {
             ChannelConfig digital_output_channel_config;
             digital_output_channel_config.channel_name = "D" + std::to_string(i);
             digital_output_channel_config.channel_type = ChannelDefinition::ChannelType::SERVO;
-            digital_output_channel_config.direction = ChannelDefinition::Direction::OUTPUT;
+            digital_output_channel_config.direction = ChannelDefinition::Direction::CH_OUTPUT;
             digital_output_channel_config.pin_number = i;
             digital_output_channel_config.data_config =
                 std::make_shared<DigitalChannelDataConfig>(DigitalChannelDataConfig(0, 0, 1));
