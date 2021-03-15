@@ -1,4 +1,8 @@
 #include <ros_hats/Hat/TerminalHat.h>
+std::vector<ros::Publisher>
+    ROSHATS_TERMINALHAT_H_digitalinput_pubs;  // Avoid potential global variable conflicts
+DigitalInputPort ROSHATS_TERMINALHAT_H_digitalinput_port;
+std::vector<std::string> ROSHATS_TERMINALHAT_H_digitalinput_channel_names;
 TerminalHat::~TerminalHat() {
 }
 std::string TerminalHat::pretty(std::string pre) {
@@ -115,6 +119,12 @@ bool TerminalHat::init_ros(boost::shared_ptr<ros::NodeHandle> _n, std::string ho
                 case 8: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_8); break;
                 case 9: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_9); break;
                 case 10: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_10); break;
+                case 11: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_11); break;
+                case 12: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_12); break;
+                case 13: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_13); break;
+                case 14: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_14); break;
+                case 15: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_15); break;
+                case 16: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_16); break;
                 default: break;
             }
         }
@@ -271,4 +281,22 @@ void TerminalHat::digitalInputCB_9(void) {
 }
 void TerminalHat::digitalInputCB_10(void) {
     update_digitalinput_frompin(9);
+}
+void TerminalHat::digitalInputCB_11(void) {
+    update_digitalinput_frompin(10);
+}
+void TerminalHat::digitalInputCB_12(void) {
+    update_digitalinput_frompin(11);
+}
+void TerminalHat::digitalInputCB_13(void) {
+    update_digitalinput_frompin(12);
+}
+void TerminalHat::digitalInputCB_14(void) {
+    update_digitalinput_frompin(13);
+}
+void TerminalHat::digitalInputCB_15(void) {
+    update_digitalinput_frompin(14);
+}
+void TerminalHat::digitalInputCB_16(void) {
+    update_digitalinput_frompin(15);
 }

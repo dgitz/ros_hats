@@ -16,19 +16,6 @@ bool GPIODriver::init(std::string _gpio_pin_name,
     pin_number = std::atoi(gpio_pin_name.c_str());
     number = pin_number;
     wiringPiSetupGpio();
-    /*
-    // TODO export pin, set mode of pin, callback register, etc.
-    if (export_gpio(gpio_pin_name) == false) {
-        return false;
-    }
-    if (channel_type == ChannelDefinition::ChannelType::DIGITAL) {
-        if (channel_direction == ChannelDefinition::Direction::CH_INPUT) {
-            if (setdir_gpio(gpio_pin_name, "in") == false) {
-                return false;
-            }
-        }
-    }
-    */
     if (channel_type == ChannelDefinition::ChannelType::DIGITAL) {
         if (channel_direction == ChannelDefinition::Direction::CH_INPUT) {
             pinMode(pin_number, INPUT);

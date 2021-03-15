@@ -6,7 +6,7 @@ install(TARGETS roshat_hat
         RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})
 if (${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL armv7l)
         add_library(roshat_relayhat RelayHat.cpp Driver/GPIODriver.cpp)
-        target_link_libraries(roshat_relayhat ${catkin_LIBRARIES} logger roshat_hat roshat_digitaloutputchannel roshat_digitaloutputport)
+        target_link_libraries(roshat_relayhat ${catkin_LIBRARIES} wiringPi logger roshat_hat roshat_digitaloutputchannel roshat_digitaloutputport)
 
 
         add_library(roshat_gpshat GPSHat.cpp Driver/GPSHatDriver.cpp)

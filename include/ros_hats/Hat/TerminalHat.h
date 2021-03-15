@@ -27,27 +27,17 @@
 - document max number of callbacks
 - document usage of inputs (only publish when input edge goes to high)
 - usage instructions for class (only 1 instance of TerminalHat on a DEVICE!!!)
-- force limit of 1 digital input port -- done
-- set value of digital input -- done
-- test multiple input -- done
-- digital output -- done
-- get type of raspberry pi -- done
-- cleanup pins when done -- done
-- memory corruption error when finished
 - add US to make RelayHat use wiringPI instead of sysfs
 */
 /*! \class TerminalHat
     \brief TerminalHat class
     Basic container for a TerminalHat
 */
-std::vector<ros::Publisher>
-    ROSHATS_TERMINALHAT_H_digitalinput_pubs;  // Avoid potential global variable conflicts
-DigitalInputPort ROSHATS_TERMINALHAT_H_digitalinput_port;
-std::vector<std::string> ROSHATS_TERMINALHAT_H_digitalinput_channel_names;
+
 class TerminalHat : public Hat
 {
    public:
-    const int MAXDIGITALINPUT_CALLBACKS = 10;
+    const int MAXDIGITALINPUT_CALLBACKS = 16;
     enum class HatModel {
         UNKNOWN = 0,     /*!< Uninitialized value. */
         STANDARD = 1,    /*!< Standard Terminal Hat.  */
@@ -99,6 +89,12 @@ class TerminalHat : public Hat
     static void digitalInputCB_8();
     static void digitalInputCB_9();
     static void digitalInputCB_10();
+    static void digitalInputCB_11();
+    static void digitalInputCB_12();
+    static void digitalInputCB_13();
+    static void digitalInputCB_14();
+    static void digitalInputCB_15();
+    static void digitalInputCB_16();
     HatModel model;
     HatConfig hat_config;
     std::vector<ros::Subscriber> digitaloutput_subs;
