@@ -7,8 +7,10 @@ std::string RelayHat::pretty(std::string pre) {
     str += relay_port.pretty(pre + "\t") + "\n";
     return str;
 }
-bool RelayHat::init(Logger *_logger, HatConfig _config) {
-    bool v = base_init(_logger);
+bool RelayHat::init(Logger *_logger,
+                    RaspberryPiDefinition::RaspberryPiModel _board,
+                    HatConfig _config) {
+    bool v = base_init(_logger, _board);
     if (v == false) {
         return false;
     }
@@ -32,7 +34,8 @@ bool RelayHat::init(Logger *_logger, HatConfig _config) {
     diagnostic = diag_helper.update_diagnostic(diagnostic);
     if (model == RelayHat::HatModel::RPI_RELAY_HAT) {
         if (hat_config.use_default_config == true) {
-            logger->log_warn("Using Default Values for Model: " + RelayHat::HatModelString(model));
+            logger->log_warn("[RelayHat] Using Default Values for Model: " +
+                             RelayHat::HatModelString(model));
             hat_config.ports = create_default_port_configs();
         }
         else {
@@ -95,11 +98,11 @@ std::vector<PortConfig> RelayHat::create_default_port_configs() {
         {
             PortConfig port("DigitalPort0",
                             ChannelDefinition::ChannelType::DIGITAL,
-                            ChannelDefinition::Direction::OUTPUT);
+                            ChannelDefinition::Direction::CH_OUTPUT);
             {
                 ChannelConfig channel("20",
                                       ChannelDefinition::ChannelType::DIGITAL,
-                                      ChannelDefinition::Direction::OUTPUT,
+                                      ChannelDefinition::Direction::CH_OUTPUT,
                                       0);
                 channel.data_config =
                     std::make_shared<DigitalChannelDataConfig>(DigitalChannelDataConfig(0, 0, 1));
@@ -108,7 +111,7 @@ std::vector<PortConfig> RelayHat::create_default_port_configs() {
             {
                 ChannelConfig channel("21",
                                       ChannelDefinition::ChannelType::DIGITAL,
-                                      ChannelDefinition::Direction::OUTPUT,
+                                      ChannelDefinition::Direction::CH_OUTPUT,
                                       1);
                 channel.data_config =
                     std::make_shared<DigitalChannelDataConfig>(DigitalChannelDataConfig(0, 0, 1));
@@ -117,7 +120,7 @@ std::vector<PortConfig> RelayHat::create_default_port_configs() {
             {
                 ChannelConfig channel("26",
                                       ChannelDefinition::ChannelType::DIGITAL,
-                                      ChannelDefinition::Direction::OUTPUT,
+                                      ChannelDefinition::Direction::CH_OUTPUT,
                                       2);
                 channel.data_config =
                     std::make_shared<DigitalChannelDataConfig>(DigitalChannelDataConfig(0, 0, 1));

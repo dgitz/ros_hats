@@ -33,7 +33,8 @@ TEST(BasicTest, TestOperation_GPSHat) {
         Logger* logger = new Logger("DEBUG", "UnitTest_GPSHat");
         GPSHat hat(GPSHat::HatModel::STANDARD);
         HatConfig _config("GPSHat1", "GPSHat", "Standard", true);
-        bool status = hat.init(logger, _config);
+        bool status = hat.init(
+            logger, RaspberryPiDefinition::RaspberryPiModel::RASPBERRYPI_4_MODEL_B, _config);
         printf("%s\n", hat.pretty(" ").c_str());
         if (status == false) {
             logger->log_warn("Hat did not initialize.  Maybe Hat is not installed?  Exiting.\n");
@@ -58,6 +59,7 @@ TEST(BasicTest, TestOperation_GPSHat) {
         EXPECT_TRUE(hat.get_diagnostic().level <= Level::Type::NOTICE);
 
         hat.cleanup();
+        delete logger;
     }
 }
 int main(int argc, char** argv) {

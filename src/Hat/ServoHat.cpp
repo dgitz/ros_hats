@@ -18,8 +18,10 @@ std::string ServoHat::pretty(std::string pre) {
     }
     return str;
 }
-bool ServoHat::init(Logger *_logger, HatConfig _config) {
-    bool v = base_init(_logger);
+bool ServoHat::init(Logger *_logger,
+                    RaspberryPiDefinition::RaspberryPiModel _board,
+                    HatConfig _config) {
+    bool v = base_init(_logger, _board);
     if (v == false) {
         return false;
     }
@@ -44,7 +46,8 @@ bool ServoHat::init(Logger *_logger, HatConfig _config) {
     if (model == ServoHat::HatModel::ADAFRUIT_SERVOHAT_16CH) {
         if (hat_config.use_default_config == true) {
             hat_config.ports = create_default_port_configs();
-            logger->log_warn("Using Default Values for Model: " + ServoHat::HatModelString(model));
+            logger->log_warn("[ServoHat] Using Default Values for Model: " +
+                             ServoHat::HatModelString(model));
         }
         int status = driver.init();
         if (status < 0) {
@@ -75,11 +78,11 @@ std::vector<PortConfig> ServoHat::create_default_port_configs() {
             for (int i = 0; i < 4; ++i) {
                 PortConfig port("ServoPort" + std::to_string(i),
                                 ChannelDefinition::ChannelType::SERVO,
-                                ChannelDefinition::Direction::OUTPUT);
+                                ChannelDefinition::Direction::CH_OUTPUT);
                 for (int j = 0; j < 4; ++j) {
                     ChannelConfig channel(std::to_string(j),
                                           ChannelDefinition::ChannelType::SERVO,
-                                          ChannelDefinition::Direction::OUTPUT,
+                                          ChannelDefinition::Direction::CH_OUTPUT,
                                           counter);
                     channel.data_config = std::make_shared<ServoChannelDataConfig>(
                         ServoChannelDataConfig(1500, 1000, 2000));

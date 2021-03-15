@@ -3,7 +3,9 @@
 #ifndef ROSHATS_DEFINITIONS_H
 #define ROSHATS_DEFINITIONS_H
 #include <eros/eROS_Definitions.h>
+#include <stdio.h>
 
+#include <boost/bimap.hpp>
 #include <map>
 #include <memory>
 #include <vector>
@@ -118,14 +120,14 @@ class ChannelDefinition
     }
 
     enum class Direction {
-        UNKNOWN = 0, /*!< Uninitialized value. */
-        INPUT = 1,   /*!< A Channel that only acts as an Input (relative to the device that is using
-                        this Channel). */
-        OUTPUT = 2, /*!< A Channel that only acts as an Output (relative to the device that is using
-                       this Channel). */
-        INPUTOUTPUT = 3, /*!< A Channel that can act as an input or an output (relative to the
+        UNKNOWN = 0,   /*!< Uninitialized value. */
+        CH_INPUT = 1,  /*!< A Channel that only acts as an Input (relative to the device that is
+                       using  this Channel). */
+        CH_OUTPUT = 2, /*!< A Channel that only acts as an Output (relative to the device that is
+                       using this Channel). */
+        CH_INPUTOUTPUT = 3, /*!< A Channel that can act as an input or an output (relative to the
                             device that is using this Channel). */
-        END_OF_LIST = 4, /*!< Last item of list. Used for Range Checks. */
+        END_OF_LIST = 4,    /*!< Last item of list. Used for Range Checks. */
     };
 
     //! Convert ChannelDefinition::Direction to human readable string
@@ -136,26 +138,27 @@ class ChannelDefinition
     static std::string ChannelDirectionString(ChannelDefinition::Direction v) {
         switch (v) {
             case ChannelDefinition::Direction::UNKNOWN: return "UNKNOWN"; break;
-            case ChannelDefinition::Direction::INPUT: return "INPUT"; break;
-            case ChannelDefinition::Direction::OUTPUT: return "OUTPUT"; break;
-            case ChannelDefinition::Direction::INPUTOUTPUT: return "INPUTOUTPUT"; break;
+            case ChannelDefinition::Direction::CH_INPUT: return "INPUT"; break;
+            case ChannelDefinition::Direction::CH_OUTPUT: return "OUTPUT"; break;
+            case ChannelDefinition::Direction::CH_INPUTOUTPUT: return "INPUTOUTPUT"; break;
             default: return ChannelDirectionString(ChannelDefinition::Direction::UNKNOWN); break;
         }
     }
 
     static Direction DirectionEnum(std::string v) {
         if (v == "INPUT") {
-            return ChannelDefinition::Direction::INPUT;
+            return ChannelDefinition::Direction::CH_INPUT;
         }
         else if (v == "OUTPUT") {
-            return ChannelDefinition::Direction::OUTPUT;
+            return ChannelDefinition::Direction::CH_OUTPUT;
         }
         else if (v == "INPUTOUTPUT") {
-            return ChannelDefinition::Direction::INPUTOUTPUT;
+            return ChannelDefinition::Direction::CH_INPUTOUTPUT;
         }
         else {
             ChannelDefinition::Direction::UNKNOWN;
         }
+        return ChannelDefinition::Direction::UNKNOWN;
     }
 };
 struct ChannelDataConfig {};
@@ -240,6 +243,9 @@ struct HatConfig {
 class RaspberryPiDefinition
 {
    public:
+    static constexpr const char* boardversion_check =
+        "cat /proc/cpuinfo | grep 'Revision' | awk '{print $3}' | sed 's/^1000//'";
+    typedef boost::bimap<std::string, uint16_t> pin_map_type;
     enum class RaspberryPiModel {
         UNKNOWN = 0,                   /*!< Uninitialized value. */
         RASPBERRYPI_2_MODEL_B = 1,     /*!< Raspberry Pi 2 ModelB. */
@@ -253,6 +259,75 @@ class RaspberryPiDefinition
         RASPBERRYPI_400 = 9,           /*!<  */
         END_OF_LIST = 10               /*!< Last item of list. Used for Range Checks. */
     };
+    static RaspberryPiDefinition::RaspberryPiModel RaspberryPiModelFromVersion(std::string v) {
+        // Source: https://elinux.org/RPi_HardwareHistory
+        if (v == "a01041") {
+            return RaspberryPiModel::RASPBERRYPI_2_MODEL_B;
+        }
+        else if (v == "a21041") {
+            return RaspberryPiModel::RASPBERRYPI_2_MODEL_B;
+        }
+        else if (v == "a22042") {
+            return RaspberryPiModel::RASPBERRYPI_2_MODEL_B;
+        }
+        else if (v == "900092") {
+            return RaspberryPiModel::RASPBERRYPI_ZER0;
+        }
+        else if (v == "900093") {
+            return RaspberryPiModel::RASPBERRYPI_ZER0;
+        }
+        else if (v == "920093") {
+            return RaspberryPiModel::RASPBERRYPI_ZER0;
+        }
+        else if (v == "9000c1") {
+            return RaspberryPiModel::RASPBERRYPI_ZERO_W;
+        }
+        else if (v == "a02082") {
+            return RaspberryPiModel::RASPBERRYPI_3_MODEL_B;
+        }
+        else if (v == "a22082") {
+            return RaspberryPiModel::RASPBERRYPI_3_MODEL_B;
+        }
+        else if (v == "a32082") {
+            return RaspberryPiModel::RASPBERRYPI_3_MODEL_B;
+        }
+        else if (v == "a020d3") {
+            return RaspberryPiModel::RASPBERRYPI_3_MODEL_BPLUS;
+        }
+        else if (v == "9020e0") {
+            return RaspberryPiModel::RASPBERRYPI_3_MODEL_APLUS;
+        }
+        else if (v == "a03111") {
+            return RaspberryPiModel::RASPBERRYPI_4_MODEL_B;
+        }
+        else if (v == "b03111") {
+            return RaspberryPiModel::RASPBERRYPI_4_MODEL_B;
+        }
+        else if (v == "b03112") {
+            return RaspberryPiModel::RASPBERRYPI_4_MODEL_B;
+        }
+        else if (v == "b03114") {
+            return RaspberryPiModel::RASPBERRYPI_4_MODEL_B;
+        }
+        else if (v == "c03111") {
+            return RaspberryPiModel::RASPBERRYPI_4_MODEL_B;
+        }
+        else if (v == "c03112") {
+            return RaspberryPiModel::RASPBERRYPI_4_MODEL_B;
+        }
+        else if (v == "c03114") {
+            return RaspberryPiModel::RASPBERRYPI_4_MODEL_B;
+        }
+        else if (v == "d03114") {
+            return RaspberryPiModel::RASPBERRYPI_4_MODEL_B;
+        }
+        else if (v == "") {
+            return RaspberryPiModel::RASPBERRYPI_4_MODEL_B;
+        }
+        else {
+            return RaspberryPiModel::UNKNOWN;
+        }
+    }
     static std::string RaspberryPiModelString(RaspberryPiDefinition::RaspberryPiModel v) {
         switch (v) {
             case RaspberryPiDefinition::RaspberryPiModel::UNKNOWN: return "UNKNOWN"; break;
@@ -311,32 +386,31 @@ class RaspberryPiDefinition
     }
 
     struct PinDefinition {
-        PinDefinition(std::string _gpio_pin_name,
-                      uint16_t _pin_number,
-                      std::vector<PinType> _pin_types)
-            : gpio_pin_name(_gpio_pin_name), pin_number(_pin_number), pin_types(_pin_types) {
+        PinDefinition(std::string _gpio_pin_name, std::vector<PinType> _pin_types)
+            : gpio_pin_name(_gpio_pin_name), pin_types(_pin_types) {
         }
         std::string gpio_pin_name;
-        uint16_t pin_number;
         std::vector<PinType> pin_types;
     };
 
     struct RaspberryPi {
         RaspberryPi() {
         }
-        RaspberryPi(RaspberryPiModel _model, std::map<std::string, PinDefinition> _pin_map)
-            : model(_model), pin_map(_pin_map) {
+        RaspberryPi(RaspberryPiModel _model, std::map<std::string, PinDefinition> _pin_defines)
+            : model(_model), pin_defines(_pin_defines) {
         }
         RaspberryPiModel model;
-        std::map<std::string, PinDefinition> pin_map;
+        std::map<std::string, PinDefinition> pin_defines;
+        pin_map_type pin_map;
     };
 
     static std::string pretty(RaspberryPi device) {
         std::string str = "Raspberry Pi Model: " + RaspberryPiModelString(device.model) + "\n";
         uint16_t counter = 0;
-        for (auto pin : device.pin_map) {
+        for (auto pin : device.pin_defines) {
+            auto pin_number_it = device.pin_map.left.find(pin.second.gpio_pin_name);
             str += "\t[" + std::to_string(counter) + "] GPIO Name: " + pin.second.gpio_pin_name +
-                   " Number: " + std::to_string(pin.second.pin_number) + " Type(s):";
+                   " Number: " + std::to_string(pin_number_it->second) + " Type(s):";
             if (pin.second.pin_types.size() == 0) {
                 str += " NONE DEFINED.\n";
             }
@@ -376,93 +450,127 @@ class RaspberryPiDefinition
             (model == RaspberryPiModel::RASPBERRYPI_ZER0) ||
             (model == RaspberryPiModel::RASPBERRYPI_ZERO_W) ||
             (model == RaspberryPiModel::RASPBERRYPI_ZERO_WH)) {
-            temp_gpio_pin_name = "GPIO02";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name,
-                PinDefinition(temp_gpio_pin_name, 3, {PinType::GPIO, PinType::I2C})));
-            temp_gpio_pin_name = "GPIO03";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name,
-                PinDefinition(temp_gpio_pin_name, 5, {PinType::GPIO, PinType::I2C})));
-            temp_gpio_pin_name = "GPIO04";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 7, {PinType::GPIO})));
-            temp_gpio_pin_name = "GPIO14";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name,
-                PinDefinition(temp_gpio_pin_name, 8, {PinType::GPIO, PinType::UART})));
-            temp_gpio_pin_name = "GPIO15";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name,
-                PinDefinition(temp_gpio_pin_name, 10, {PinType::GPIO, PinType::UART})));
-            temp_gpio_pin_name = "GPIO17";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 11, {PinType::GPIO})));
-            temp_gpio_pin_name = "GPIO18";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 12, {PinType::GPIO})));
-            temp_gpio_pin_name = "GPIO27";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 13, {PinType::GPIO})));
-            temp_gpio_pin_name = "GPIO22";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 15, {PinType::GPIO})));
-            temp_gpio_pin_name = "GPIO23";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 16, {PinType::GPIO})));
-            temp_gpio_pin_name = "GPIO24";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 18, {PinType::GPIO})));
-            temp_gpio_pin_name = "GPIO10";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name,
-                PinDefinition(temp_gpio_pin_name, 19, {PinType::GPIO, PinType::SPI})));
-            temp_gpio_pin_name = "GPIO09";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name,
-                PinDefinition(temp_gpio_pin_name, 21, {PinType::GPIO, PinType::SPI})));
-            temp_gpio_pin_name = "GPIO25";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 22, {PinType::GPIO})));
-            temp_gpio_pin_name = "GPIO11";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name,
-                PinDefinition(temp_gpio_pin_name, 23, {PinType::GPIO, PinType::SPI})));
-            temp_gpio_pin_name = "GPIO08";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name,
-                PinDefinition(temp_gpio_pin_name, 24, {PinType::GPIO, PinType::SPI})));
-            temp_gpio_pin_name = "GPIO07";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name,
-                PinDefinition(temp_gpio_pin_name, 26, {PinType::GPIO, PinType::SPI})));
-            temp_gpio_pin_name = "GPIO05";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 29, {PinType::GPIO})));
-            temp_gpio_pin_name = "GPIO06";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 31, {PinType::GPIO})));
-            temp_gpio_pin_name = "GPIO12";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 32, {PinType::GPIO})));
-            temp_gpio_pin_name = "GPIO13";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 33, {PinType::GPIO})));
-            temp_gpio_pin_name = "GPIO19";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 35, {PinType::GPIO})));
-            temp_gpio_pin_name = "GPIO16";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 36, {PinType::GPIO})));
-            temp_gpio_pin_name = "GPIO26";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 37, {PinType::GPIO})));
-            temp_gpio_pin_name = "GPIO20";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 38, {PinType::GPIO})));
-            temp_gpio_pin_name = "GPIO21";
-            device.pin_map.insert(std::make_pair(
-                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, 40, {PinType::GPIO})));
+            device.pin_map.insert(pin_map_type::value_type("0", 27));
+            device.pin_map.insert(pin_map_type::value_type("1", 28));
+            device.pin_map.insert(pin_map_type::value_type("2", 3));
+            device.pin_map.insert(pin_map_type::value_type("3", 5));
+            device.pin_map.insert(pin_map_type::value_type("4", 7));
+            device.pin_map.insert(pin_map_type::value_type("5", 29));
+            device.pin_map.insert(pin_map_type::value_type("6", 31));
+            device.pin_map.insert(pin_map_type::value_type("7", 26));
+            device.pin_map.insert(pin_map_type::value_type("8", 24));
+            device.pin_map.insert(pin_map_type::value_type("9", 21));
+            device.pin_map.insert(pin_map_type::value_type("10", 19));
+            device.pin_map.insert(pin_map_type::value_type("11", 23));
+            device.pin_map.insert(pin_map_type::value_type("12", 32));
+            device.pin_map.insert(pin_map_type::value_type("13", 33));
+            device.pin_map.insert(pin_map_type::value_type("14", 8));
+            device.pin_map.insert(pin_map_type::value_type("15", 10));
+            device.pin_map.insert(pin_map_type::value_type("16", 36));
+            device.pin_map.insert(pin_map_type::value_type("17", 11));
+            device.pin_map.insert(pin_map_type::value_type("18", 12));
+            device.pin_map.insert(pin_map_type::value_type("19", 35));
+            device.pin_map.insert(pin_map_type::value_type("20", 38));
+            device.pin_map.insert(pin_map_type::value_type("21", 40));
+            device.pin_map.insert(pin_map_type::value_type("22", 15));
+            device.pin_map.insert(pin_map_type::value_type("23", 16));
+            device.pin_map.insert(pin_map_type::value_type("24", 18));
+            device.pin_map.insert(pin_map_type::value_type("25", 22));
+            device.pin_map.insert(pin_map_type::value_type("26", 37));
+            device.pin_map.insert(pin_map_type::value_type("27", 13));
+            temp_gpio_pin_name = "0";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "1";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "2";
+            device.pin_defines.insert(
+                std::make_pair(temp_gpio_pin_name,
+                               PinDefinition(temp_gpio_pin_name, {PinType::GPIO, PinType::I2C})));
+            temp_gpio_pin_name = "3";
+            device.pin_defines.insert(
+                std::make_pair(temp_gpio_pin_name,
+                               PinDefinition(temp_gpio_pin_name, {PinType::GPIO, PinType::I2C})));
+            temp_gpio_pin_name = "4";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "14";
+            device.pin_defines.insert(
+                std::make_pair(temp_gpio_pin_name,
+                               PinDefinition(temp_gpio_pin_name, {PinType::GPIO, PinType::UART})));
+            temp_gpio_pin_name = "15";
+            device.pin_defines.insert(
+                std::make_pair(temp_gpio_pin_name,
+                               PinDefinition(temp_gpio_pin_name, {PinType::GPIO, PinType::UART})));
+            temp_gpio_pin_name = "17";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "18";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "27";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "22";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "23";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "24";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "10";
+            device.pin_defines.insert(
+                std::make_pair(temp_gpio_pin_name,
+                               PinDefinition(temp_gpio_pin_name, {PinType::GPIO, PinType::SPI})));
+            temp_gpio_pin_name = "9";
+            device.pin_defines.insert(
+                std::make_pair(temp_gpio_pin_name,
+                               PinDefinition(temp_gpio_pin_name, {PinType::GPIO, PinType::SPI})));
+            temp_gpio_pin_name = "25";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "11";
+            device.pin_defines.insert(
+                std::make_pair(temp_gpio_pin_name,
+                               PinDefinition(temp_gpio_pin_name, {PinType::GPIO, PinType::SPI})));
+            temp_gpio_pin_name = "8";
+            device.pin_defines.insert(
+                std::make_pair(temp_gpio_pin_name,
+                               PinDefinition(temp_gpio_pin_name, {PinType::GPIO, PinType::SPI})));
+            temp_gpio_pin_name = "7";
+            device.pin_defines.insert(
+                std::make_pair(temp_gpio_pin_name,
+                               PinDefinition(temp_gpio_pin_name, {PinType::GPIO, PinType::SPI})));
+            temp_gpio_pin_name = "5";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "6";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "12";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "13";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "19";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "16";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "26";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "20";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
+            temp_gpio_pin_name = "21";
+            device.pin_defines.insert(std::make_pair(
+                temp_gpio_pin_name, PinDefinition(temp_gpio_pin_name, {PinType::GPIO})));
         }
         return device;
     }

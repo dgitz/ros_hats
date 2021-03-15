@@ -23,7 +23,12 @@ TEST(BasicTest, TestDefintions) {
         EXPECT_TRUE(devices.size() > 0);
         for (auto device : devices) {
             printf("%s\n", RaspberryPiDefinition::pretty(device).c_str());
-            EXPECT_TRUE(device.pin_map.size() > 0);
+            EXPECT_TRUE(device.pin_defines.size() > 0);
+            EXPECT_TRUE(device.pin_defines.size() == device.pin_map.size());
+            for (auto pin : device.pin_map) {
+                auto find = device.pin_defines.find(pin.left);
+                EXPECT_TRUE(find != device.pin_defines.end());
+            }
         }
     }
     // Test Class: HatDefinition

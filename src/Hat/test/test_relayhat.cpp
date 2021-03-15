@@ -41,7 +41,8 @@ TEST(BasicTest, TestOperation_RelayHat) {
         Logger* logger = new Logger("DEBUG", "UnitTest_RelayHat");
         RelayHat hat(RelayHat::HatModel::RPI_RELAY_HAT);
         HatConfig _config("RelayHat1", "RelayHat", "RPi Relay Hat", true);
-        EXPECT_TRUE(hat.init(logger, _config));
+        EXPECT_TRUE(hat.init(
+            logger, RaspberryPiDefinition::RaspberryPiModel::RASPBERRYPI_4_MODEL_B, _config));
         printf("%s\n", hat.pretty(" ").c_str());
         EXPECT_TRUE(hat.get_diagnostic().level <= Level::Type::NOTICE);
 
@@ -71,6 +72,7 @@ TEST(BasicTest, TestOperation_RelayHat) {
         EXPECT_TRUE(hat.get_diagnostic().level <= Level::Type::NOTICE);
 
         EXPECT_TRUE(hat.cleanup() == true);
+        delete logger;
     }
 #else
     printf("[WARN]: Not running tests as this is only supported on Raspberry Pi's.\n");

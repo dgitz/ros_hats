@@ -7,6 +7,7 @@
 #include <eros/eROS_Definitions.h>
 #include <ros_hats/Channel/Channel.h>
 #include <ros_hats/Port/Port.h>
+#include <ros_hats/ROSHATS_Definitions.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -24,7 +25,7 @@ class Hat
    public:
     Hat();
     ~Hat();
-    bool base_init(Logger* _logger);
+    bool base_init(Logger* _logger, RaspberryPiDefinition::RaspberryPiModel _board);
     virtual bool init_ros(boost::shared_ptr<ros::NodeHandle> n, std::string host_name) = 0;
 
     std::string base_pretty(std::string pre);
@@ -39,6 +40,7 @@ class Hat
     boost::shared_ptr<ros::NodeHandle> nodeHandle;
     std::string name;
     Logger* logger;
+    RaspberryPiDefinition::RaspberryPi pi_model;
     Diagnostic diag_helper;
     Diagnostic::DiagnosticDefinition diagnostic;
     bool ros_initialized;

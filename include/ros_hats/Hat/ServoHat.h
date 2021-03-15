@@ -50,7 +50,7 @@ class ServoHat : public Hat
     ServoHat(HatModel _model) : model(_model) {
     }
     ~ServoHat();
-    bool init(Logger *_logger, HatConfig _config);
+    bool init(Logger *_logger, RaspberryPiDefinition::RaspberryPiModel _board, HatConfig _config);
     ChannelDefinition::ChannelErrorType update_pin(std::string port_name,
                                                    std::string pin_name,
                                                    int64_t value);
