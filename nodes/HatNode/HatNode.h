@@ -16,7 +16,7 @@
 #include <ros_hats/Hat/TerminalHat.h>
 #endif
 
-#include "HatNodeProcess.h"
+#include <ros_hats/HatNodeProcess.h>
 
 /*! \class HatNode HatNode.h "HatNode.h"
  *  \brief */
@@ -33,7 +33,7 @@ class HatNode : public BaseNode
     const uint16_t MINOR_RELEASE_VERSION = 1;
 
     /*! \brief The Build Number of the Node.*/
-    const uint16_t BUILD_NUMBER = 0;
+    const uint16_t BUILD_NUMBER = 1;
 
     /*! \brief A Description of the Firmware.*/
     const std::string FIRMWARE_DESCRIPTION = "Latest Rev: 4-March-2021";
