@@ -92,7 +92,10 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
     // Create Hats
     for (auto hat_it : hat_configs) {
 #ifdef __arm__
-        if (hat_it.second.hat_type == "RelayHat") {
+        if ((hat_it.second.hat_type == "DisplayHat"))  // Don't do anything with this type of Hat,
+                                                       // but don't flag it as an error either.
+        {}
+        else if (hat_it.second.hat_type == "RelayHat") {
             RelayHat::HatModel model = RelayHat::HatModelType(hat_it.second.hat_model);
             if (model == RelayHat::HatModel::UNKNOWN) {
                 diag = process->update_diagnostic(Diagnostic::DiagnosticType::DATA_STORAGE,
