@@ -33,10 +33,10 @@ class HatNode : public BaseNode
     const uint16_t MINOR_RELEASE_VERSION = 1;
 
     /*! \brief The Build Number of the Node.*/
-    const uint16_t BUILD_NUMBER = 1;
+    const uint16_t BUILD_NUMBER = 2;
 
     /*! \brief A Description of the Firmware.*/
-    const std::string FIRMWARE_DESCRIPTION = "Latest Rev: 4-March-2021";
+    const std::string FIRMWARE_DESCRIPTION = "Latest Rev: 23-March-2021";
 
     /*! \brief What System this Node falls under.*/
     const System::MainSystem DIAGNOSTIC_SYSTEM = System::MainSystem::ROVER;

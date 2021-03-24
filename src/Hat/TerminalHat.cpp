@@ -3,6 +3,7 @@ std::vector<ros::Publisher>
     ROSHATS_TERMINALHAT_H_digitalinput_pubs;  // Avoid potential global variable conflicts
 DigitalInputPort ROSHATS_TERMINALHAT_H_digitalinput_port;
 std::vector<std::string> ROSHATS_TERMINALHAT_H_digitalinput_channel_names;
+std::vector<uint16_t> ROSHATS_TERMINALHAT_H_digitalinput_pin_numbers;
 TerminalHat::~TerminalHat() {
 }
 std::string TerminalHat::pretty(std::string pre) {
@@ -90,11 +91,28 @@ bool TerminalHat::init_ros(boost::shared_ptr<ros::NodeHandle> _n, std::string ho
         std::vector<DigitalInputChannel> _channels =
             ROSHATS_TERMINALHAT_H_digitalinput_port.get_channels();
         for (auto ch : _channels) {
-            auto found = pi_model.pin_map.right.find(ch.get_pin_number());
-            if (found == pi_model.pin_map.right.end()) {
+            auto pin_it = pi_model.pin_map.right.find(ch.get_pin_number());
+            if (pin_it == pi_model.pin_map.right.end()) {
                 return false;
             }
-            std::string pin_name = found->second;
+
+            std::string pin_name = pin_it->second;
+            auto found = pi_model.pin_defines.find(pin_name);
+            if (found == pi_model.pin_defines.end()) {
+                return false;
+            }
+            std::string tempstr = "/" + host_name + "/" + name + "/" +
+                                  ROSHATS_TERMINALHAT_H_digitalinput_port.get_name() + "/" +
+                                  ch.get_channel_name();
+            for (std::size_t i = 0; i < found->second.pin_types.size(); ++i) {
+                RaspberryPiDefinition::PinType pin_type = found->second.pin_types.at(i);
+                if (pin_type != RaspberryPiDefinition::PinType::GPIO) {
+                    logger->log_warn("Channel: " + tempstr +
+                                     " Has an additional pin capability of: " +
+                                     RaspberryPiDefinition::PinTypeString(pin_type) +
+                                     " That MAY cause a conflict.");
+                }
+            }
             uint16_t gpio_pin_number = std::atoi(pin_name.c_str());
 
             if (ROSHATS_TERMINALHAT_H_digitalinput_pubs.size() == MAXDIGITALINPUT_CALLBACKS) {
@@ -102,29 +120,36 @@ bool TerminalHat::init_ros(boost::shared_ptr<ros::NodeHandle> _n, std::string ho
                 logger->log_warn("Max number of Digital Input callbacks reached. Exiting.");
                 return false;
             }
-            std::string tempstr = "/" + host_name + "/" + name + "/" +
-                                  ROSHATS_TERMINALHAT_H_digitalinput_port.get_name() + "/" +
-                                  ch.get_channel_name();
+
             ROSHATS_TERMINALHAT_H_digitalinput_channel_names.push_back(ch.get_channel_name());
+            ROSHATS_TERMINALHAT_H_digitalinput_pin_numbers.push_back(gpio_pin_number);
             ros::Publisher pub = nodeHandle->advertise<std_msgs::Bool>(tempstr, 20);
             ROSHATS_TERMINALHAT_H_digitalinput_pubs.push_back(pub);
+            pullUpDnControl(gpio_pin_number, PUD_DOWN);
+            logger->log_debug("Adding Input for Channel: " + tempstr +
+                              " RPi Pin: " + std::to_string(ch.get_pin_number()) +
+                              " GPIO Pin Number: " + std::to_string(gpio_pin_number));
+            usleep(50000);  // Give system time to setup
+            update_digitalinput_frompin(ROSHATS_TERMINALHAT_H_digitalinput_pubs.size() - 1);
+            usleep(1000);
+
             switch (ROSHATS_TERMINALHAT_H_digitalinput_pubs.size()) {
-                case 1: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_1); break;
-                case 2: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_2); break;
-                case 3: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_3); break;
-                case 4: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_4); break;
-                case 5: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_5); break;
-                case 6: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_6); break;
-                case 7: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_7); break;
-                case 8: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_8); break;
-                case 9: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_9); break;
-                case 10: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_10); break;
-                case 11: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_11); break;
-                case 12: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_12); break;
-                case 13: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_13); break;
-                case 14: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_14); break;
-                case 15: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_15); break;
-                case 16: wiringPiISR(gpio_pin_number, INT_EDGE_RISING, digitalInputCB_16); break;
+                case 1: wiringPiISR(gpio_pin_number, INT_EDGE_BOTH, digitalInputCB_1); break;
+                case 2: wiringPiISR(gpio_pin_number, INT_EDGE_BOTH, digitalInputCB_2); break;
+                case 3: wiringPiISR(gpio_pin_number, INT_EDGE_BOTH, digitalInputCB_3); break;
+                case 4: wiringPiISR(gpio_pin_number, INT_EDGE_BOTH, digitalInputCB_4); break;
+                case 5: wiringPiISR(gpio_pin_number, INT_EDGE_BOTH, digitalInputCB_5); break;
+                case 6: wiringPiISR(gpio_pin_number, INT_EDGE_BOTH, digitalInputCB_6); break;
+                case 7: wiringPiISR(gpio_pin_number, INT_EDGE_BOTH, digitalInputCB_7); break;
+                case 8: wiringPiISR(gpio_pin_number, INT_EDGE_BOTH, digitalInputCB_8); break;
+                case 9: wiringPiISR(gpio_pin_number, INT_EDGE_BOTH, digitalInputCB_9); break;
+                case 10: wiringPiISR(gpio_pin_number, INT_EDGE_BOTH, digitalInputCB_10); break;
+                case 11: wiringPiISR(gpio_pin_number, INT_EDGE_BOTH, digitalInputCB_11); break;
+                case 12: wiringPiISR(gpio_pin_number, INT_EDGE_BOTH, digitalInputCB_12); break;
+                case 13: wiringPiISR(gpio_pin_number, INT_EDGE_BOTH, digitalInputCB_13); break;
+                case 14: wiringPiISR(gpio_pin_number, INT_EDGE_BOTH, digitalInputCB_14); break;
+                case 15: wiringPiISR(gpio_pin_number, INT_EDGE_BOTH, digitalInputCB_15); break;
+                case 16: wiringPiISR(gpio_pin_number, INT_EDGE_BOTH, digitalInputCB_16); break;
                 default: break;
             }
         }
@@ -247,7 +272,7 @@ bool TerminalHat::cleanup() {
 }
 void TerminalHat::update_digitalinput_frompin(uint16_t index) {
     std_msgs::Bool data;
-    data.data = true;
+    data.data = digitalRead(ROSHATS_TERMINALHAT_H_digitalinput_pin_numbers.at(index));
     ROSHATS_TERMINALHAT_H_digitalinput_pubs.at(index).publish(data);
     ROSHATS_TERMINALHAT_H_digitalinput_port.update(
         ROSHATS_TERMINALHAT_H_digitalinput_channel_names.at(index), 1);
