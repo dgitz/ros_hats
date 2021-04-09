@@ -1,7 +1,7 @@
 /*! \file test_HatNodeProcess.cpp
  */
 #include <gtest/gtest.h>
-#include <ros_hats/HatNodeProcess.h>
+#include <ros_hats/nodes/HatNode/HatNodeProcess.h>
 #include <stdio.h>
 
 static std::string get_hostname() {

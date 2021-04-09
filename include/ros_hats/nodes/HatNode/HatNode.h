@@ -16,7 +16,7 @@
 #include <ros_hats/Hat/TerminalHat.h>
 #endif
 
-#include <ros_hats/HatNodeProcess.h>
+#include <ros_hats/nodes/HatNode/HatNodeProcess.h>
 
 /*! \class HatNode HatNode.h "HatNode.h"
  *  \brief */
