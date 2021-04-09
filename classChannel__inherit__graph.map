@@ -1,0 +1,7 @@
+<map id="Channel" name="Channel">
+<area shape="rect" id="node1" title="Channel class Basic container for a Channel." alt="" coords="282,5,351,32"/>
+<area shape="rect" id="node2" href="$classDigitalInputChannel.html" title="DigitalInputChannel class Basic container for a DigitalInputChannel." alt="" coords="5,80,140,107"/>
+<area shape="rect" id="node3" href="$classDigitalOutputChannel.html" title="DigitalOutputChannel class Basic container for a DigitalOutputChannel." alt="" coords="165,80,309,107"/>
+<area shape="rect" id="node4" href="$classGPSInputChannel.html" title="GPSInputChannel class Basic container for a GPSInputChannel." alt="" coords="333,80,460,107"/>
+<area shape="rect" id="node5" href="$classServoOutputChannel.html" title="ServoOutputChannel class Basic container for a ServoOutputChannel." alt="" coords="484,80,627,107"/>
+</map>

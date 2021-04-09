@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classHat.html" title="Hat class Basic container for a Hat." alt="" coords="5,81,48,108"/>
+<area shape="rect" id="node2" href="$classGPSHat.html" title="GPSHat class Basic container for a GPSHat." alt="" coords="107,5,178,32"/>
+<area shape="rect" id="node3" href="$classRelayHat.html" title="RelayHat class Basic container for a RelayHat." alt="" coords="105,56,180,83"/>
+<area shape="rect" id="node4" href="$classServoHat.html" title="ServoHat class Basic container for a ServoHat." alt="" coords="104,107,181,133"/>
+<area shape="rect" id="node5" href="$classTerminalHat.html" title="TerminalHat class Basic container for a TerminalHat." alt="" coords="96,157,189,184"/>
+</map>

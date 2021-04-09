@@ -1,0 +1,7 @@
+<map id="ChannelDataConfig" name="ChannelDataConfig">
+<area shape="rect" id="node1" title=" " alt="" coords="5,81,137,108"/>
+<area shape="rect" id="node2" href="$structAnalogChannelDataConfig.html" title=" " alt="" coords="185,5,357,32"/>
+<area shape="rect" id="node3" href="$structDigitalChannelDataConfig.html" title=" " alt="" coords="187,56,355,83"/>
+<area shape="rect" id="node4" href="$structGPSChannelDataConfig.html" title=" " alt="" coords="191,107,351,133"/>
+<area shape="rect" id="node5" href="$structServoChannelDataConfig.html" title=" " alt="" coords="188,157,355,184"/>
+</map>

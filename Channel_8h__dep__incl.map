@@ -1,0 +1,18 @@
+<map id="include/ros_hats/Channel/Channel.h" name="include/ros_hats/Channel/Channel.h">
+<area shape="rect" id="node1" title=" " alt="" coords="433,5,601,47"/>
+<area shape="rect" id="node2" href="$DigitalInputChannel_8h.html" title=" " alt="" coords="5,95,173,136"/>
+<area shape="rect" id="node5" href="$DigitalOutputChannel_8h.html" title=" " alt="" coords="197,95,365,136"/>
+<area shape="rect" id="node8" href="$GPSInputChannel_8h.html" title=" " alt="" coords="803,95,971,136"/>
+<area shape="rect" id="node11" href="$ServoOutputChannel_8h.html" title=" " alt="" coords="611,95,779,136"/>
+<area shape="rect" id="node14" href="$Hat_8h.html" title=" " alt="" coords="467,184,610,225"/>
+<area shape="rect" id="node16" href="$Port_8h.html" title=" " alt="" coords="390,95,535,136"/>
+<area shape="rect" id="node3" href="$TerminalHat_8h.html" title=" " alt="" coords="78,273,221,315"/>
+<area shape="rect" id="node4" href="$DigitalInputPort_8h.html" title=" " alt="" coords="77,184,222,225"/>
+<area shape="rect" id="node6" href="$RelayHat_8h.html" title=" " alt="" coords="290,273,433,315"/>
+<area shape="rect" id="node7" href="$DigitalOutputPort_8h.html" title=" " alt="" coords="298,184,443,225"/>
+<area shape="rect" id="node9" href="$GPSHat_8h.html" title=" " alt="" coords="805,273,947,315"/>
+<area shape="rect" id="node10" href="$GPSInputPort_8h.html" title=" " alt="" coords="803,184,949,225"/>
+<area shape="rect" id="node12" href="$ServoOutputPort_8h.html" title=" " alt="" coords="634,184,779,225"/>
+<area shape="rect" id="node13" href="$ServoHat_8h.html" title=" " alt="" coords="637,273,779,315"/>
+<area shape="rect" id="node15" href="$HatNode_8h.html" title=" " alt="" coords="457,273,613,315"/>
+</map>

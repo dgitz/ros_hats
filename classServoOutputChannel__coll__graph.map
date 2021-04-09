@@ -1,0 +1,5 @@
+<map id="ServoOutputChannel" name="ServoOutputChannel">
+<area shape="rect" id="node1" title="ServoOutputChannel class Basic container for a ServoOutputChannel." alt="" coords="5,171,148,197"/>
+<area shape="rect" id="node2" href="$classChannel.html" title="Channel class Basic container for a Channel." alt="" coords="42,95,111,121"/>
+<area shape="rect" id="node3" href="$structChannelConfig.html" title=" " alt="" coords="24,5,129,32"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="DigitalInputChannel" name="DigitalInputChannel">
+<area shape="rect" id="node1" title="DigitalInputChannel class Basic container for a DigitalInputChannel." alt="" coords="5,171,140,197"/>
+<area shape="rect" id="node2" href="$classChannel.html" title="Channel class Basic container for a Channel." alt="" coords="38,95,107,121"/>
+<area shape="rect" id="node3" href="$structChannelConfig.html" title=" " alt="" coords="20,5,125,32"/>
+</map>

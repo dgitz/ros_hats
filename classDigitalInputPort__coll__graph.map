@@ -1,0 +1,5 @@
+<map id="DigitalInputPort" name="DigitalInputPort">
+<area shape="rect" id="node1" title="DigitalInputPort class Basic container for a DigitalInputPort." alt="" coords="5,171,116,197"/>
+<area shape="rect" id="node2" href="$classPort.html" title="Port class Basic container for a Port." alt="" coords="37,95,84,121"/>
+<area shape="rect" id="node3" href="$structPortConfig.html" title=" " alt="" coords="19,5,102,32"/>
+</map>
