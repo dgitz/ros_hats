@@ -1,4 +1,4 @@
-#include "HatNode.h"
+#include <ros_hats/nodes/HatNode/HatNode.h>
 bool kill_node = false;
 HatNode::HatNode()
     : system_command_action_server(

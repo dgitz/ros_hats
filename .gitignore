@@ -33,3 +33,10 @@
 
 html/*
 docs/*
+
+build/
+_build/
+_static/
+_templates/
+html/
+xml/
