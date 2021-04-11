@@ -17,10 +17,9 @@
 #endif
 
 #include <ros_hats/nodes/HatNode/HatNodeProcess.h>
-
 /*! \class HatNode HatNode.h "HatNode.h"
  *  \brief */
-class HatNode : public BaseNode
+class HatNode : public eros::BaseNode
 {
    public:
     /*! \brief The base name of the Node.*/
@@ -39,20 +38,20 @@ class HatNode : public BaseNode
     const std::string FIRMWARE_DESCRIPTION = "Latest Rev: 23-March-2021";
 
     /*! \brief What System this Node falls under.*/
-    const System::MainSystem DIAGNOSTIC_SYSTEM = System::MainSystem::ROVER;
+    const eros::System::MainSystem DIAGNOSTIC_SYSTEM = eros::System::MainSystem::ROVER;
 
     /*! \brief What Subsystem this Node falls under.*/
-    const System::SubSystem DIAGNOSTIC_SUBSYSTEM = System::SubSystem::ROBOT_CONTROLLER;
+    const eros::System::SubSystem DIAGNOSTIC_SUBSYSTEM = eros::System::SubSystem::ROBOT_CONTROLLER;
 
     /*! \brief What Component this Node falls under.*/
-    const System::Component DIAGNOSTIC_COMPONENT = System::Component::CONTROLLER;
+    const eros::System::Component DIAGNOSTIC_COMPONENT = eros::System::Component::CONTROLLER;
     HatNode();
     ~HatNode();
     HatNodeProcess* get_process() {
         return process;
     }
     bool start();
-    Diagnostic::DiagnosticDefinition finish_initialization();
+    eros::Diagnostic::DiagnosticDefinition finish_initialization();
     bool run_loop1();
     bool run_loop2();
     bool run_loop3();
@@ -75,7 +74,7 @@ class HatNode : public BaseNode
         std::string hat_type;
         std::string hat_model;
     };
-    Diagnostic::DiagnosticDefinition read_launchparameters();
+    eros::Diagnostic::DiagnosticDefinition read_launchparameters();
     HatNodeProcess* process;
     actionlib::SimpleActionServer<eros::system_commandAction> system_command_action_server;
 

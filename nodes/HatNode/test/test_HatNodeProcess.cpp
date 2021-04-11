@@ -3,6 +3,7 @@
 #include <gtest/gtest.h>
 #include <ros_hats/nodes/HatNode/HatNodeProcess.h>
 #include <stdio.h>
+using namespace eros;
 
 static std::string get_hostname() {
     char name[1024];

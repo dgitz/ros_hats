@@ -15,7 +15,6 @@
 #include <string>
 
 #include "ros/ros.h"
-
 /*! \class Hat
     \brief Hat class
     Basic container for a Hat
@@ -25,12 +24,12 @@ class Hat
    public:
     Hat();
     ~Hat();
-    bool base_init(Logger* _logger, RaspberryPiDefinition::RaspberryPiModel _board);
+    bool base_init(eros::Logger* _logger, RaspberryPiDefinition::RaspberryPiModel _board);
     virtual bool init_ros(boost::shared_ptr<ros::NodeHandle> n, std::string host_name) = 0;
 
     std::string base_pretty(std::string pre);
     virtual std::string pretty(std::string pre) = 0;
-    Diagnostic::DiagnosticDefinition get_diagnostic() {
+    eros::Diagnostic::DiagnosticDefinition get_diagnostic() {
         return diagnostic;
     }
     virtual bool update(double dt) = 0;
@@ -39,10 +38,10 @@ class Hat
    protected:
     boost::shared_ptr<ros::NodeHandle> nodeHandle;
     std::string name;
-    Logger* logger;
+    eros::Logger* logger;
     RaspberryPiDefinition::RaspberryPi pi_model;
-    Diagnostic diag_helper;
-    Diagnostic::DiagnosticDefinition diagnostic;
+    eros::Diagnostic diag_helper;
+    eros::Diagnostic::DiagnosticDefinition diagnostic;
     bool ros_initialized;
 };
 #endif

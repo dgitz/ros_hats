@@ -1,5 +1,5 @@
 #include <ros_hats/nodes/HatNode/HatNodeProcess.h>
-
+using namespace eros;
 HatNodeProcess::HatNodeProcess() {
 }
 HatNodeProcess::~HatNodeProcess() {

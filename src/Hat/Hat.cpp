@@ -1,4 +1,5 @@
 #include <ros_hats/Hat/Hat.h>
+using namespace eros;
 Hat::Hat() : ros_initialized(false) {
 }
 Hat::~Hat() {

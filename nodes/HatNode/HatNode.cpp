@@ -1,4 +1,5 @@
 #include <ros_hats/nodes/HatNode/HatNode.h>
+using namespace eros;
 bool kill_node = false;
 HatNode::HatNode()
     : system_command_action_server(
