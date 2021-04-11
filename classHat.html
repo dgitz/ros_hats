@@ -98,9 +98,9 @@ Collaboration diagram for Hat:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a02d76c80a9d3ebe138b73090d3e9ac7d"><td class="memItemLeft" align="right" valign="top"><a id="a02d76c80a9d3ebe138b73090d3e9ac7d"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>base_init</b> (Logger *_logger, <a class="el" href="classRaspberryPiDefinition.html#ac2ad2ec4bc0dc7fe2f9c7836e4c79ab2">RaspberryPiDefinition::RaspberryPiModel</a> _board)</td></tr>
-<tr class="separator:a02d76c80a9d3ebe138b73090d3e9ac7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a650c45265c0f0c6b75f8b1ea0296ffa8"><td class="memItemLeft" align="right" valign="top"><a id="a650c45265c0f0c6b75f8b1ea0296ffa8"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>base_init</b> (eros::Logger *_logger, <a class="el" href="classRaspberryPiDefinition.html#ac2ad2ec4bc0dc7fe2f9c7836e4c79ab2">RaspberryPiDefinition::RaspberryPiModel</a> _board)</td></tr>
+<tr class="separator:a650c45265c0f0c6b75f8b1ea0296ffa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcfbe74c0b4e5eb10e9bc9d04efcac24"><td class="memItemLeft" align="right" valign="top"><a id="afcfbe74c0b4e5eb10e9bc9d04efcac24"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>init_ros</b> (boost::shared_ptr&lt; ros::NodeHandle &gt; n, std::string host_name)=0</td></tr>
 <tr class="separator:afcfbe74c0b4e5eb10e9bc9d04efcac24"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -110,9 +110,9 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>base_pretty</b
 <tr class="memitem:a2612f9591a8fdecbbba2548ba63e4a9d"><td class="memItemLeft" align="right" valign="top"><a id="a2612f9591a8fdecbbba2548ba63e4a9d"></a>
 virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>pretty</b> (std::string pre)=0</td></tr>
 <tr class="separator:a2612f9591a8fdecbbba2548ba63e4a9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3355ec2a1d6b5d43c144057932f736c8"><td class="memItemLeft" align="right" valign="top"><a id="a3355ec2a1d6b5d43c144057932f736c8"></a>
-Diagnostic::DiagnosticDefinition&#160;</td><td class="memItemRight" valign="bottom"><b>get_diagnostic</b> ()</td></tr>
-<tr class="separator:a3355ec2a1d6b5d43c144057932f736c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45a38a7388412a423086032284579c2d"><td class="memItemLeft" align="right" valign="top"><a id="a45a38a7388412a423086032284579c2d"></a>
+eros::Diagnostic::DiagnosticDefinition&#160;</td><td class="memItemRight" valign="bottom"><b>get_diagnostic</b> ()</td></tr>
+<tr class="separator:a45a38a7388412a423086032284579c2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe489dc8c523f94c87eab7f9b80c9916"><td class="memItemLeft" align="right" valign="top"><a id="afe489dc8c523f94c87eab7f9b80c9916"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (double dt)=0</td></tr>
 <tr class="separator:afe489dc8c523f94c87eab7f9b80c9916"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,18 +128,18 @@ boost::shared_ptr&lt; ros::NodeHandle &gt;&#160;</td><td class="memItemRight" va
 <tr class="memitem:a284ec1fc35591bceda8e912519f870cf"><td class="memItemLeft" align="right" valign="top"><a id="a284ec1fc35591bceda8e912519f870cf"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b></td></tr>
 <tr class="separator:a284ec1fc35591bceda8e912519f870cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55fe451680a71f12eae576b953a52ff6"><td class="memItemLeft" align="right" valign="top"><a id="a55fe451680a71f12eae576b953a52ff6"></a>
-Logger *&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b></td></tr>
-<tr class="separator:a55fe451680a71f12eae576b953a52ff6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92fb46447a90b7e851e9c6969d829543"><td class="memItemLeft" align="right" valign="top"><a id="a92fb46447a90b7e851e9c6969d829543"></a>
+eros::Logger *&#160;</td><td class="memItemRight" valign="bottom"><b>logger</b></td></tr>
+<tr class="separator:a92fb46447a90b7e851e9c6969d829543"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a649565a4ebe5088eeb9f2137076ef26f"><td class="memItemLeft" align="right" valign="top"><a id="a649565a4ebe5088eeb9f2137076ef26f"></a>
 <a class="el" href="structRaspberryPiDefinition_1_1RaspberryPi.html">RaspberryPiDefinition::RaspberryPi</a>&#160;</td><td class="memItemRight" valign="bottom"><b>pi_model</b></td></tr>
 <tr class="separator:a649565a4ebe5088eeb9f2137076ef26f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6778383d6b38b077cd595d873609d21d"><td class="memItemLeft" align="right" valign="top"><a id="a6778383d6b38b077cd595d873609d21d"></a>
-Diagnostic&#160;</td><td class="memItemRight" valign="bottom"><b>diag_helper</b></td></tr>
-<tr class="separator:a6778383d6b38b077cd595d873609d21d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2674cc46126fcc285c73fd61b1c358cc"><td class="memItemLeft" align="right" valign="top"><a id="a2674cc46126fcc285c73fd61b1c358cc"></a>
-Diagnostic::DiagnosticDefinition&#160;</td><td class="memItemRight" valign="bottom"><b>diagnostic</b></td></tr>
-<tr class="separator:a2674cc46126fcc285c73fd61b1c358cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a612bd4676fa2f7f2a92da4a4501d6607"><td class="memItemLeft" align="right" valign="top"><a id="a612bd4676fa2f7f2a92da4a4501d6607"></a>
+eros::Diagnostic&#160;</td><td class="memItemRight" valign="bottom"><b>diag_helper</b></td></tr>
+<tr class="separator:a612bd4676fa2f7f2a92da4a4501d6607"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4519f798d17504a32819c351c2240c3b"><td class="memItemLeft" align="right" valign="top"><a id="a4519f798d17504a32819c351c2240c3b"></a>
+eros::Diagnostic::DiagnosticDefinition&#160;</td><td class="memItemRight" valign="bottom"><b>diagnostic</b></td></tr>
+<tr class="separator:a4519f798d17504a32819c351c2240c3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7aa33ab976de2eabb9b97ead5eb24fa"><td class="memItemLeft" align="right" valign="top"><a id="ac7aa33ab976de2eabb9b97ead5eb24fa"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>ros_initialized</b></td></tr>
 <tr class="separator:ac7aa33ab976de2eabb9b97ead5eb24fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
