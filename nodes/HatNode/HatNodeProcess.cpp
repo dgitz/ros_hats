@@ -41,9 +41,14 @@ std::string HatNodeProcess::pretty(std::map<std::string, HatConfig> hat_configs)
 }
 std::map<std::string, HatConfig> HatNodeProcess::load_hat_config(std::string file_path) {
     std::map<std::string, HatConfig> hat_configs;
-    json json_obj = read_configuration(hostname, false);
+    file_path = sanitize_path(file_path);
+    json json_obj = read_configuration(hostname, false, file_path);
     std::string device_type, device_model;
+    uint16_t hat_counter = 0;
+    uint16_t port_counter = 0;
+    uint16_t channel_counter = 0;
     for (auto& [name, obj] : json_obj.items()) {
+        logger->log_debug("Loading: " + name);
         auto find_type = obj.find("Type");
         if (find_type != obj.end()) {
             device_type = *find_type;
@@ -65,6 +70,9 @@ std::map<std::string, HatConfig> HatNodeProcess::load_hat_config(std::string fil
                 else {
                     hat_config.use_default_config = *use_default_config;
                 }
+                port_counter = 0;
+                channel_counter = 0;
+
                 for (auto& port_it : obj["Ports"].items()) {
                     PortConfig port;
                     auto port_name = port_it.value().find("Name");
@@ -74,6 +82,7 @@ std::map<std::string, HatConfig> HatNodeProcess::load_hat_config(std::string fil
                     std::string tempstr = *port_type;
                     port.port_type = ChannelDefinition::ChannelTypeEnum(*port_type);
                     port.direction = ChannelDefinition::DirectionEnum(*port_direction);
+                    channel_counter = 0;
                     for (auto& channel_it : port_it.value()["Channels"].items()) {
                         ChannelConfig channel;
                         auto channel_name = channel_it.value().find("ChannelName");
@@ -108,14 +117,29 @@ std::map<std::string, HatConfig> HatNodeProcess::load_hat_config(std::string fil
                             channel.data_config = std::make_shared<ServoChannelDataConfig>(
                                 ServoChannelDataConfig(v1, v2, v3));
                         }
+                        channel_counter++;
                         port.channels.push_back(channel);
                     }
-                    hat_config.ports.push_back(port);
+                    if (channel_counter == 0) {
+                        logger->log_warn("No Channels Defined for this Port.  Not adding.");
+                    }
+                    else {
+                        port_counter++;
+                        hat_config.ports.push_back(port);
+                    }
                 }
-
-                hat_configs.insert(std::make_pair(hat_config.hat_name, hat_config));
+                if (port_counter == 0) {
+                    logger->log_warn("No Ports Defined for this Hat.  Not adding.");
+                }
+                else {
+                    hat_configs.insert(std::make_pair(hat_config.hat_name, hat_config));
+                    hat_counter++;
+                }
             }
         }
+    }
+    if (hat_counter == 0) {
+        logger->log_warn("No Hats Defined.");
     }
     return hat_configs;
 }
