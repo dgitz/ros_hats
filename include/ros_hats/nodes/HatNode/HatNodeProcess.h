@@ -18,7 +18,7 @@ class HatNodeProcess : public eros::BaseNodeProcess
     std::vector<eros::Diagnostic::DiagnosticDefinition> new_commandmsg(eros::command msg);
     std::vector<eros::Diagnostic::DiagnosticDefinition> check_programvariables();
     std::map<std::string, HatConfig> load_hat_config(
-        std::string file_path = "/home/robot/config/DeviceList.json");
+        std::string file_path = "~/config/DeviceList.json");
     void cleanup() {
         base_cleanup();
         return;

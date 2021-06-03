@@ -39,9 +39,9 @@ TEST(BasicTest, TestOperation) {
                 Logger::LoggerStatus::LOG_WRITTEN);
 
     std::map<std::string, HatConfig> hat_configs =
-        tester->load_hat_config("/home/robot/config/DeviceList.json");
+        tester->load_hat_config("~/config/DeviceList.json");
     printf("%s\n", HatNodeProcess::pretty(hat_configs).c_str());
-    EXPECT_TRUE(hat_configs.size() > 0);
+    ASSERT_TRUE(hat_configs.size() > 0);
     EXPECT_TRUE(hat_configs.begin()->second.ports.size() > 0);
     EXPECT_TRUE(hat_configs.begin()->second.ports.at(0).channels.size() > 0);
     delete logger;
