@@ -1,11 +1,19 @@
 <map id="include/ros_hats/nodes/HatNode/HatNodeProcess.h" name="include/ros_hats/nodes/HatNode/HatNodeProcess.h">
-<area shape="rect" id="node1" title=" " alt="" coords="184,5,376,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="85,95,256,121"/>
-<area shape="rect" id="node3" href="$ROSHATS__Definitions_8h.html" title=" " alt="" coords="281,95,498,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,169,168,196"/>
-<area shape="rect" id="node5" title=" " alt="" coords="193,169,253,196"/>
-<area shape="rect" id="node6" title=" " alt="" coords="277,169,395,196"/>
-<area shape="rect" id="node7" title=" " alt="" coords="419,169,466,196"/>
-<area shape="rect" id="node8" title=" " alt="" coords="490,169,558,196"/>
-<area shape="rect" id="node9" title=" " alt="" coords="583,169,641,196"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="180,5,372,46"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="83,94,252,120"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="251,49,198,87,195,82,248,44"/>
+<area shape="rect" id="Node000003" href="$ROSHATS__Definitions_8h.html" title=" " alt="" coords="277,94,493,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="304,44,358,82,355,87,301,49"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,168,168,193"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="335,123,153,166,152,161,334,118"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="192,168,251,193"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="358,123,264,164,262,159,356,118"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="275,168,391,193"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="379,121,353,157,349,153,374,118"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="415,168,462,193"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="396,118,422,153,418,157,392,121"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="486,168,554,193"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="409,118,485,158,482,162,407,123"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="578,168,635,193"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="424,118,564,163,562,168,422,123"/>
 </map>

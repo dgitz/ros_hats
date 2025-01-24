@@ -1,4 +1,5 @@
 <map id="TerminalHat" name="TerminalHat">
-<area shape="rect" id="node1" title="TerminalHat class Basic container for a TerminalHat." alt="" coords="5,80,99,107"/>
-<area shape="rect" id="node2" href="$classHat.html" title="Hat class Basic container for a Hat." alt="" coords="31,5,73,32"/>
+<area shape="rect" id="Node000001" title="TerminalHat class Basic container for a TerminalHat." alt="" coords="5,79,98,105"/>
+<area shape="rect" id="Node000002" href="$classHat.html" title="Hat class Basic container for a Hat." alt="" coords="30,5,73,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="54,46,54,79,49,79,49,46"/>
 </map>

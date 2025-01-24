@@ -1,4 +1,5 @@
 <map id="Hat" name="Hat">
-<area shape="rect" id="node1" title="Hat class Basic container for a Hat." alt="" coords="57,109,99,136"/>
-<area shape="rect" id="node2" href="$structRaspberryPiDefinition_1_1RaspberryPi.html" title=" " alt="" coords="5,5,151,47"/>
+<area shape="rect" id="Node000001" title="Hat class Basic container for a Hat." alt="" coords="56,109,99,135"/>
+<area shape="rect" id="Node000002" href="$structRaspberryPiDefinition_1_1RaspberryPi.html" title=" " alt="" coords="5,5,150,46"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,61,80,109,75,109,75,61"/>
 </map>

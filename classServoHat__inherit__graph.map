@@ -1,4 +1,5 @@
 <map id="ServoHat" name="ServoHat">
-<area shape="rect" id="node1" title="ServoHat class Basic container for a ServoHat." alt="" coords="5,80,83,107"/>
-<area shape="rect" id="node2" href="$classHat.html" title="Hat class Basic container for a Hat." alt="" coords="23,5,65,32"/>
+<area shape="rect" id="Node000001" title="ServoHat class Basic container for a ServoHat." alt="" coords="5,79,82,105"/>
+<area shape="rect" id="Node000002" href="$classHat.html" title="Hat class Basic container for a Hat." alt="" coords="22,5,65,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="46,46,46,79,41,79,41,46"/>
 </map>

@@ -1,4 +1,5 @@
 <map id="DigitalChannelDataConfig" name="DigitalChannelDataConfig">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,173,107"/>
-<area shape="rect" id="node2" href="$structChannelDataConfig.html" title=" " alt="" coords="23,5,155,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,173,105"/>
+<area shape="rect" id="Node000002" href="$structChannelDataConfig.html" title=" " alt="" coords="23,5,155,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,46,92,79,86,79,86,46"/>
 </map>

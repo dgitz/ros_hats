@@ -1,18 +1,47 @@
 <map id="include/ros_hats/Channel/Channel.h" name="include/ros_hats/Channel/Channel.h">
-<area shape="rect" id="node1" title=" " alt="" coords="433,5,601,47"/>
-<area shape="rect" id="node2" href="$DigitalInputChannel_8h.html" title=" " alt="" coords="5,95,173,136"/>
-<area shape="rect" id="node5" href="$DigitalOutputChannel_8h.html" title=" " alt="" coords="197,95,365,136"/>
-<area shape="rect" id="node8" href="$GPSInputChannel_8h.html" title=" " alt="" coords="803,95,971,136"/>
-<area shape="rect" id="node11" href="$ServoOutputChannel_8h.html" title=" " alt="" coords="611,95,779,136"/>
-<area shape="rect" id="node14" href="$Hat_8h.html" title=" " alt="" coords="467,184,610,225"/>
-<area shape="rect" id="node16" href="$Port_8h.html" title=" " alt="" coords="390,95,535,136"/>
-<area shape="rect" id="node3" href="$TerminalHat_8h.html" title=" " alt="" coords="78,273,221,315"/>
-<area shape="rect" id="node4" href="$DigitalInputPort_8h.html" title=" " alt="" coords="77,184,222,225"/>
-<area shape="rect" id="node6" href="$RelayHat_8h.html" title=" " alt="" coords="290,273,433,315"/>
-<area shape="rect" id="node7" href="$DigitalOutputPort_8h.html" title=" " alt="" coords="298,184,443,225"/>
-<area shape="rect" id="node9" href="$GPSHat_8h.html" title=" " alt="" coords="805,273,947,315"/>
-<area shape="rect" id="node10" href="$GPSInputPort_8h.html" title=" " alt="" coords="803,184,949,225"/>
-<area shape="rect" id="node12" href="$ServoOutputPort_8h.html" title=" " alt="" coords="634,184,779,225"/>
-<area shape="rect" id="node13" href="$ServoHat_8h.html" title=" " alt="" coords="637,273,779,315"/>
-<area shape="rect" id="node15" href="$HatNode_8h.html" title=" " alt="" coords="457,273,613,315"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="432,5,599,46"/>
+<area shape="rect" id="Node000002" href="$DigitalInputChannel_8h.html" title=" " alt="" coords="5,94,173,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="417,50,174,99,173,93,416,44"/>
+<area shape="rect" id="Node000005" href="$DigitalOutputChannel_8h.html" title=" " alt="" coords="197,94,365,135"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="449,54,335,96,334,91,448,49"/>
+<area shape="rect" id="Node000008" href="$GPSInputChannel_8h.html" title=" " alt="" coords="800,94,967,135"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="615,47,801,91,799,96,614,53"/>
+<area shape="rect" id="Node000011" href="$ServoOutputChannel_8h.html" title=" " alt="" coords="608,94,775,135"/>
+<area shape="poly" id="edge15_Node000001_Node000011" title=" " alt="" coords="571,51,653,91,651,96,568,56"/>
+<area shape="rect" id="Node000014" href="$Hat_8h.html" title=" " alt="" coords="466,183,608,223"/>
+<area shape="poly" id="edge18_Node000001_Node000014" title=" " alt="" coords="536,59,548,93,550,142,544,183,539,182,545,141,542,95,531,61"/>
+<area shape="rect" id="Node000016" href="$Port_8h.html" title=" " alt="" coords="389,94,533,135"/>
+<area shape="poly" id="edge24_Node000001_Node000016" title=" " alt="" coords="497,61,476,95,471,92,493,58"/>
+<area shape="rect" id="Node000003" href="$TerminalHat_8h.html" title=" " alt="" coords="81,271,222,312"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="54,147,38,164,26,183,21,203,26,222,51,249,84,268,82,273,48,254,21,225,15,203,21,181,34,161,50,143"/>
+<area shape="rect" id="Node000004" href="$DigitalInputPort_8h.html" title=" " alt="" coords="80,183,224,223"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="114,146,140,181,135,184,110,149"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="154,239,154,271,149,271,149,239"/>
+<area shape="poly" id="edge7_Node000005_Node000003" title=" " alt="" coords="190,142,112,165,83,176,70,184,64,195,64,206,74,229,95,250,120,269,116,273,91,254,70,232,59,207,59,194,66,181,81,171,110,160,188,137"/>
+<area shape="rect" id="Node000006" href="$RelayHat_8h.html" title=" " alt="" coords="290,271,432,312"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="279,150,279,186,289,222,307,248,331,269,328,273,303,252,284,224,274,187,274,150"/>
+<area shape="rect" id="Node000007" href="$DigitalOutputPort_8h.html" title=" " alt="" coords="298,183,442,223"/>
+<area shape="poly" id="edge8_Node000005_Node000007" title=" " alt="" coords="314,144,352,180,348,184,310,148"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="308,232,202,273,200,268,306,227"/>
+<area shape="poly" id="edge9_Node000007_Node000006" title=" " alt="" coords="369,239,366,271,360,271,364,239"/>
+<area shape="rect" id="Node000009" href="$GPSHat_8h.html" title=" " alt="" coords="801,271,942,312"/>
+<area shape="poly" id="edge12_Node000008_Node000009" title=" " alt="" coords="928,143,945,161,958,182,964,203,958,225,937,252,911,273,908,269,934,249,953,222,959,203,953,184,941,164,924,147"/>
+<area shape="rect" id="Node000010" href="$GPSInputPort_8h.html" title=" " alt="" coords="800,183,944,223"/>
+<area shape="poly" id="edge13_Node000008_Node000010" title=" " alt="" coords="881,151,877,183,872,182,876,150"/>
+<area shape="poly" id="edge14_Node000010_Node000009" title=" " alt="" coords="874,239,874,271,869,271,869,239"/>
+<area shape="rect" id="Node000012" href="$ServoOutputPort_8h.html" title=" " alt="" coords="632,183,776,223"/>
+<area shape="poly" id="edge16_Node000011_Node000012" title=" " alt="" coords="699,150,704,182,698,183,694,151"/>
+<area shape="rect" id="Node000013" href="$ServoHat_8h.html" title=" " alt="" coords="634,271,776,312"/>
+<area shape="poly" id="edge17_Node000012_Node000013" title=" " alt="" coords="707,239,707,271,702,271,702,239"/>
+<area shape="poly" id="edge22_Node000014_Node000003" title=" " alt="" coords="451,227,223,277,222,272,450,221"/>
+<area shape="poly" id="edge20_Node000014_Node000006" title=" " alt="" coords="484,233,402,273,400,268,482,228"/>
+<area shape="poly" id="edge19_Node000014_Node000009" title=" " alt="" coords="623,224,801,270,800,275,622,229"/>
+<area shape="poly" id="edge21_Node000014_Node000013" title=" " alt="" coords="590,228,668,269,666,273,587,233"/>
+<area shape="rect" id="Node000015" href="$HatNode_8h.html" title=" " alt="" coords="455,271,611,312"/>
+<area shape="poly" id="edge23_Node000014_Node000015" title=" " alt="" coords="538,239,537,271,531,271,533,239"/>
+<area shape="poly" id="edge26_Node000016_Node000004" title=" " alt="" coords="377,142,223,185,221,180,375,137"/>
+<area shape="poly" id="edge27_Node000016_Node000007" title=" " alt="" coords="432,147,393,184,389,180,428,143"/>
+<area shape="poly" id="edge28_Node000016_Node000010" title=" " alt="" coords="549,131,788,180,799,182,798,188,787,185,548,136"/>
+<area shape="poly" id="edge29_Node000016_Node000012" title=" " alt="" coords="531,138,649,180,648,185,530,143"/>
+<area shape="poly" id="edge25_Node000016_Node000014" title=" " alt="" coords="490,145,522,180,518,184,486,148"/>
 </map>

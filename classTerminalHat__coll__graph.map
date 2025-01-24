@@ -1,5 +1,7 @@
 <map id="TerminalHat" name="TerminalHat">
-<area shape="rect" id="node1" title="TerminalHat class Basic container for a TerminalHat." alt="" coords="31,185,125,212"/>
-<area shape="rect" id="node2" href="$classHat.html" title="Hat class Basic container for a Hat." alt="" coords="57,109,99,136"/>
-<area shape="rect" id="node3" href="$structRaspberryPiDefinition_1_1RaspberryPi.html" title=" " alt="" coords="5,5,151,47"/>
+<area shape="rect" id="Node000001" title="TerminalHat class Basic container for a TerminalHat." alt="" coords="31,184,124,210"/>
+<area shape="rect" id="Node000002" href="$classHat.html" title="Hat class Basic container for a Hat." alt="" coords="56,109,99,135"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,150,80,184,75,184,75,150"/>
+<area shape="rect" id="Node000003" href="$structRaspberryPiDefinition_1_1RaspberryPi.html" title=" " alt="" coords="5,5,150,46"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="80,61,80,109,75,109,75,61"/>
 </map>

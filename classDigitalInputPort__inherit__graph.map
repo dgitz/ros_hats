@@ -1,4 +1,5 @@
 <map id="DigitalInputPort" name="DigitalInputPort">
-<area shape="rect" id="node1" title="DigitalInputPort class Basic container for a DigitalInputPort." alt="" coords="5,80,116,107"/>
-<area shape="rect" id="node2" href="$classPort.html" title="Port class Basic container for a Port." alt="" coords="37,5,84,32"/>
+<area shape="rect" id="Node000001" title="DigitalInputPort class Basic container for a DigitalInputPort." alt="" coords="5,79,116,105"/>
+<area shape="rect" id="Node000002" href="$classPort.html" title="Port class Basic container for a Port." alt="" coords="38,5,83,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="63,46,63,79,58,79,58,46"/>
 </map>

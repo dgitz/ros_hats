@@ -1,7 +1,11 @@
 <map id="Port" name="Port">
-<area shape="rect" id="node1" title="Port class Basic container for a Port." alt="" coords="245,5,292,32"/>
-<area shape="rect" id="node2" href="$classDigitalInputPort.html" title="DigitalInputPort class Basic container for a DigitalInputPort." alt="" coords="5,80,116,107"/>
-<area shape="rect" id="node3" href="$classDigitalOutputPort.html" title="DigitalOutputPort class Basic container for a DigitalOutputPort." alt="" coords="140,80,261,107"/>
-<area shape="rect" id="node4" href="$classGPSInputPort.html" title="GPSInputPort class Basic container for a GPSInputPort." alt="" coords="285,80,388,107"/>
-<area shape="rect" id="node5" href="$classServoOutputPort.html" title="ServoOutputPort class Basic container for a ServoOutputPort." alt="" coords="412,80,531,107"/>
+<area shape="rect" id="Node000001" title="Port class Basic container for a Port." alt="" coords="246,5,291,31"/>
+<area shape="rect" id="Node000002" href="$classDigitalInputPort.html" title="DigitalInputPort class Basic container for a DigitalInputPort." alt="" coords="5,79,116,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="232,35,97,81,95,76,231,30"/>
+<area shape="rect" id="Node000003" href="$classDigitalOutputPort.html" title="DigitalOutputPort class Basic container for a DigitalOutputPort." alt="" coords="140,79,261,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="249,44,214,80,210,77,245,40"/>
+<area shape="rect" id="Node000004" href="$classGPSInputPort.html" title="GPSInputPort class Basic container for a GPSInputPort." alt="" coords="285,79,388,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="292,40,327,77,323,80,288,44"/>
+<area shape="rect" id="Node000005" href="$classServoOutputPort.html" title="ServoOutputPort class Basic container for a ServoOutputPort." alt="" coords="412,79,530,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="307,30,438,76,436,81,305,35"/>
 </map>

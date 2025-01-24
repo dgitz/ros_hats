@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['adafruit16chservohat_100',['Adafruit16ChServoHat',['../classAdafruit16ChServoHat.html',1,'']]],
-  ['analogchanneldataconfig_101',['AnalogChannelDataConfig',['../structAnalogChannelDataConfig.html',1,'']]]
+  ['adafruit16chservohat_0',['Adafruit16ChServoHat',['../classAdafruit16ChServoHat.html',1,'']]],
+  ['analogchanneldataconfig_1',['AnalogChannelDataConfig',['../structAnalogChannelDataConfig.html',1,'']]]
 ];
