@@ -179,7 +179,8 @@ Diagnostic::DiagnosticDefinition HatNode::finish_initialization() {
         logger->log_diagnostic(diag);
         return diag;
     }
-    std::string board_version = process->exec(RaspberryPiDefinition::boardversion_check, true);
+    ExecResult execResult = exec(RaspberryPiDefinition::boardversion_check, true);
+    std::string board_version = execResult.Result;
     RaspberryPiDefinition::RaspberryPiModel pi_model =
         RaspberryPiDefinition::RaspberryPiModelFromVersion(board_version);
     if (pi_model == RaspberryPiDefinition::RaspberryPiModel::UNKNOWN) {

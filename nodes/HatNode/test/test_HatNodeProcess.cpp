@@ -24,7 +24,7 @@ TEST(BasicTest, TestOperation) {
     HatNodeProcessTester* tester = new HatNodeProcessTester;
     tester->initialize("UnitTestHatNodeProcess",
                        "UnitTestHatNodeProcess",
-                       "ControlModule2",
+                       "ControlModule1",
                        System::MainSystem::SIMROVER,
                        System::SubSystem::ENTIRE_SYSTEM,
                        System::Component::ENTIRE_SUBSYSTEM,
