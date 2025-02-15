@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "bierner.markdown-mermaid",
+        "jebbs.plantuml",
+        "xaver.clang-format",
+        "cschlosser.doxdocgen"
+    ]
+}
