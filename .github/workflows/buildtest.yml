@@ -10,16 +10,18 @@ jobs:
       group: Default
 
     steps:   
+    - uses: actions/checkout@v1
+      with:
+        path: catkin_ws/src/ros_hats
+
     - name: Check out eros
-      uses: actions/checkout@v3
+      uses: actions/checkout@v1
       with:
         repository: fastrobotics/eros
         path: catkin_ws/src/eros
         ref: master
 
-    - uses: actions/checkout@v1
-      with:
-        path: catkin_ws/src/ros_hats
+    
 
     - name: Check Format
       run: |
