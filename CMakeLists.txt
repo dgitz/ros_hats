@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(ros_hats)
-
-## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage -fprofile-arcs -ftest-coverage -fpermissive ${WARNING_FLAGS}")
+add_definitions(-std=c++11 -Wall -Wextra -Wno-switch)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -11,7 +10,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   eros
 )
-
+find_package(GTest REQUIRED)
+find_package(rostest REQUIRED)
 
 catkin_package(
   INCLUDE_DIRS include
