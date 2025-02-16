@@ -1,5 +1,4 @@
 <map id="DigitalOutputChannel" name="DigitalOutputChannel">
-<area shape="rect" id="Node000001" title="DigitalOutputChannel class Basic container for a DigitalOutputChannel." alt="" coords="5,79,149,105"/>
-<area shape="rect" id="Node000002" href="$classChannel.html" title="Channel class Basic container for a Channel." alt="" coords="43,5,111,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,46,80,79,74,79,74,46"/>
+<area shape="rect" id="node1" title="DigitalOutputChannel class Basic container for a DigitalOutputChannel." alt="" coords="5,80,168,107"/>
+<area shape="rect" id="node2" href="$classChannel.html" title="Channel class Basic container for a Channel." alt="" coords="49,5,124,32"/>
 </map>

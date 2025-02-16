@@ -1,11 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$classHat.html" title="Hat class Basic container for a Hat." alt="" coords="5,80,48,106"/>
-<area shape="rect" id="Node000001" href="$classGPSHat.html" title="GPSHat class Basic container for a GPSHat." alt="" coords="107,5,177,31"/>
-<area shape="poly" id="edge11_Node000000_Node000001" title=" " alt="" coords="54,68,94,40,113,29,115,34,97,44,58,73"/>
-<area shape="rect" id="Node000002" href="$classRelayHat.html" title="RelayHat class Basic container for a RelayHat." alt="" coords="105,55,179,80"/>
-<area shape="poly" id="edge12_Node000000_Node000002" title=" " alt="" coords="62,82,104,73,105,78,63,88"/>
-<area shape="rect" id="Node000003" href="$classServoHat.html" title="ServoHat class Basic container for a ServoHat." alt="" coords="104,104,180,130"/>
-<area shape="poly" id="edge13_Node000000_Node000003" title=" " alt="" coords="63,98,104,106,103,112,62,103"/>
-<area shape="rect" id="Node000004" href="$classTerminalHat.html" title="TerminalHat class Basic container for a TerminalHat." alt="" coords="96,153,188,179"/>
-<area shape="poly" id="edge14_Node000000_Node000004" title=" " alt="" coords="58,113,97,140,115,150,113,155,94,144,55,118"/>
+<area shape="rect" id="node1" href="$classHatDefinition.html" title=" " alt="" coords="5,5,115,32"/>
 </map>

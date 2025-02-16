@@ -1,0 +1,5 @@
+<map id="GPSHatDriver" name="GPSHatDriver">
+<area shape="rect" id="node1" title=" " alt="" coords="148,95,259,121"/>
+<area shape="rect" id="node2" href="$structGPSInputChannel_1_1Status.html" title=" " alt="" coords="5,5,188,32"/>
+<area shape="rect" id="node3" href="$structGPSInputChannel_1_1Position.html" title=" " alt="" coords="213,5,407,32"/>
+</map>

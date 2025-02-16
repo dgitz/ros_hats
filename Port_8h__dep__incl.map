@@ -1,28 +1,13 @@
-<map id="include/ros_hats/Port/Port.h" name="include/ros_hats/Port/Port.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="346,5,491,46"/>
-<area shape="rect" id="Node000002" href="$Hat_8h.html" title=" " alt="" coords="181,94,323,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="369,56,291,96,288,91,366,51"/>
-<area shape="rect" id="Node000008" href="$DigitalInputPort_8h.html" title=" " alt="" coords="514,94,659,135"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="472,51,550,91,547,96,469,56"/>
-<area shape="rect" id="Node000009" href="$DigitalOutputPort_8h.html" title=" " alt="" coords="346,94,491,135"/>
-<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="421,62,421,94,416,94,416,62"/>
-<area shape="rect" id="Node000010" href="$GPSInputPort_8h.html" title=" " alt="" coords="9,94,154,135"/>
-<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="332,52,155,97,153,92,330,47"/>
-<area shape="rect" id="Node000011" href="$ServoOutputPort_8h.html" title=" " alt="" coords="682,94,827,135"/>
-<area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="506,47,683,92,682,97,505,52"/>
-<area shape="rect" id="Node000003" href="$GPSHat_8h.html" title=" " alt="" coords="5,183,147,223"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="199,144,117,185,115,180,197,140"/>
-<area shape="rect" id="Node000004" href="$RelayHat_8h.html" title=" " alt="" coords="349,183,491,223"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="305,140,383,180,381,185,302,144"/>
-<area shape="rect" id="Node000005" href="$ServoHat_8h.html" title=" " alt="" coords="681,183,823,223"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="339,133,432,147,505,156,577,165,668,180,682,183,681,188,668,185,577,171,504,162,431,153,338,138"/>
-<area shape="rect" id="Node000006" href="$TerminalHat_8h.html" title=" " alt="" coords="515,183,656,223"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="338,135,515,181,514,186,337,140"/>
-<area shape="rect" id="Node000007" href="$HatNode_8h.html" title=" " alt="" coords="170,183,326,223"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="253,150,252,182,246,182,248,150"/>
-<area shape="poly" id="edge8_Node000008_Node000006" title=" " alt="" coords="589,150,588,182,583,182,583,150"/>
-<area shape="poly" id="edge10_Node000009_Node000004" title=" " alt="" coords="422,150,422,182,417,182,417,150"/>
-<area shape="poly" id="edge11_Node000009_Node000006" title=" " alt="" coords="471,140,549,180,546,185,469,144"/>
-<area shape="poly" id="edge13_Node000010_Node000003" title=" " alt="" coords="82,150,80,182,75,182,77,150"/>
-<area shape="poly" id="edge15_Node000011_Node000005" title=" " alt="" coords="756,150,755,182,750,182,751,150"/>
+<map id="include/archive/ros_hats/Port/Port.h" name="include/archive/ros_hats/Port/Port.h">
+<area shape="rect" id="node1" title=" " alt="" coords="423,5,568,47"/>
+<area shape="rect" id="node2" href="$Hat_8h.html" title=" " alt="" coords="217,95,363,136"/>
+<area shape="rect" id="node8" href="$DigitalInputPort_8h.html" title=" " alt="" coords="627,95,833,136"/>
+<area shape="rect" id="node9" href="$DigitalOutputPort_8h.html" title=" " alt="" coords="387,95,603,136"/>
+<area shape="rect" id="node10" href="$GPSInputPort_8h.html" title=" " alt="" coords="5,95,193,136"/>
+<area shape="rect" id="node11" href="$ServoOutputPort_8h.html" title=" " alt="" coords="857,95,1067,136"/>
+<area shape="rect" id="node3" href="$GPSHat_8h.html" title=" " alt="" coords="30,191,179,233"/>
+<area shape="rect" id="node4" href="$RelayHat_8h.html" title=" " alt="" coords="393,191,553,233"/>
+<area shape="rect" id="node5" href="$ServoHat_8h.html" title=" " alt="" coords="830,191,990,233"/>
+<area shape="rect" id="node6" href="$TerminalHat_8h.html" title=" " alt="" coords="577,191,755,233"/>
+<area shape="rect" id="node7" href="$HatNode_8h.html" title=" " alt="" coords="207,184,368,240"/>
 </map>

@@ -1,11 +1,6 @@
-<map id="include/ros_hats/Channel/DigitalOutputChannel.h" name="include/ros_hats/Channel/DigitalOutputChannel.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="88,5,256,46"/>
-<area shape="rect" id="Node000002" href="$RelayHat_8h.html" title=" " alt="" coords="5,183,147,223"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,57,106,75,90,95,82,117,77,140,77,182,71,182,72,140,77,115,86,93,102,71,122,53"/>
-<area shape="rect" id="Node000003" href="$TerminalHat_8h.html" title=" " alt="" coords="197,183,339,223"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="222,53,242,71,258,93,267,115,272,140,273,182,267,182,267,140,262,117,254,95,238,75,219,57"/>
-<area shape="rect" id="Node000004" href="$DigitalOutputPort_8h.html" title=" " alt="" coords="100,94,244,135"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="175,62,175,94,169,94,169,62"/>
-<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="141,147,99,184,96,180,137,143"/>
-<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="207,143,248,180,245,184,203,147"/>
+<map id="include/archive/ros_hats/Channel/DigitalOutputChannel.h" name="include/archive/ros_hats/Channel/DigitalOutputChannel.h">
+<area shape="rect" id="node1" title=" " alt="" coords="104,5,309,61"/>
+<area shape="rect" id="node2" href="$RelayHat_8h.html" title=" " alt="" coords="5,199,165,240"/>
+<area shape="rect" id="node3" href="$TerminalHat_8h.html" title=" " alt="" coords="237,199,416,240"/>
+<area shape="rect" id="node4" href="$DigitalOutputPort_8h.html" title=" " alt="" coords="99,109,315,151"/>
 </map>

@@ -1,5 +1,4 @@
 <map id="AnalogChannelDataConfig" name="AnalogChannelDataConfig">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,79,177,105"/>
-<area shape="rect" id="Node000002" href="$structChannelDataConfig.html" title=" " alt="" coords="25,5,157,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,46,94,79,88,79,88,46"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,80,199,107"/>
+<area shape="rect" id="node2" href="$structChannelDataConfig.html" title=" " alt="" coords="28,5,176,32"/>
 </map>

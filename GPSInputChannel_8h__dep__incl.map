@@ -1,8 +1,5 @@
-<map id="include/ros_hats/Channel/GPSInputChannel.h" name="include/ros_hats/Channel/GPSInputChannel.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,173,46"/>
-<area shape="rect" id="Node000002" href="$GPSHat_8h.html" title=" " alt="" coords="18,183,160,223"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="74,61,62,95,60,114,62,134,70,159,80,181,76,184,65,161,57,135,54,114,57,93,69,59"/>
-<area shape="rect" id="Node000003" href="$GPSInputPort_8h.html" title=" " alt="" coords="72,94,216,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="112,58,134,92,129,95,107,61"/>
-<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="125,149,104,184,99,181,121,147"/>
+<map id="include/archive/ros_hats/Channel/GPSInputChannel.h" name="include/archive/ros_hats/Channel/GPSInputChannel.h">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,248,47"/>
+<area shape="rect" id="node2" href="$GPSHat_8h.html" title=" " alt="" coords="52,184,201,225"/>
+<area shape="rect" id="node3" href="$GPSInputPort_8h.html" title=" " alt="" coords="99,95,287,136"/>
 </map>

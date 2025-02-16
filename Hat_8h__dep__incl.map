@@ -1,13 +1,8 @@
-<map id="include/ros_hats/Hat/Hat.h" name="include/ros_hats/Hat/Hat.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="336,5,477,46"/>
-<area shape="rect" id="Node000002" href="$GPSHat_8h.html" title=" " alt="" coords="5,94,147,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="322,52,147,97,146,92,320,47"/>
-<area shape="rect" id="Node000003" href="$RelayHat_8h.html" title=" " alt="" coords="171,94,312,135"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="357,56,280,96,277,91,355,51"/>
-<area shape="rect" id="Node000004" href="$ServoHat_8h.html" title=" " alt="" coords="336,94,477,135"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="409,62,409,94,404,94,404,62"/>
-<area shape="rect" id="Node000005" href="$TerminalHat_8h.html" title=" " alt="" coords="501,94,643,135"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="459,51,536,91,533,96,456,56"/>
-<area shape="rect" id="Node000006" href="$HatNode_8h.html" title=" " alt="" coords="666,94,822,135"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="493,46,668,91,666,96,492,51"/>
+<map id="include/archive/ros_hats/Hat/Hat.h" name="include/archive/ros_hats/Hat/Hat.h">
+<area shape="rect" id="node1" title=" " alt="" coords="370,5,515,47"/>
+<area shape="rect" id="node2" href="$GPSHat_8h.html" title=" " alt="" coords="5,102,155,143"/>
+<area shape="rect" id="node3" href="$RelayHat_8h.html" title=" " alt="" coords="179,102,339,143"/>
+<area shape="rect" id="node4" href="$ServoHat_8h.html" title=" " alt="" coords="363,102,523,143"/>
+<area shape="rect" id="node5" href="$TerminalHat_8h.html" title=" " alt="" coords="547,102,725,143"/>
+<area shape="rect" id="node6" href="$HatNode_8h.html" title=" " alt="" coords="750,95,911,151"/>
 </map>

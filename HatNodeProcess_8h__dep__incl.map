@@ -1,5 +1,4 @@
-<map id="include/ros_hats/nodes/HatNode/HatNodeProcess.h" name="include/ros_hats/nodes/HatNode/HatNodeProcess.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,197,46"/>
-<area shape="rect" id="Node000002" href="$HatNode_8h.html" title=" " alt="" coords="23,94,179,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,62,104,94,98,94,98,62"/>
+<map id="include/archive/ros_hats/nodes/HatNode/HatNodeProcess.h" name="include/archive/ros_hats/nodes/HatNode/HatNodeProcess.h">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,167,61"/>
+<area shape="rect" id="node2" href="$HatNode_8h.html" title=" " alt="" coords="5,109,167,165"/>
 </map>

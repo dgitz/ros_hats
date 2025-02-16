@@ -1,5 +1,4 @@
-<map id="include/ros_hats/Port/GPSInputPort.h" name="include/ros_hats/Port/GPSInputPort.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,150,46"/>
-<area shape="rect" id="Node000002" href="$GPSHat_8h.html" title=" " alt="" coords="7,94,148,135"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,62,80,94,75,94,75,62"/>
+<map id="include/archive/ros_hats/Port/GPSInputPort.h" name="include/archive/ros_hats/Port/GPSInputPort.h">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,193,47"/>
+<area shape="rect" id="node2" href="$GPSHat_8h.html" title=" " alt="" coords="25,95,174,136"/>
 </map>
