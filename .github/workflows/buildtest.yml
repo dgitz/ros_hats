@@ -1,0 +1,61 @@
+name: BuildTest
+
+on:
+  workflow_call:
+
+
+jobs:
+  BuildTest:
+    runs-on: self-hosted # Options: self-hosted, development
+
+    steps:   
+    - uses: actions/checkout@v1
+      with:
+        path: catkin_ws/src/ros_hats
+
+    - name: Check Format
+      run: |
+        ./scripts/formatter.sh dry-run
+        
+    - name: Build Libraries & Binaries
+      run: |
+        cd ../../
+        source /opt/ros/noetic/setup.bash
+        rm -r -f build/ devel/
+        catkin_make
+
+    - name: Build Tests
+      run: |
+        cd ../../
+        source /opt/ros/noetic/setup.bash
+        catkin_make tests
+
+    - name: Run Tests
+      run: |
+        cd ../../
+        source /opt/ros/noetic/setup.bash
+        catkin_make -j1 run_tests
+        catkin_test_results build/test_results
+      
+    - name: Code Coverage
+      run: |
+        ./scripts/dev_tools.sh code_coverage
+
+    - name: Code Coverage Summary Report
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      with:
+        filename: coverage/coverage.xml
+        badge: true
+        format: markdown
+        hide_branch_rate: true
+        hide_complexity: true
+        indicators: true
+        output: both
+        thresholds: '50 75'
+
+    - name: Add Coverage PR Comment
+      uses: marocchino/sticky-pull-request-comment@v2
+      if: github.event_name == 'pull_request'
+      with:
+        recreate: true
+        path: code-coverage-results.md

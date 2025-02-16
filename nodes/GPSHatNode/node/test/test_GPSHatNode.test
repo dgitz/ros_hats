@@ -2,10 +2,10 @@
 <launch>
     <arg name="robot_namespace" value="/test" />
     <group ns="test">
-        <include file="$(find eros)/sample/GPSHatNode/GPSHatNode/launch/sample_node.launch">
+        <include file="$(find ros_hats)/nodes/GPSHatNode/launch/gps_hat_node.launch">
             <arg name="robot_namespace" value="$(arg robot_namespace)"/>
             <arg name="verbosity_level" value="DEBUG"/>
         </include>
-        <test test-name="test_GPSHatNode" pkg="eros" type="test_GPSHatNode"/>
+        <test test-name="test_GPSHatNode" pkg="ros_hats" type="test_GPSHatNode"/>
     </group>
 </launch>

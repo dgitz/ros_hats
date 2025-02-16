@@ -1,9 +1,11 @@
 /*! \file test_GPSHatNodeProcess.cpp
  */
-#include <SamplePackage/GPSHatNode/GPSHatNodeProcess.h>
 #include <gtest/gtest.h>
 #include <stdio.h>
+
+#include "../GPSHatNodeProcess.h"
 using namespace eros;
+namespace ros_hats {
 class GPSHatNodeProcessTester : public GPSHatNodeProcess
 {
    public:
@@ -12,6 +14,8 @@ class GPSHatNodeProcessTester : public GPSHatNodeProcess
     ~GPSHatNodeProcessTester() {
     }
 };
+}  // namespace ros_hats
+using namespace ros_hats;
 TEST(BasicTest, TestOperation) {
     Logger* logger = new Logger("DEBUG", "UnitTestGPSHatNodeProcess");
     GPSHatNodeProcessTester* tester = new GPSHatNodeProcessTester;

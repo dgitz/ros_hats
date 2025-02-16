@@ -1,13 +1,14 @@
-#include <SamplePackage/GPSHatNode/GPSHatNode.h>
 #include <actionlib/client/simple_action_client.h>
 #include <eros/system_commandAction.h>
 #include <gtest/gtest.h>
 #include <ros/ros.h>
 
+#include "../GPSHatNode.h"
+
 using namespace eros;
 
 std::string robot_namespace = "/test/";
-std::string unittest_nodename = "sample_node";
+std::string unittest_nodename = "gps_hat_node";
 typedef actionlib::SimpleActionClient<eros::system_commandAction> CommandActionClient;
 uint64_t heartbeat_count = 0;
 eros::heartbeat latest_heartbeat;

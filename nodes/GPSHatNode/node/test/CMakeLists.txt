@@ -1,5 +1,5 @@
 catkin_add_gtest(test_GPSHatNodeProcess test_GPSHatNodeProcess.cpp)
-target_link_libraries(test_GPSHatNodeProcess ${catkin_LIBRARIES} ${Boost_LIBRARIES} logger GPSHatNodeProcess)
+target_link_libraries(test_GPSHatNodeProcess ${catkin_LIBRARIES} ${Boost_LIBRARIES} logger gpsHatNodeProcess)
 add_dependencies(test_GPSHatNodeProcess eros_generate_messages_cpp)
 
 add_rostest_gtest(test_GPSHatNode
