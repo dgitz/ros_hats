@@ -13,7 +13,7 @@ jobs:
     - name: Check out eros
       uses: actions/checkout@v3
       with:
-        repository: eros
+        repository: fastrobotics/eros
         path: catkin_ws/src/eros
         ref: master
 
