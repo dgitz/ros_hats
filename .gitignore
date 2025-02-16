@@ -1,42 +1,12 @@
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-html/*
-docs/*
-
+*.pyc
+scripts/*.pyc
+scripts/__pycache__/*.pyc
 build/
 _build/
 _static/
 _templates/
+dox/html/
+dox/xml/
 html/
-xml/
+coverage/
+format_cpp_error.log

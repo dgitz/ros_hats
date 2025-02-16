@@ -24,7 +24,7 @@ include_directories(
 
 )
 add_subdirectory(src)
-#add_subdirectory(nodes)
+add_subdirectory(nodes)
 # Doxygen
 
 # look for Doxygen package
