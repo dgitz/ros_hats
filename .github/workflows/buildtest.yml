@@ -10,6 +10,13 @@ jobs:
       group: Default
 
     steps:   
+    - name: Check out eros
+      uses: actions/checkout@v3
+      with:
+        repository: eros
+        path: catkin_ws/src/eros
+        ref: master
+
     - uses: actions/checkout@v1
       with:
         path: catkin_ws/src/ros_hats
