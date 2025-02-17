@@ -21,7 +21,7 @@ bool GPSHatDriver::init(eros::Logger* _logger) {
 }
 bool GPSHatDriver::update(double dt) {
     struct gps_data_t* newdata;
-    if (!gps_rec->waiting(1000)) {
+    if (!gps_rec->waiting(250)) {
         return true;
     }
 
@@ -34,36 +34,45 @@ bool GPSHatDriver::update(double dt) {
         if (status == false) {
             logger->log_warn("Unable to process GPS Data.");
         }
-        else {
-            logger->log_notice("Read GPS OK");
-        }
     }
     return true;
 }
 std::string GPSHatDriver::pretty() {
-    std::string str = eros::eros_utility::PrettyUtility::pretty(odom);
+    std::string str = GPSHatDriverContainer::pretty(gps_data);
     return str;
 }
 bool GPSHatDriver::process_data(struct gps_data_t* data) {
-    nav_msgs::Odometry new_odom;
+    GPSHatDriverContainer new_gps_data;
     bool updated = false;
     if (data->status == STATUS_NO_FIX) {
         logger->log_warn("NO Fix");
     }
     else if (data->status == STATUS_FIX) {
-        logger->log_notice("GPS Fix");
         updated = true;
     }
     else if (data->status == STATUS_DGPS_FIX) {
-        logger->log_notice("DGPS Fix");
         updated = true;
     }
     if (updated == true) {
-        new_odom.header.stamp = eros::eros_utility::ConvertUtility::convert_time(data->online);
-        odom = new_odom;
+        new_gps_data.timestamp = convert_time(data->online);
+        new_gps_data.latitude = data->fix.latitude;
+        new_gps_data.longitude = data->fix.longitude;
+        gps_data = new_gps_data;
     }
 
     return true;
 }
-
+#ifdef ARCHITECTURE_ARMV7L
+ros::Time GPSHatDriver::convert_time(timestamp_t t_) {
+    ros::Time t = eros::eros_utility::ConvertUtility::convert_time((double)t_);
+    return t;
+}
+#else
+ros::Time GPSHatDriver::convert_time(timespec t_) {
+    ros::Time t;
+    t.sec = t_.tv_sec;
+    t.nsec = t_.tv_nsec;
+    return t;
+}
+#endif
 }  // namespace ros_hats

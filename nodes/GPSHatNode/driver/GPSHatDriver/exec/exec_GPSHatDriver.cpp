@@ -6,7 +6,7 @@ int main() {
     logger->log_debug("Starting GPS Driver");
 
     driver.init(logger);
-    double delta_time_sec = 1.0;
+    double delta_time_sec = 0.25;
     while (true) {
         driver.update(delta_time_sec);
         usleep(delta_time_sec * 1000000);

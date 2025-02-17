@@ -12,10 +12,16 @@ class GPSHatDriver
    public:
     enum class FixType { NO_FIX = 1, FIX = 2, DPGS_FIX = 3 };
     struct GPSHatDriverContainer {
+        ros::Time timestamp;
         double latitude;
         double longitude;
-        double timestamp;
         FixType fix_type;
+        static std::string pretty(GPSHatDriverContainer data) {
+            std::string str;
+            str = "GPS: T=" + std::to_string(data.timestamp.toSec());
+            str += " Lat: " + std::to_string(data.latitude) + " (Deg) Long: " + std::to_string(data.longitude) + " (Deg)";
+            return str;
+        }
     };
     GPSHatDriver();
     virtual ~GPSHatDriver();
@@ -23,14 +29,19 @@ class GPSHatDriver
     bool update(double dt);
     bool finish();
     bool process_data(struct gps_data_t* data);
-    nav_msgs::Odometry get_odom() {
-        return odom;
+    GPSHatDriverContainer get_gps_data() {
+        return gps_data;
     }
     std::string pretty();
+    #ifdef ARCHITECTURE_ARMV7L
+    static ros::Time convert_time(timestamp_t t_);
+#else
+    static ros::Time convert_time(timespec t);
+#endif
 
    private:
     eros::Logger* logger;
     gpsmm* gps_rec;
-    nav_msgs::Odometry odom;
+    GPSHatDriverContainer gps_data;
 };
 }  // namespace ros_hats
