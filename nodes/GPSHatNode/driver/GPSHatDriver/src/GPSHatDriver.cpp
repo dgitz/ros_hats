@@ -1,4 +1,4 @@
-#include "../include/GPSHatDriver.h"
+#include "GPSHatDriver.h"
 namespace ros_hats {
 GPSHatDriver::GPSHatDriver() {
 }
@@ -59,9 +59,11 @@ bool GPSHatDriver::process_data(struct gps_data_t* data) {
         updated = true;
     }
     if (updated == true) {
-        new_odom.header.stamp = eros::eros_utility::ConvertUtility::convert(data->online);
+        new_odom.header.stamp = eros::eros_utility::ConvertUtility::convert_time(data->online);
+        odom = new_odom;
     }
 
     return true;
 }
+
 }  // namespace ros_hats

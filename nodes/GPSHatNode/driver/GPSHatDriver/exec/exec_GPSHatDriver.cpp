@@ -1,4 +1,4 @@
-#include "../include/GPSHatDriver.h"
+#include "GPSHatDriver.h"
 using namespace ros_hats;
 GPSHatDriver driver;
 int main() {

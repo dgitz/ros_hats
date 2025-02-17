@@ -10,6 +10,13 @@ namespace ros_hats {
 class GPSHatDriver
 {
    public:
+    enum class FixType { NO_FIX = 1, FIX = 2, DPGS_FIX = 3 };
+    struct GPSHatDriverContainer {
+        double latitude;
+        double longitude;
+        double timestamp;
+        FixType fix_type;
+    };
     GPSHatDriver();
     virtual ~GPSHatDriver();
     bool init(eros::Logger* _logger);

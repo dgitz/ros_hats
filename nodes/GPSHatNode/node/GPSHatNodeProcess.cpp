@@ -30,5 +30,8 @@ std::string GPSHatNodeProcess::pretty() {
     std::string str = "Node State: " + eros::Node::NodeStateString(get_nodestate());
     return str;
 }
-
+sensor_msgs::NavSatFix GPSHatNodeProcess::convert(GPSHatDriver::GPSHatDriverContainer hat_output) {
+    sensor_msgs::NavSatFix gps_data;
+    return gps_data;
+}
 }  // namespace ros_hats
