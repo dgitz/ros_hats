@@ -7,6 +7,7 @@ GPSHatDriver::~GPSHatDriver() {
 }
 bool GPSHatDriver::init(eros::Logger* _logger) {
     logger = _logger;
+
     gps_rec = new gpsmm("localhost", DEFAULT_GPSD_PORT);
     if (gps_rec->stream(WATCH_ENABLE | WATCH_JSON) == NULL) {
         logger->log_error("GPSD Not Running.");
@@ -15,6 +16,7 @@ bool GPSHatDriver::init(eros::Logger* _logger) {
     else {
         logger->log_notice("GPSD Is Running.");
     }
+
     return true;
 }
 bool GPSHatDriver::update(double dt) {
@@ -38,16 +40,28 @@ bool GPSHatDriver::update(double dt) {
     }
     return true;
 }
+std::string GPSHatDriver::pretty() {
+    std::string str = eros::eros_utility::PrettyUtility::pretty(odom);
+    return str;
+}
 bool GPSHatDriver::process_data(struct gps_data_t* data) {
+    nav_msgs::Odometry new_odom;
+    bool updated = false;
     if (data->status == STATUS_NO_FIX) {
         logger->log_warn("NO Fix");
     }
     else if (data->status == STATUS_FIX) {
         logger->log_notice("GPS Fix");
+        updated = true;
     }
     else if (data->status == STATUS_DGPS_FIX) {
         logger->log_notice("DGPS Fix");
+        updated = true;
     }
+    if (updated == true) {
+        new_odom.header.stamp = eros::eros_utility::ConvertUtility::convert(data->online);
+    }
+
     return true;
 }
 }  // namespace ros_hats
