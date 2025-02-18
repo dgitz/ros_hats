@@ -1,0 +1,8 @@
+@startuml
+title ROS Hats Package Diagram
+
+package ros_hats {
+    class GPSHatNode #Orange
+}
+
+@enduml

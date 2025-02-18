@@ -1,14 +1,14 @@
 @startuml
-title Sample Node Class Diagram
+title GPS Hat Node Class Diagram
 
 package eros {
   class BaseNode
   class BaseNodeProcess
 }
 
-package userPackage {
+package ros_hats {
 
-  class GPSHatNode #LimeGreen {
+  class GPSHatNode #Orange {
       +const std::string BASE_NODE_NAME
       +const uint16_t MAJOR_RELEASE_VERSION
       +const uint16_t MINOR_RELEASE_VERSION
@@ -36,17 +36,20 @@ package userPackage {
 
       -GPSHatNodeProcess* process;
   }
-  class GPSHatNodeProcess #LimeGreen {
+  class GPSHatNodeProcess #Orange {
       +eros::eros_diagnostic::Diagnostic finish_initialization()
       +reset()
       +eros::eros_diagnostic::Diagnostic update(double t_dt, double t_ros_time)
       +std::vector<eros::eros_diagnostic::Diagnostic> new_commandmsg(eros::command msg)
       +std::vector<eros::eros_diagnostic::Diagnostic> check_programvariables()
       +cleanup()
+      -GPSHatDriver driver
 
   }
+  class GPSHatDriver #Orange 
   BaseNode <|-- GPSHatNode
   BaseNodeProcess <|-- GPSHatNodeProcess
   GPSHatNode -> GPSHatNodeProcess
+  GPSHatNodeProcess -> GPSHatDriver
 }
 @enduml

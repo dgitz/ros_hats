@@ -1,0 +1,43 @@
+@startuml
+title GPS Hat Driver Class Diagram
+namespace ros {
+    class Time
+}
+namespace eros {
+    class Logger
+}
+package gps {
+    struct timestamp_t
+    struct timespec
+note top of timestamp_t 
+    ARMV7L
+end note
+note top of timespec 
+    X86_64
+end note
+}
+
+namespace ros_hats {
+    class GPSHatDriver #Orange {
+        +bool init(Logger logger)
+        +bool update(double dt)
+        +bool finish()
+        +bool process_data(struct gps_data_t* data);
+        +GPSHatDriverContainer get_gps_data()
+        +std::string pretty();
+        +{static} ros::Time convert_time(timestamp_t t_)
+        +{static} ros::Time convert_time(timespec t)
+    }
+    enum FixType {
+        UNKNOWN
+        NO_FIX
+        FIXDPGS_FIX
+        END_OF_LIST
+    }
+    struct GPSHatDriverContainer {
+        +string pretty()
+    }
+    GPSHatDriver +-- FixType
+    GPSHatDriver +-- GPSHatDriverContainer
+}
+@enduml

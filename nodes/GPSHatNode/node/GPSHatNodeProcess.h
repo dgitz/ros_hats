@@ -3,6 +3,9 @@
 #pragma once
 #include <eros/BaseNodeProcess.h>
 #include <eros_diagnostic/Diagnostic.h>
+#include <sensor_msgs/NavSatFix.h>
+
+#include "GPSHatDriver.h"
 namespace ros_hats {
 /*! \class GPSHatNodeProcess GPSHatNodeProcess.h "GPSHatNodeProcess.h"
  *  \brief */
@@ -21,7 +24,10 @@ class GPSHatNodeProcess : public eros::BaseNodeProcess
         return;
     }
     std::string pretty() override;
+    sensor_msgs::NavSatFix get_gps_data();
+    static sensor_msgs::NavSatFix convert(GPSHatDriver::GPSHatDriverContainer hat_output);
 
    private:
+    GPSHatDriver* driver;
 };
 }  // namespace ros_hats

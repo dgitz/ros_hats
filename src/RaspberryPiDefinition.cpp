@@ -1,6 +1,5 @@
-/*! \file RaspberryPiDefinition.h
+/*! \file RaspberryPiDefinition.cpp
  */
-#pragma once
 #include <ros_hats/RaspberryPiDefinition.h>
 #include <stdio.h>
 
