@@ -28,7 +28,6 @@ class GPSHatNodeProcess : public eros::BaseNodeProcess
     static sensor_msgs::NavSatFix convert(GPSHatDriver::GPSHatDriverContainer hat_output);
 
    private:
-   GPSHatDriver* driver;
-    
+    GPSHatDriver* driver;
 };
 }  // namespace ros_hats

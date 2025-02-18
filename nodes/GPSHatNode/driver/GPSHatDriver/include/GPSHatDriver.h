@@ -10,7 +10,7 @@ namespace ros_hats {
 class GPSHatDriver
 {
    public:
-    enum class FixType { UNKNOWN=0,NO_FIX = 1, FIX = 2, DPGS_FIX = 3,END_OF_LIST=4 };
+    enum class FixType { UNKNOWN = 0, NO_FIX = 1, FIX = 2, DPGS_FIX = 3, END_OF_LIST = 4 };
     struct GPSHatDriverContainer {
         ros::Time timestamp;
         double latitude{0.0};
@@ -19,7 +19,8 @@ class GPSHatDriver
         static std::string pretty(GPSHatDriverContainer data) {
             std::string str;
             str = "GPS: T=" + std::to_string(data.timestamp.toSec());
-            str += " Lat: " + std::to_string(data.latitude) + " (Deg) Long: " + std::to_string(data.longitude) + " (Deg)";
+            str += " Lat: " + std::to_string(data.latitude) +
+                   " (Deg) Long: " + std::to_string(data.longitude) + " (Deg)";
             return str;
         }
     };
@@ -33,7 +34,7 @@ class GPSHatDriver
         return gps_data;
     }
     std::string pretty();
-    #ifdef ARCHITECTURE_ARMV7L
+#ifdef ARCHITECTURE_ARMV7L
     static ros::Time convert_time(timestamp_t t);
 #else
     static ros::Time convert_time(timespec t);

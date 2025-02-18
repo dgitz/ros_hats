@@ -11,6 +11,7 @@ eros::eros_diagnostic::Diagnostic GPSHatNodeProcess::finish_initialization() {
     driver->init(logger);
     return diag;
 }
+
 void GPSHatNodeProcess::reset() {
 }
 eros::eros_diagnostic::Diagnostic GPSHatNodeProcess::update(double t_dt, double t_ros_time) {
@@ -45,6 +46,5 @@ sensor_msgs::NavSatFix GPSHatNodeProcess::convert(GPSHatDriver::GPSHatDriverCont
 }
 sensor_msgs::NavSatFix GPSHatNodeProcess::get_gps_data() {
     return convert(driver->get_gps_data());
-
 }
 }  // namespace ros_hats
