@@ -63,7 +63,7 @@ TEST(BasicTest, TestOperation) {
     }
     tester->cleanup();
 
-    delete logger;
+    //delete logger;
     delete tester;
 }
 int main(int argc, char** argv) {

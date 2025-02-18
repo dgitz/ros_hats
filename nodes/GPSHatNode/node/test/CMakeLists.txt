@@ -6,5 +6,5 @@ add_rostest_gtest(test_GPSHatNode
     test_GPSHatNode.test
     test_GPSHatNode.cpp
 )
-add_dependencies(test_GPSHatNode sample_node)
+add_dependencies(test_GPSHatNode gps_hat_node)
 target_link_libraries(test_GPSHatNode ${catkin_LIBRARIES}  ${Boost_LIBRARIES} ${GTEST_LIBRARIES} logger)

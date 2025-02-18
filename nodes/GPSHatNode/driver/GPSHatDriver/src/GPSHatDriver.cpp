@@ -21,7 +21,7 @@ bool GPSHatDriver::init(eros::Logger* _logger) {
 }
 bool GPSHatDriver::update(double dt) {
     struct gps_data_t* newdata;
-    if (!gps_rec->waiting(250)) {
+    if (!gps_rec->waiting((uint64_t)(1000.0*dt))) {
         return true;
     }
 

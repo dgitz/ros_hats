@@ -1,11 +1,11 @@
-# EROS
+# ROS Hats
 [![Push](https://github.com/fastrobotics/ros_hats/actions/workflows/Push.yml/badge.svg)](https://github.com/fastrobotics/ros_hats/actions/workflows/Push.yml)
 
 __TOC__
 - [ROS Version Support](#ros-version-support)
 - [Overview](#overview)
 - [Messages](#messages)
-- [Features](#features)
+- [Supported Hats](#supported-hats)
 - [Sister Repositories](#sister-repositories)
 - [Compatability](#compatability)
 - [Setup Instructions](#setup-instructions)
@@ -24,7 +24,7 @@ ros_hats will target ROS Noetic for current and releases.
 ## Overview
 This repo provices some ROS nodes to interface with Raspberry Pi Hats.
 
-## [Features](doc/Features/Features.md)
+## [Supported Hats](doc/SupportedHats/SuportedHats.md)
  
 
 ## Compatability
@@ -42,6 +42,10 @@ Then run the following your device:
 ```bash
 sudo apt install gpsd libgps-dev
 ```
+
+## Software Design
+![](doc/output/Legend.png)
+![](doc/output/ROSHatsPackageDiagram.png)
 
 ## [Development Instructions](doc/Development/DevelopmentInstructions.md)
 
