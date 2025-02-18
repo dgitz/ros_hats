@@ -66,5 +66,6 @@ class GPSHatNode : public eros::BaseNode
     eros::eros_diagnostic::Diagnostic read_launchparameters();
     GPSHatNodeProcess* process;
     actionlib::SimpleActionServer<eros::system_commandAction> system_command_action_server;
+    ros::Publisher gps_data_pub;
 };
 }  // namespace ros_hats
