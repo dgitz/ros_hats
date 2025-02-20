@@ -40,8 +40,17 @@ sensor_msgs::NavSatFix GPSHatNodeProcess::convert(GPSHatDriver::GPSHatDriverCont
     sensor_msgs::NavSatFix gps_data;
     gps_data.header.stamp = hat_output.timestamp;
     gps_data.header.frame_id = "geographic";
+    switch (hat_output.status_type) {
+        case GPSHatDriver::StatusType::UNKNOWN:
+            // gps_data.status.status = sensor_msgs::NavSatStatus::STATUS_NO_FIX;
+            break;
+        case GPSHatDriver::StatusType::NO_FIX: break;
+        case GPSHatDriver::StatusType::FIX: break;
+        case GPSHatDriver::StatusType::DGPS_FIX: break;
+    }
     gps_data.latitude = hat_output.latitude;
     gps_data.longitude = hat_output.longitude;
+    gps_data.altitude = hat_output.altitude;
     return gps_data;
 }
 sensor_msgs::NavSatFix GPSHatNodeProcess::get_gps_data() {
