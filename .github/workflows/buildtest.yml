@@ -58,7 +58,7 @@ jobs:
       run: |
         cd ../../
         source /opt/ros/noetic/setup.bash
-        catkin_make -j1 run_tests
+        catkin_make -j1 run_tests_ros_hats
         catkin_test_results build/test_results
       
     - name: Code Coverage
