@@ -43,22 +43,28 @@ std::string GPSHatDriver::pretty() {
 }
 bool GPSHatDriver::process_data(struct gps_data_t* data) {
     GPSHatDriverContainer new_gps_data;
-    bool updated = false;
-    if (data->status == STATUS_NO_FIX) {
-        logger->log_warn("NO Fix");
+
+    new_gps_data.timestamp = convert_time(data->online);
+    new_gps_data.latitude = data->fix.latitude;
+    new_gps_data.longitude = data->fix.longitude;
+    new_gps_data.altitude = data->fix.altitude;
+    new_gps_data.latitude_accuracy_m = data->fix.epy;
+    new_gps_data.longitude_accuracy_m = data->fix.epx;
+    new_gps_data.altitude_accuracy_m = data->fix.epv;
+    switch (data->fix.mode) {
+        case MODE_NOT_SEEN: new_gps_data.fix_type = FixType::NOT_SEEN; break;
+        case MODE_NO_FIX: new_gps_data.fix_type = FixType::NO_FIX; break;
+        case MODE_2D: new_gps_data.fix_type = FixType::FIX_2D; break;
+        case MODE_3D: new_gps_data.fix_type = FixType::FIX_3D; break;
+        default: break;
     }
-    else if (data->status == STATUS_FIX) {
-        updated = true;
+    switch (data->status) {
+        case STATUS_NO_FIX: new_gps_data.status_type = StatusType::NO_FIX; break;
+        case STATUS_FIX: new_gps_data.status_type = StatusType::FIX; break;
+        case STATUS_DGPS_FIX: new_gps_data.status_type = StatusType::DGPS_FIX; break;
+        default: break;
     }
-    else if (data->status == STATUS_DGPS_FIX) {
-        updated = true;
-    }
-    if (updated == true) {
-        new_gps_data.timestamp = convert_time(data->online);
-        new_gps_data.latitude = data->fix.latitude;
-        new_gps_data.longitude = data->fix.longitude;
-        gps_data = new_gps_data;
-    }
+    gps_data = new_gps_data;
 
     return true;
 }

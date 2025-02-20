@@ -42,6 +42,16 @@ This will give output similiar to:
 
 ```
 
+### Other Tools
+#### gpsmon
+```bash
+gpsmon
+```
+
+#### cgps
+```bash
+cgps -s
+```
 
 
 ## Software Design
