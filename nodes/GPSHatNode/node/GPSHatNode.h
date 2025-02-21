@@ -37,7 +37,7 @@ class GPSHatNode : public eros::BaseNode
     const eros::System::SubSystem DIAGNOSTIC_SUBSYSTEM = eros::System::SubSystem::ENTIRE_SYSTEM;
 
     /*! \brief What Component this Node falls under.*/
-    const eros::System::Component DIAGNOSTIC_COMPONENT = eros::System::Component::ENTIRE_SUBSYSTEM;
+    const eros::System::Component DIAGNOSTIC_COMPONENT = eros::System::Component::POSE;
     GPSHatNode();
     ~GPSHatNode();
     GPSHatNodeProcess* get_process() {

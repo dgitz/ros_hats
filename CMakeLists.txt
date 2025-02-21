@@ -12,6 +12,8 @@ add_definitions(-std=c++11 -Wall -Wextra -Wno-switch)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   eros
+  std_msgs
+  sensor_msgs
 )
 find_package(GTest REQUIRED)
 find_package(rostest REQUIRED)
