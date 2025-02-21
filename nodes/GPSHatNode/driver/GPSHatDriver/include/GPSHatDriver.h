@@ -3,7 +3,6 @@
 #include <eros_utility/ConvertUtility.h>
 #include <eros_utility/PrettyUtility.h>
 #include <gps.h>
-#include <nav_msgs/Odometry.h>
 
 #include "libgpsmm.h"
 namespace ros_hats {
@@ -62,8 +61,8 @@ class GPSHatDriver
     virtual ~GPSHatDriver();
     bool init(eros::Logger* logger);
     bool update(double dt);
-    eros::Level::Type get_status() {
-        switch (gps_data.status_type) {
+    static eros::Level::Type get_level(StatusType type) {
+        switch (type) {
             case StatusType::UNKNOWN: return eros::Level::Type::ERROR;
             case StatusType::NO_FIX: return eros::Level::Type::WARN;
             case StatusType::FIX: return eros::Level::Type::NOTICE;
@@ -87,5 +86,5 @@ class GPSHatDriver
     eros::Logger* logger;
     gpsmm* gps_rec;
     GPSHatDriverContainer gps_data;
-};  // namespace ros_hats
+};
 }  // namespace ros_hats

@@ -1,0 +1,3 @@
+catkin_add_gtest(test_gpsHatDriver test_GPSHatDriver.cpp)
+target_link_libraries(test_gpsHatDriver ${catkin_LIBRARIES} ${Boost_LIBRARIES} logger gpsHatDriver)
+add_dependencies(test_gpsHatDriver eros_generate_messages_cpp)

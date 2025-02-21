@@ -10,7 +10,7 @@ int main() {
     while (true) {
         driver.update(delta_time_sec);
         usleep(delta_time_sec * 1000000);
-        switch (driver.get_status()) {
+        switch (driver.get_level(driver.get_gps_data().status)) {
             case eros::Level::Type::DEBUG: logger->log_debug(driver.pretty()); break;
             case eros::Level::Type::INFO: logger->log_info(driver.pretty()); break;
             case eros::Level::Type::NOTICE: logger->log_notice(driver.pretty()); break;
