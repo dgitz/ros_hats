@@ -1,4 +1,11 @@
-/*! \file GPSHatNode.h
+/**
+ * @file GPSHatNode.h
+ * @author David Gitz
+ * @brief  GPS Hat Node
+ * @date 2025-02-21
+ *
+ * @copyright Copyright (c) 2025
+ *
  */
 #pragma once
 // C System Files
@@ -10,8 +17,10 @@
 
 #include "GPSHatNodeProcess.h"
 namespace ros_hats {
-/*! \class GPSHatNode GPSHatNode.h "GPSHatNode.h"
- *  \brief */
+/**
+ * @brief GPSHatNode
+ *
+ */
 class GPSHatNode : public eros::BaseNode
 {
    public:
@@ -25,10 +34,10 @@ class GPSHatNode : public eros::BaseNode
     const uint16_t MINOR_RELEASE_VERSION = 0;
 
     /*! \brief The Build Number of the Node.*/
-    const uint16_t BUILD_NUMBER = 0;
+    const uint16_t BUILD_NUMBER = 1;
 
     /*! \brief A Description of the Firmware.*/
-    const std::string FIRMWARE_DESCRIPTION = "Latest Rev: 15-Feb-2025";
+    const std::string FIRMWARE_DESCRIPTION = "Latest Rev: 21-Feb-2025";
 
     /*! \brief What System this Node falls under.*/
     const eros::System::MainSystem DIAGNOSTIC_SYSTEM = eros::System::MainSystem::ROVER;
@@ -37,7 +46,7 @@ class GPSHatNode : public eros::BaseNode
     const eros::System::SubSystem DIAGNOSTIC_SUBSYSTEM = eros::System::SubSystem::ENTIRE_SYSTEM;
 
     /*! \brief What Component this Node falls under.*/
-    const eros::System::Component DIAGNOSTIC_COMPONENT = eros::System::Component::ENTIRE_SUBSYSTEM;
+    const eros::System::Component DIAGNOSTIC_COMPONENT = eros::System::Component::POSE;
     GPSHatNode();
     ~GPSHatNode();
     GPSHatNodeProcess* get_process() {

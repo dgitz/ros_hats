@@ -23,9 +23,6 @@ HatDefinition::HatType HatDefinition::HatTypeEnum(std::string v) {
     else if (v == "GPS_HAT") {
         return HatDefinition::HatType::GPS_HAT;
     }
-    else if (v == "SERVO_HAT") {
-        return HatDefinition::HatType::SERVO_HAT;
-    }
     else {
         return HatDefinition::HatType::UNKNOWN;
     }

@@ -1,14 +1,19 @@
 @startuml
 title GPS Hat Node Class Diagram
-
+package sensor_msgs {
+  class NavSatFix
+  class NavSatStatus
+}
+package ros {
+  class Publisher
+}
 package eros {
   class BaseNode
   class BaseNodeProcess
 }
 
 package ros_hats {
-
-  class GPSHatNode #Orange {
+  class GPSHatNode #Cyan {
       +const std::string BASE_NODE_NAME
       +const uint16_t MAJOR_RELEASE_VERSION
       +const uint16_t MINOR_RELEASE_VERSION
@@ -33,20 +38,23 @@ package ros_hats {
       +bool changenodestate_service(eros::srv_change_nodestate::Request& req, eros::srv_change_nodestate::Response& res)
       +system_commandAction_Callback(const eros::system_commandGoalConstPtr& goal)
       +command_Callback(const eros::command::ConstPtr& t_msg)
+      -Publisher gps_data_pub
 
       -GPSHatNodeProcess* process;
   }
-  class GPSHatNodeProcess #Orange {
+  class GPSHatNodeProcess #Cyan {
       +eros::eros_diagnostic::Diagnostic finish_initialization()
       +reset()
       +eros::eros_diagnostic::Diagnostic update(double t_dt, double t_ros_time)
       +std::vector<eros::eros_diagnostic::Diagnostic> new_commandmsg(eros::command msg)
       +std::vector<eros::eros_diagnostic::Diagnostic> check_programvariables()
       +cleanup()
+      +NavSatFix get_gps_data()
+      +{static} NavSatFix convert(GPSHatDriver::GPSHatDriverContainer output)
       -GPSHatDriver driver
 
   }
-  class GPSHatDriver #Orange 
+  class GPSHatDriver #Cyan 
   BaseNode <|-- GPSHatNode
   BaseNodeProcess <|-- GPSHatNodeProcess
   GPSHatNode -> GPSHatNodeProcess

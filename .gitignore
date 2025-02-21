@@ -8,5 +8,5 @@ _templates/
 dox/html/
 dox/xml/
 html/
-coverage/
+coverage/*
 format_cpp_error.log

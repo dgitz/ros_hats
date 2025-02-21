@@ -59,7 +59,7 @@ alt loops
     alt run_10hz
         node -> process++: update(0.1, now)
         process -> driver++: update(0.1)
-        update --> process--
+        driver --> process--
         process --> node--
         node -> process++: get_gps_data()
         process -> driver++: get_gps_data()

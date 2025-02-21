@@ -1,9 +1,17 @@
-/*! \file GPSHatNodeProcess.h
+/**
+ * @file GPSHatNodeProcess.h
+ * @author David Gitz
+ * @brief GPS Hat Node Process for Node
+ * @date 2025-02-21
+ *
+ * @copyright Copyright (c) 2025
+ *
  */
 #pragma once
 #include <eros/BaseNodeProcess.h>
 #include <eros_diagnostic/Diagnostic.h>
 #include <sensor_msgs/NavSatFix.h>
+#include <sensor_msgs/NavSatStatus.h>
 
 #include "GPSHatDriver.h"
 namespace ros_hats {

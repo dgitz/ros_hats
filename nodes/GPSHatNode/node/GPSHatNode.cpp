@@ -76,6 +76,7 @@ bool GPSHatNode::start() {
     diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::DATA_STORAGE);
     diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::SYSTEM_RESOURCE);
     diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::COMMUNICATIONS);
+    diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::POSE);
     process->enable_diagnostics(diagnostic_types);
     process->finish_initialization();
     diagnostic = finish_initialization();
@@ -128,6 +129,10 @@ eros::eros_diagnostic::Diagnostic GPSHatNode::finish_initialization() {
                                       eros::Level::Type::INFO,
                                       eros::eros_diagnostic::Message::NOERROR,
                                       "All Configuration Files Loaded.");
+    diag = process->update_diagnostic(eros::eros_diagnostic::DiagnosticType::POSE,
+                                      eros::Level::Type::WARN,
+                                      eros::eros_diagnostic::Message::INITIALIZING,
+                                      "GPS Initializing...");
     return diag;
 }
 bool GPSHatNode::run_loop1() {

@@ -5,6 +5,7 @@ namespace ros {
 }
 namespace eros {
     class Logger
+    class Level
 }
 package gps {
     struct timestamp_t
@@ -18,26 +19,48 @@ end note
 }
 
 namespace ros_hats {
-    class GPSHatDriver #Orange {
+    class GPSHatDriver #Cyan {
         +bool init(Logger logger)
         +bool update(double dt)
+        +{static} Level::Type get_level(StatusType type)
         +bool finish()
-        +bool process_data(struct gps_data_t* data);
+        +bool process_data(struct gps_data_t data);
         +GPSHatDriverContainer get_gps_data()
         +std::string pretty();
         +{static} ros::Time convert_time(timestamp_t t_)
         +{static} ros::Time convert_time(timespec t)
+        +{static} string StatusTypeString(StatusType type)
+        +{static} string FixTypeString(StatusType type)
     }
-    enum FixType {
+    enum FixType #Cyan {
         UNKNOWN
+        NOT_SEEN
         NO_FIX
-        FIXDPGS_FIX
+        FIX_2D
+        FIX_3D
         END_OF_LIST
     }
-    struct GPSHatDriverContainer {
-        +string pretty()
+    enum StatusType #Cyan {
+        UNKNOWN
+        NO_FIX
+        FIX
+        DGPS_FIX
+        END_OF_LIST
+    }
+    struct GPSHatDriverContainer #Cyan {
+        +Time timestamp
+        +double latitude
+        +double longitude
+        +double altitude
+        +double latitude_accuracy_m
+        +double longitude_accuracy_m
+        +double altitude_accuracy_m
+        +FixType fix_type
+        +StatusType status_type
+        +{static}string pretty()
     }
     GPSHatDriver +-- FixType
+    GPSHatDriver +-- StatusType
     GPSHatDriver +-- GPSHatDriverContainer
 }
 @enduml

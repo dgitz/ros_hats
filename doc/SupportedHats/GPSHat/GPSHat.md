@@ -42,6 +42,16 @@ This will give output similiar to:
 
 ```
 
+### Other Tools
+#### gpsmon
+```bash
+gpsmon
+```
+
+#### cgps
+```bash
+cgps -s
+```
 
 
 ## Software Design
@@ -52,6 +62,8 @@ This will give output similiar to:
 
 ### Sequence Diagrams
 ![](../../../nodes/GPSHatNode/doc/output/GPSHatNodeSequenceDiagram.png)
+![](../../../nodes/GPSHatNode/driver/GPSHatDriver/doc/output/GPSHatDriverSequenceDiagram.png)
+
 # References
 
 - https://learn.adafruit.com/adafruit-ultimate-gps-hat-for-raspberry-pi/use-gpsd
