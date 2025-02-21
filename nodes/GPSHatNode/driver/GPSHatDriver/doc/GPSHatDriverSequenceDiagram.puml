@@ -1,5 +1,5 @@
 @startuml
-title GPS Hat Driver Sequence DiagramBorderColor
+title GPS Hat Driver Sequence Diagram
 actor User as user
 participant GPSHatDriver as driver
 participant GPSDaemon as daemon
