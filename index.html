@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>ros_hats: Main Page</title>
+<title>ros_hats: ROS Hats</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,11 +62,42 @@ $(function() {
 
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">ros_hats Documentation</div>  </div>
+<div class="title">ROS Hats </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Welcome to the ros_hats API Documentation.</p>
-<p>ros_hats Wiki: <a href="https://github.com/dgitz/ros_hats/wiki">https://github.com/dgitz/ros_hats/wiki</a> </p>
+<div class="textblock"><p><a href="https://github.com/fastrobotics/ros_hats/actions/workflows/Push.yml"><object type="image/svg+xml" data="https://github.com/fastrobotics/ros_hats/actions/workflows/Push.yml/badge.svg" style="pointer-events: none;">Push</object></a></p>
+<p><b>TOC</b></p><ul>
+<li><a href="#ros-version-support">ROS Version Support</a></li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#messages">Messages</a></li>
+<li><a href="#supported-hats">Supported Hats</a></li>
+<li><a href="#sister-repositories">Sister Repositories</a></li>
+<li><a href="#compatability">Compatability</a></li>
+<li><a href="#setup-instructions">Setup Instructions</a></li>
+<li><a href="#usage-in-your-package">Usage Instructions</a></li>
+<li><a href="#development-instructions">Development Instructions</a></li>
+<li><a href="#test-plan">Test Plan</a></li>
+</ul>
+<p>Welcome to the ros_hats Wiki!</p>
+<p><a href="https://dgitz.github.io/ros_hats/">Source Code Documentation</a></p>
+<h1>ROS Version Support</h1>
+<p>ros_hats will target ROS Noetic for current and releases.</p>
+<h1>Overview</h1>
+<p>This repo provices some ROS nodes to interface with Raspberry Pi Hats.</p>
+<h1>@ref doc/SupportedHats/SuportedHats.md "Supported Hats"</h1>
+<h1>Compatability</h1>
+<p>This package is currently compatible with the following architectures:</p><ul>
+<li>Any x86/64 compatible system</li>
+<li>ARM7L (such as Raspberry Pi 2 or 3)</li>
+</ul>
+<p>If you would like to use this in your project on an architecture that is not currently supported (but is still ROS compliant), let me know and I'll see what I can do to help.</p>
+<h1>Setup Instructions</h1>
+<p>First follow setup instructions for <a href="https://github.com/fastrobotics/eros?tab=readme-ov-file#setup-instructions">eros-Setup Instructions</a>.</p>
+<p>Then run the following your device: </p><div class="fragment"><div class="line">sudo apt install gpsd libgps-dev</div>
+</div><!-- fragment --><h1>Software Design</h1>
+<p><img src="doc/output/Legend.png" alt="" class="inline"/> <img src="doc/output/ROSHatsPackageDiagram.png" alt="" class="inline"/></p>
+<h1>@ref doc/Development/DevelopmentInstructions.md "Development Instructions"</h1>
+<h1>@ref doc/TestPlan/TestPlan.md "Test Plan"</h1>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->

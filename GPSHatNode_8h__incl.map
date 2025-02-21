@@ -1,7 +1,9 @@
 <map id="nodes/GPSHatNode/node/GPSHatNode.h" name="nodes/GPSHatNode/node/GPSHatNode.h">
-<area shape="rect" id="node1" title=" " alt="" coords="66,5,250,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,137,121"/>
-<area shape="rect" id="node3" href="$GPSHatNodeProcess_8h.html" title=" " alt="" coords="161,95,328,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="43,169,225,196"/>
-<area shape="rect" id="node5" title=" " alt="" coords="249,169,459,196"/>
+<area shape="rect" id="node1" title=" " alt="" coords="249,5,433,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="188,95,320,121"/>
+<area shape="rect" id="node3" href="$GPSHatNodeProcess_8h.html" title=" " alt="" coords="344,95,511,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,169,188,196"/>
+<area shape="rect" id="node5" title=" " alt="" coords="212,169,421,196"/>
+<area shape="rect" id="node6" title=" " alt="" coords="445,169,633,196"/>
+<area shape="rect" id="node7" title=" " alt="" coords="658,169,781,196"/>
 </map>

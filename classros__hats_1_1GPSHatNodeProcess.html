@@ -67,6 +67,8 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classros__hats_1_1GPSHatNodeProcess-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ros_hats::GPSHatNodeProcess Class Reference</div>  </div>
@@ -87,8 +89,10 @@ Collaboration diagram for ros_hats::GPSHatNodeProcess:</div>
 <div class="dyncontent">
 <div class="center"><img src="classros__hats_1_1GPSHatNodeProcess__coll__graph.png" border="0" usemap="#ros__hats_1_1GPSHatNodeProcess_coll__map" alt="Collaboration graph"/></div>
 <map name="ros__hats_1_1GPSHatNodeProcess_coll__map" id="ros__hats_1_1GPSHatNodeProcess_coll__map">
-<area shape="rect" title=" " alt="" coords="5,80,224,107"/>
-<area shape="rect" title=" " alt="" coords="27,5,202,32"/>
+<area shape="rect" title=" " alt="" coords="43,199,262,225"/>
+<area shape="rect" title=" " alt="" coords="5,109,180,136"/>
+<area shape="rect" href="classros__hats_1_1GPSHatDriver.html" title=" " alt="" coords="204,109,379,136"/>
+<area shape="rect" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html" title=" " alt="" coords="200,5,383,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -115,6 +119,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>cleanup</b> ()</td></
 <tr class="memitem:a05ee02f6880c393291f1227d82c83d9e"><td class="memItemLeft" align="right" valign="top"><a id="a05ee02f6880c393291f1227d82c83d9e"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>pretty</b> () override</td></tr>
 <tr class="separator:a05ee02f6880c393291f1227d82c83d9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49059a1e4757eda05c4c0d6776773fe7"><td class="memItemLeft" align="right" valign="top"><a id="a49059a1e4757eda05c4c0d6776773fe7"></a>
+sensor_msgs::NavSatFix&#160;</td><td class="memItemRight" valign="bottom"><b>get_gps_data</b> ()</td></tr>
+<tr class="separator:a49059a1e4757eda05c4c0d6776773fe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a536108a04b249082659c42eb98e86110"><td class="memItemLeft" align="right" valign="top"><a id="a536108a04b249082659c42eb98e86110"></a>
+static sensor_msgs::NavSatFix&#160;</td><td class="memItemRight" valign="bottom"><b>convert</b> (<a class="el" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html">GPSHatDriver::GPSHatDriverContainer</a> hat_output)</td></tr>
+<tr class="separator:a536108a04b249082659c42eb98e86110"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a36a7157e247381ed107f434766d0ac6a"><td class="memItemLeft" align="right" valign="top"><a id="a36a7157e247381ed107f434766d0ac6a"></a>
+<a class="el" href="classros__hats_1_1GPSHatDriver.html">GPSHatDriver</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>driver</b></td></tr>
+<tr class="separator:a36a7157e247381ed107f434766d0ac6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>nodes/GPSHatNode/node/<a class="el" href="GPSHatNodeProcess_8h.html">GPSHatNodeProcess.h</a></li>

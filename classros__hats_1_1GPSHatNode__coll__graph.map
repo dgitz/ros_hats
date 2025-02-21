@@ -1,6 +1,8 @@
 <map id="ros_hats::GPSHatNode" name="ros_hats::GPSHatNode">
-<area shape="rect" id="node1" title=" " alt="" coords="5,171,173,197"/>
-<area shape="rect" id="node2" title=" " alt="" coords="6,81,130,108"/>
-<area shape="rect" id="node3" href="$classros__hats_1_1GPSHatNodeProcess.html" title=" " alt="" coords="155,81,373,108"/>
-<area shape="rect" id="node4" title=" " alt="" coords="177,5,351,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,288,173,315"/>
+<area shape="rect" id="node2" title=" " alt="" coords="6,199,130,225"/>
+<area shape="rect" id="node3" href="$classros__hats_1_1GPSHatNodeProcess.html" title=" " alt="" coords="155,199,373,225"/>
+<area shape="rect" id="node4" title=" " alt="" coords="117,109,291,136"/>
+<area shape="rect" id="node5" href="$classros__hats_1_1GPSHatDriver.html" title=" " alt="" coords="315,109,490,136"/>
+<area shape="rect" id="node6" href="$structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html" title=" " alt="" coords="311,5,494,47"/>
 </map>
