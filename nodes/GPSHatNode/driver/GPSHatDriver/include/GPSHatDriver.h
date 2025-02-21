@@ -1,3 +1,12 @@
+/**
+ * @file GPSHatDriver.h
+ * @author David Gitz
+ * @brief
+ * @date 2025-02-21
+ *
+ * @copyright Copyright (c) 2025
+ *
+ */
 #pragma once
 #include <eros/Logger.h>
 #include <eros_utility/ConvertUtility.h>
@@ -5,11 +14,33 @@
 #include <gps.h>
 
 #include "libgpsmm.h"
+//! ros_hats Namespace
 namespace ros_hats {
+/**
+ * @brief GPSHatDriver Class
+ * @details Connects to an instance of the gpsd daemon
+ *
+ */
 class GPSHatDriver
 {
    public:
-    enum class StatusType { UNKNOWN = 0, NO_FIX = 1, FIX = 2, DGPS_FIX = 3, END_OF_LIST = 4 };
+    /**
+     * @brief GPS Status
+     *
+     */
+    enum class StatusType {
+        UNKNOWN = 0,    /**< Unknown Status */
+        NO_FIX = 1,     /**< No Fix */
+        FIX = 2,        /**< GPS Fix, but only regular GPS Mode */
+        DGPS_FIX = 3,   /**< Differential GPS Fix */
+        END_OF_LIST = 4 /*!< Last item of list. Used for Range Checks. */
+    };
+    /**
+     * @brief Convert Status Type to string
+     *
+     * @param type
+     * @return std::string
+     */
     static std::string StatusTypeString(StatusType type) {
         switch (type) {
             case StatusType::UNKNOWN: return "UNKNOWN";
@@ -19,14 +50,24 @@ class GPSHatDriver
             default: return "UNKNOWN";
         }
     }
+    /**
+     * @brief GPS Fix Type
+     *
+     */
     enum class FixType {
-        UNKNOWN = 0,
-        NOT_SEEN = 1,
-        NO_FIX = 2,
-        FIX_2D = 3,
-        FIX_3D = 4,
-        END_OF_LIST = 5
+        UNKNOWN = 0,    /**< Unknown Fix Type */
+        NOT_SEEN = 1,   /**< GPS Not Seen */
+        NO_FIX = 2,     /**< No Fix */
+        FIX_2D = 3,     /**< 2D Fix Only */
+        FIX_3D = 4,     /**< 3D Fix */
+        END_OF_LIST = 5 /*!< Last item of list. Used for Range Checks. */
     };
+    /**
+     * @brief Convert Fix Type to String
+     *
+     * @param type
+     * @return std::string
+     */
     static std::string FixTypeString(FixType type) {
         switch (type) {
             case FixType::UNKNOWN: return "UNKNOWN";
@@ -37,6 +78,10 @@ class GPSHatDriver
             default: return "UNKNOWN";
         }
     }
+    /**
+     * @brief Container for housing full output of GPSHatDriver
+     *
+     */
     struct GPSHatDriverContainer {
         ros::Time timestamp;
         double latitude{0.0};
@@ -59,8 +104,29 @@ class GPSHatDriver
     };
     GPSHatDriver();
     virtual ~GPSHatDriver();
+    /**
+     * @brief Initialize GPS Hat Driver
+     *
+     * @param logger
+     * @return true
+     * @return false
+     */
     bool init(eros::Logger* logger);
+    /**
+     * @brief Update GPSHatDriver
+     * @details Will poll gpsd at this interval.
+     *
+     * @param dt Delta Time in seconds.
+     * @return true
+     * @return false
+     */
     bool update(double dt);
+    /**
+     * @brief  Convert GPS Status Type to a common Level
+     *
+     * @param type
+     * @return eros::Level::Type
+     */
     static eros::Level::Type get_level(StatusType type) {
         switch (type) {
             case StatusType::UNKNOWN: return eros::Level::Type::ERROR;
@@ -70,7 +136,20 @@ class GPSHatDriver
             default: return eros::Level::Type::ERROR;
         }
     }
+    /**
+     * @brief Finish and Close Driver
+     *
+     * @return true
+     * @return false
+     */
     bool finish();
+    /**
+     * @brief Process the incoming GPS Data
+     *
+     * @param data
+     * @return true
+     * @return false
+     */
     bool process_data(struct gps_data_t* data);
     GPSHatDriverContainer get_gps_data() {
         return gps_data;

@@ -1,0 +1,27 @@
+@startuml
+title GPS Hat Driver Sequence DiagramBorderColor
+actor User as user
+participant GPSHatDriver as driver
+participant GPSDaemon as daemon
+
+alt initialize
+activate driver
+user -> driver++: init(Logger logger)
+driver -> daemon++
+driver -> daemon: stream(...)
+driver --> user--
+end
+alt loop
+user -> driver++: update(dt)
+driver -> daemon: waiting()
+driver -> daemon++: read()
+daemon --> driver--: new_data
+driver -> driver++: process(new_data)
+driver --> driver--: status
+
+driver --> user--: 
+user -> driver++: get_gps_data()
+driver --> user--: gps_data
+end
+
+@enduml

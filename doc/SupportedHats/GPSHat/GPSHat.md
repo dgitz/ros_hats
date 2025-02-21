@@ -62,6 +62,8 @@ cgps -s
 
 ### Sequence Diagrams
 ![](../../../nodes/GPSHatNode/doc/output/GPSHatNodeSequenceDiagram.png)
+![](../../../nodes/GPSHatNode/driver/GPSHatDriver/doc/output/GPSHatDriverSequenceDiagram.png)
+
 # References
 
 - https://learn.adafruit.com/adafruit-ultimate-gps-hat-for-raspberry-pi/use-gpsd

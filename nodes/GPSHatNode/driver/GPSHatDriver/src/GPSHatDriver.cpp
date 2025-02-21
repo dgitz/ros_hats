@@ -3,7 +3,11 @@ namespace ros_hats {
 GPSHatDriver::GPSHatDriver() {
 }
 GPSHatDriver::~GPSHatDriver() {
+    finish();
+}
+bool GPSHatDriver::finish() {
     delete gps_rec;
+    return true;
 }
 bool GPSHatDriver::init(eros::Logger* _logger) {
     logger = _logger;

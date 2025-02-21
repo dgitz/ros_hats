@@ -1,4 +1,11 @@
-/*! \file GPSHatNodeProcess.h
+/**
+ * @file GPSHatNodeProcess.h
+ * @author David Gitz
+ * @brief GPS Hat Node Process for Node
+ * @date 2025-02-21
+ *
+ * @copyright Copyright (c) 2025
+ *
  */
 #pragma once
 #include <eros/BaseNodeProcess.h>

@@ -19,7 +19,7 @@ end note
 }
 
 namespace ros_hats {
-    class GPSHatDriver #LimeGreen {
+    class GPSHatDriver #Cyan {
         +bool init(Logger logger)
         +bool update(double dt)
         +{static} Level::Type get_level(StatusType type)
@@ -32,7 +32,7 @@ namespace ros_hats {
         +{static} string StatusTypeString(StatusType type)
         +{static} string FixTypeString(StatusType type)
     }
-    enum FixType #LimeGreen {
+    enum FixType #Cyan {
         UNKNOWN
         NOT_SEEN
         NO_FIX
@@ -40,14 +40,14 @@ namespace ros_hats {
         FIX_3D
         END_OF_LIST
     }
-    enum StatusType #LimeGreen {
+    enum StatusType #Cyan {
         UNKNOWN
         NO_FIX
         FIX
         DGPS_FIX
         END_OF_LIST
     }
-    struct GPSHatDriverContainer #LimeGreen {
+    struct GPSHatDriverContainer #Cyan {
         +Time timestamp
         +double latitude
         +double longitude
