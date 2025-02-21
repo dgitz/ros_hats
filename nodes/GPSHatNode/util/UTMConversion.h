@@ -11,7 +11,9 @@
 #include <ros_hats/CoordinateDefinitions.h>
 
 #include <cstdint>
+#include <map>
 #include <string>
+#include <vector>
 namespace ros_hats {
 /**
  * @brief UTMConversion between Geographic and UTM Coordinates
@@ -22,18 +24,12 @@ class Ellipsoid
    public:
     Ellipsoid(){};
 
-    Ellipsoid(uint8_t id,
-              std::string ellipsoidName,
-              double equatorialRadius,
-              double eccentricitySquared)
-        : id(id),
-          ellipsoidName(ellipsoidName),
+    Ellipsoid(std::string ellipsoidName, double equatorialRadius, double eccentricitySquared)
+        : ellipsoidName(ellipsoidName),
           equatorialRadius(equatorialRadius),
           eccentricitySquared(eccentricitySquared) {
     }
 
-   private:
-    uint8_t id;
     std::string ellipsoidName;
     double equatorialRadius;
     double eccentricitySquared;
@@ -42,11 +38,15 @@ class Ellipsoid
 class UTMConversion
 {
    public:
-    UTMConversion() {
-    }
+    UTMConversion();
     virtual ~UTMConversion() {
     }
-    static GeograpicCoordinates convert(UTMCoordinates utm);
-    static UTMCoordinates convert(GeograpicCoordinates geo);
+    std::vector<std::string> get_ellipsoids_supported();
+    GeograpicCoordinates convert(UTMCoordinates utm);
+    UTMCoordinates convert(std::string ellipsoid_name, GeograpicCoordinates geo);
+    std::string compute_zone_letter(double latitude);
+
+   private:
+    std::map<std::string, Ellipsoid> ellipsoid_map;
 };
 }  // namespace ros_hats

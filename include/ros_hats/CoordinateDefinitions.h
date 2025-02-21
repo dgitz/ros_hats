@@ -8,6 +8,7 @@
  *
  */
 #pragma once
+#include <string>
 namespace ros_hats {
 struct GeograpicCoordinates {
     double latitude{0.0};
