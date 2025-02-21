@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pintype_193',['PinType',['../classRaspberryPiDefinition_add1f596a4b6e9c0396d9200c54c66887.html#add1f596a4b6e9c0396d9200c54c66887',1,'RaspberryPiDefinition']]]
+  ['statustype_83',['StatusType',['../classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fd',1,'ros_hats::GPSHatDriver']]]
 ];

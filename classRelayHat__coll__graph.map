@@ -1,9 +1,0 @@
-<map id="RelayHat" name="RelayHat">
-<area shape="rect" id="node1" title="RelayHat class Basic container for a RelayHat." alt="" coords="137,288,219,315"/>
-<area shape="rect" id="node2" href="$classHat.html" title="Hat class Basic container for a Hat." alt="" coords="65,199,110,225"/>
-<area shape="rect" id="node3" href="$structRaspberryPiDefinition_1_1RaspberryPi.html" title=" " alt="" coords="5,95,169,136"/>
-<area shape="rect" id="node4" href="$structHatConfig.html" title=" " alt="" coords="135,199,221,225"/>
-<area shape="rect" id="node5" href="$classDigitalOutputPort.html" title="DigitalOutputPort class Basic container for a DigitalOutputPort." alt="" coords="245,199,380,225"/>
-<area shape="rect" id="node6" href="$classPort.html" title="Port class Basic container for a Port." alt="" coords="289,102,337,129"/>
-<area shape="rect" id="node7" href="$structPortConfig.html" title=" " alt="" coords="267,5,358,32"/>
-</map>

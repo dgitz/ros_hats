@@ -1,5 +1,0 @@
-<map id="DigitalOutputChannel" name="DigitalOutputChannel">
-<area shape="rect" id="node1" title="DigitalOutputChannel class Basic container for a DigitalOutputChannel." alt="" coords="5,171,168,197"/>
-<area shape="rect" id="node2" href="$classChannel.html" title="Channel class Basic container for a Channel." alt="" coords="49,95,124,121"/>
-<area shape="rect" id="node3" href="$structChannelConfig.html" title=" " alt="" coords="28,5,145,32"/>
-</map>

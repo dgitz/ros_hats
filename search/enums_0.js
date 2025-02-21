@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['channelerrortype_188',['ChannelErrorType',['../classChannelDefinition_a5639b3808e34eb4d2fffff30b07abf2f.html#a5639b3808e34eb4d2fffff30b07abf2f',1,'ChannelDefinition']]],
-  ['channeltype_189',['ChannelType',['../classChannelDefinition_aef9d98949002d359d69ce1003f39c393.html#aef9d98949002d359d69ce1003f39c393',1,'ChannelDefinition']]]
+  ['fixtype_80',['FixType',['../classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786',1,'ros_hats::GPSHatDriver']]]
 ];

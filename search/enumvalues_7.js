@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pwm_209',['PWM',['../classRaspberryPiDefinition_add1f596a4b6e9c0396d9200c54c66887.html#add1f596a4b6e9c0396d9200c54c66887a8449bc264b69c3a0fe8b60361eaf7aeb',1,'RaspberryPiDefinition']]]
+  ['servo_5fhat_95',['SERVO_HAT',['../classros__hats_1_1HatDefinition_a9d9bbe5a9d7d73a52751eacd49e51e03.html#a9d9bbe5a9d7d73a52751eacd49e51e03a23892d49d3a0ab96feb6520607424c6e',1,'ros_hats::HatDefinition']]]
 ];

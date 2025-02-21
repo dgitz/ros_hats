@@ -1,5 +1,0 @@
-<map id="DigitalOutputPort" name="DigitalOutputPort">
-<area shape="rect" id="node1" title="DigitalOutputPort class Basic container for a DigitalOutputPort." alt="" coords="5,171,140,197"/>
-<area shape="rect" id="node2" href="$classPort.html" title="Port class Basic container for a Port." alt="" coords="49,95,97,121"/>
-<area shape="rect" id="node3" href="$structPortConfig.html" title=" " alt="" coords="27,5,118,32"/>
-</map>

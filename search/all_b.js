@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['pindefinition_74',['PinDefinition',['../structRaspberryPiDefinition_1_1PinDefinition.html',1,'RaspberryPiDefinition']]],
-  ['pintype_75',['PinType',['../classRaspberryPiDefinition_add1f596a4b6e9c0396d9200c54c66887.html#add1f596a4b6e9c0396d9200c54c66887',1,'RaspberryPiDefinition']]],
-  ['port_76',['Port',['../classPort.html',1,'']]],
-  ['port_2eh_77',['Port.h',['../Port_8h.html',1,'']]],
-  ['portconfig_78',['PortConfig',['../structPortConfig.html',1,'']]],
-  ['position_79',['Position',['../structGPSInputChannel_1_1Position.html',1,'GPSInputChannel']]],
-  ['pwm_80',['PWM',['../classRaspberryPiDefinition_add1f596a4b6e9c0396d9200c54c66887.html#add1f596a4b6e9c0396d9200c54c66887a8449bc264b69c3a0fe8b60361eaf7aeb',1,'RaspberryPiDefinition']]]
+  ['ros_20hats_35',['ROS Hats',['../index.html',1,'']]],
+  ['raspberrypi_5f2_5fmodel_5fb_36',['RASPBERRYPI_2_MODEL_B',['../classros__hats_1_1RaspberryPiDefinition_a2bc0a2f7128bf099b1e45cb940dc105d.html#a2bc0a2f7128bf099b1e45cb940dc105da61bf21a388585c9d314e9272d3e7b4ce',1,'ros_hats::RaspberryPiDefinition']]],
+  ['raspberrypidefinition_37',['RaspberryPiDefinition',['../classros__hats_1_1RaspberryPiDefinition.html',1,'ros_hats']]],
+  ['raspberrypidefinition_2eh_38',['RaspberryPiDefinition.h',['../RaspberryPiDefinition_8h.html',1,'']]],
+  ['raspberrypimodel_39',['RaspberryPiModel',['../classros__hats_1_1RaspberryPiDefinition_a2bc0a2f7128bf099b1e45cb940dc105d.html#a2bc0a2f7128bf099b1e45cb940dc105d',1,'ros_hats::RaspberryPiDefinition']]],
+  ['relay_5fhat_40',['RELAY_HAT',['../classros__hats_1_1HatDefinition_a9d9bbe5a9d7d73a52751eacd49e51e03.html#a9d9bbe5a9d7d73a52751eacd49e51e03ac9ad9927ffb4d3c42777bf02a7a9d6b2',1,'ros_hats::HatDefinition']]],
+  ['ros_5fhats_41',['ros_hats',['../namespaceros__hats.html',1,'']]]
 ];

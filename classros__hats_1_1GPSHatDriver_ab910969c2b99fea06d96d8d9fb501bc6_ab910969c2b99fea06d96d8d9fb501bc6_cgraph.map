@@ -1,0 +1,4 @@
+<map id="ros_hats::GPSHatDriver::update" name="ros_hats::GPSHatDriver::update">
+<area shape="rect" id="node1" title="Update GPSHatDriver." alt="" coords="5,5,180,47"/>
+<area shape="rect" id="node2" href="$classros__hats_1_1GPSHatDriver_a9abbf23ae4ac9c706c50b2d5dbbe9760.html#a9abbf23ae4ac9c706c50b2d5dbbe9760" title="Process the incoming GPS Data." alt="" coords="228,5,403,47"/>
+</map>

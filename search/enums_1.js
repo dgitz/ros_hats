@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['direction_190',['Direction',['../classChannelDefinition_a92f475e45172d729d874a3a353d4aead.html#a92f475e45172d729d874a3a353d4aead',1,'ChannelDefinition']]]
+  ['hattype_81',['HatType',['../classros__hats_1_1HatDefinition_a9d9bbe5a9d7d73a52751eacd49e51e03.html#a9d9bbe5a9d7d73a52751eacd49e51e03',1,'ros_hats::HatDefinition']]]
 ];

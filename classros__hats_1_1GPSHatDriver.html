@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>ros_hats</b></li><li class="navelem"><a class="el" href="classros__hats_1_1GPSHatDriver.html">GPSHatDriver</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespaceros__hats.html">ros_hats</a></li><li class="navelem"><a class="el" href="classros__hats_1_1GPSHatDriver.html">GPSHatDriver</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -76,60 +76,95 @@ $(function() {
 <div class="title">ros_hats::GPSHatDriver Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="classros__hats_1_1GPSHatDriver.html" title="GPSHatDriver Class.">GPSHatDriver</a> Class.  
+ <a href="classros__hats_1_1GPSHatDriver.html#details">More...</a></p>
+
+<p><code>#include &lt;GPSHatDriver.h&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for ros_hats::GPSHatDriver:</div>
 <div class="dyncontent">
 <div class="center"><img src="classros__hats_1_1GPSHatDriver__coll__graph.png" border="0" usemap="#ros__hats_1_1GPSHatDriver_coll__map" alt="Collaboration graph"/></div>
 <map name="ros__hats_1_1GPSHatDriver_coll__map" id="ros__hats_1_1GPSHatDriver_coll__map">
-<area shape="rect" title=" " alt="" coords="9,109,184,136"/>
-<area shape="rect" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html" title=" " alt="" coords="5,5,188,47"/>
+<area shape="rect" title="GPSHatDriver Class." alt="" coords="9,109,184,136"/>
+<area shape="rect" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html" title="Container for housing full output of GPSHatDriver." alt="" coords="5,5,188,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html">GPSHatDriverContainer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container for housing full output of <a class="el" href="classros__hats_1_1GPSHatDriver.html" title="GPSHatDriver Class.">GPSHatDriver</a>.  <a href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:aac44d4cd6aa1dfac3e1b12716819e786"><td class="memItemLeft" align="right" valign="top"><a id="aac44d4cd6aa1dfac3e1b12716819e786"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>FixType</b> { <br />
-&#160;&#160;<b>UNKNOWN</b> = 0, 
-<b>NO_FIX</b> = 1, 
-<b>FIX</b> = 2, 
-<b>DPGS_FIX</b> = 3, 
+<tr class="memitem:a7a1323df27e66fc61da3dc7d529b79fd"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fd">StatusType</a> { <br />
+&#160;&#160;<a class="el" href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fda696b031073e74bf2cb98e5ef201d4aa3">StatusType::UNKNOWN</a> = 0, 
 <br />
-&#160;&#160;<b>END_OF_LIST</b> = 4
+&#160;&#160;<a class="el" href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fdaa80630704b93114ed9e817a3f53f59c7">StatusType::NO_FIX</a> = 1, 
+<br />
+&#160;&#160;<a class="el" href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fda6aaac758332a8320840ac0e5f8fc28e2">StatusType::FIX</a> = 2, 
+<br />
+&#160;&#160;<a class="el" href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fda062435f4ccd2a307bb27ba288339ccbb">StatusType::DGPS_FIX</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fdac2b0b4a580050a88a759ac7c20ce853c">StatusType::END_OF_LIST</a> = 4
 <br />
  }</td></tr>
+<tr class="memdesc:a7a1323df27e66fc61da3dc7d529b79fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">GPS Status.  <a href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fd">More...</a><br /></td></tr>
+<tr class="separator:a7a1323df27e66fc61da3dc7d529b79fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac44d4cd6aa1dfac3e1b12716819e786"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786">FixType</a> { <br />
+&#160;&#160;<a class="el" href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786a696b031073e74bf2cb98e5ef201d4aa3">FixType::UNKNOWN</a> = 0, 
+<br />
+&#160;&#160;<a class="el" href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786afe9d4917e4a7ce384d66ac027f8117bd">FixType::NOT_SEEN</a> = 1, 
+<br />
+&#160;&#160;<a class="el" href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786aa80630704b93114ed9e817a3f53f59c7">FixType::NO_FIX</a> = 2, 
+<br />
+&#160;&#160;<a class="el" href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786a8b433e3f63d83e78dfbfe6da3ff61b3e">FixType::FIX_2D</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786a5eddc8631075de75c679f84846de5d51">FixType::FIX_3D</a> = 4, 
+<br />
+&#160;&#160;<a class="el" href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786ac2b0b4a580050a88a759ac7c20ce853c">FixType::END_OF_LIST</a> = 5
+<br />
+ }</td></tr>
+<tr class="memdesc:aac44d4cd6aa1dfac3e1b12716819e786"><td class="mdescLeft">&#160;</td><td class="mdescRight">GPS Fix Type.  <a href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786">More...</a><br /></td></tr>
 <tr class="separator:aac44d4cd6aa1dfac3e1b12716819e786"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a514c0364cc4dbbd34c56fba5c7bdbf4a"><td class="memItemLeft" align="right" valign="top"><a id="a514c0364cc4dbbd34c56fba5c7bdbf4a"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>init</b> (eros::Logger *logger)</td></tr>
-<tr class="separator:a514c0364cc4dbbd34c56fba5c7bdbf4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0032d5b06fee1e4e89275b342e8ced7"><td class="memItemLeft" align="right" valign="top"><a id="ae0032d5b06fee1e4e89275b342e8ced7"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (double dt)</td></tr>
-<tr class="separator:ae0032d5b06fee1e4e89275b342e8ced7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae26764bfa85db57dc3e5a614c17ad8ce"><td class="memItemLeft" align="right" valign="top"><a id="ae26764bfa85db57dc3e5a614c17ad8ce"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>finish</b> ()</td></tr>
+<tr class="memitem:a10cf067d1becaefafc663ee9088e46cb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classros__hats_1_1GPSHatDriver_a10cf067d1becaefafc663ee9088e46cb.html#a10cf067d1becaefafc663ee9088e46cb">init</a> (eros::Logger *logger)</td></tr>
+<tr class="memdesc:a10cf067d1becaefafc663ee9088e46cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize GPS Hat Driver.  <a href="classros__hats_1_1GPSHatDriver_a10cf067d1becaefafc663ee9088e46cb.html#a10cf067d1becaefafc663ee9088e46cb">More...</a><br /></td></tr>
+<tr class="separator:a10cf067d1becaefafc663ee9088e46cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab910969c2b99fea06d96d8d9fb501bc6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classros__hats_1_1GPSHatDriver_ab910969c2b99fea06d96d8d9fb501bc6.html#ab910969c2b99fea06d96d8d9fb501bc6">update</a> (double dt)</td></tr>
+<tr class="memdesc:ab910969c2b99fea06d96d8d9fb501bc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update <a class="el" href="classros__hats_1_1GPSHatDriver.html" title="GPSHatDriver Class.">GPSHatDriver</a>.  <a href="classros__hats_1_1GPSHatDriver_ab910969c2b99fea06d96d8d9fb501bc6.html#ab910969c2b99fea06d96d8d9fb501bc6">More...</a><br /></td></tr>
+<tr class="separator:ab910969c2b99fea06d96d8d9fb501bc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae26764bfa85db57dc3e5a614c17ad8ce"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classros__hats_1_1GPSHatDriver_ae26764bfa85db57dc3e5a614c17ad8ce.html#ae26764bfa85db57dc3e5a614c17ad8ce">finish</a> ()</td></tr>
+<tr class="memdesc:ae26764bfa85db57dc3e5a614c17ad8ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finish and Close Driver.  <a href="classros__hats_1_1GPSHatDriver_ae26764bfa85db57dc3e5a614c17ad8ce.html#ae26764bfa85db57dc3e5a614c17ad8ce">More...</a><br /></td></tr>
 <tr class="separator:ae26764bfa85db57dc3e5a614c17ad8ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90618781ed0551c4e2f6e57ae1b46946"><td class="memItemLeft" align="right" valign="top"><a id="a90618781ed0551c4e2f6e57ae1b46946"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>process_data</b> (struct gps_data_t *data)</td></tr>
-<tr class="separator:a90618781ed0551c4e2f6e57ae1b46946"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9abbf23ae4ac9c706c50b2d5dbbe9760"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classros__hats_1_1GPSHatDriver_a9abbf23ae4ac9c706c50b2d5dbbe9760.html#a9abbf23ae4ac9c706c50b2d5dbbe9760">process_data</a> (struct gps_data_t *data)</td></tr>
+<tr class="memdesc:a9abbf23ae4ac9c706c50b2d5dbbe9760"><td class="mdescLeft">&#160;</td><td class="mdescRight">Process the incoming GPS Data.  <a href="classros__hats_1_1GPSHatDriver_a9abbf23ae4ac9c706c50b2d5dbbe9760.html#a9abbf23ae4ac9c706c50b2d5dbbe9760">More...</a><br /></td></tr>
+<tr class="separator:a9abbf23ae4ac9c706c50b2d5dbbe9760"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a681425a79785f688d41fead95609d6db"><td class="memItemLeft" align="right" valign="top"><a id="a681425a79785f688d41fead95609d6db"></a>
 <a class="el" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html">GPSHatDriverContainer</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_gps_data</b> ()</td></tr>
 <tr class="separator:a681425a79785f688d41fead95609d6db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad38d08132cfbfa0910a3f413b6daa59"><td class="memItemLeft" align="right" valign="top"><a id="aad38d08132cfbfa0910a3f413b6daa59"></a>
+<tr class="memitem:a5f7d6fc70d4a5c3ecc7e334210161004"><td class="memItemLeft" align="right" valign="top"><a id="a5f7d6fc70d4a5c3ecc7e334210161004"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>pretty</b> ()</td></tr>
-<tr class="separator:aad38d08132cfbfa0910a3f413b6daa59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a5f7d6fc70d4a5c3ecc7e334210161004"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ae45e3aafe67f0d44f0dfbfc8dc8155d2"><td class="memItemLeft" align="right" valign="top"><a id="ae45e3aafe67f0d44f0dfbfc8dc8155d2"></a>
+<tr class="memitem:a6a1db26b0090dc353d0c6e3b72eeeb7d"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classros__hats_1_1GPSHatDriver_a6a1db26b0090dc353d0c6e3b72eeeb7d.html#a6a1db26b0090dc353d0c6e3b72eeeb7d">StatusTypeString</a> (<a class="el" href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fd">StatusType</a> type)</td></tr>
+<tr class="memdesc:a6a1db26b0090dc353d0c6e3b72eeeb7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Status Type to string.  <a href="classros__hats_1_1GPSHatDriver_a6a1db26b0090dc353d0c6e3b72eeeb7d.html#a6a1db26b0090dc353d0c6e3b72eeeb7d">More...</a><br /></td></tr>
+<tr class="separator:a6a1db26b0090dc353d0c6e3b72eeeb7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dc8676fd2affbc095573d9988aafb40"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classros__hats_1_1GPSHatDriver_a4dc8676fd2affbc095573d9988aafb40.html#a4dc8676fd2affbc095573d9988aafb40">FixTypeString</a> (<a class="el" href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786">FixType</a> type)</td></tr>
+<tr class="memdesc:a4dc8676fd2affbc095573d9988aafb40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Fix Type to String.  <a href="classros__hats_1_1GPSHatDriver_a4dc8676fd2affbc095573d9988aafb40.html#a4dc8676fd2affbc095573d9988aafb40">More...</a><br /></td></tr>
+<tr class="separator:a4dc8676fd2affbc095573d9988aafb40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad533aa05e7b3f7e20515a1e55ad9750c"><td class="memItemLeft" align="right" valign="top">static eros::Level::Type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classros__hats_1_1GPSHatDriver_ad533aa05e7b3f7e20515a1e55ad9750c.html#ad533aa05e7b3f7e20515a1e55ad9750c">get_level</a> (<a class="el" href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fd">StatusType</a> type)</td></tr>
+<tr class="memdesc:ad533aa05e7b3f7e20515a1e55ad9750c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert GPS Status Type to a common Level.  <a href="classros__hats_1_1GPSHatDriver_ad533aa05e7b3f7e20515a1e55ad9750c.html#ad533aa05e7b3f7e20515a1e55ad9750c">More...</a><br /></td></tr>
+<tr class="separator:ad533aa05e7b3f7e20515a1e55ad9750c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ff8388445b331ff305aa0d381d073f5"><td class="memItemLeft" align="right" valign="top"><a id="a3ff8388445b331ff305aa0d381d073f5"></a>
 static ros::Time&#160;</td><td class="memItemRight" valign="bottom"><b>convert_time</b> (timespec t)</td></tr>
-<tr class="separator:ae45e3aafe67f0d44f0dfbfc8dc8155d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a3ff8388445b331ff305aa0d381d073f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -143,11 +178,24 @@ gpsmm *&#160;</td><td class="memItemRight" valign="bottom"><b>gps_rec</b></td></
 <a class="el" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html">GPSHatDriverContainer</a>&#160;</td><td class="memItemRight" valign="bottom"><b>gps_data</b></td></tr>
 <tr class="separator:afa807d5e1769e41764b9cddbe10c718c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>nodes/GPSHatNode/driver/GPSHatDriver/include/GPSHatDriver.h</li>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="classros__hats_1_1GPSHatDriver.html" title="GPSHatDriver Class.">GPSHatDriver</a> Class. </p>
+<p>Connects to an instance of the gpsd daemon </p>
+</div><hr/>The documentation for this class was generated from the following files:<ul>
+<li>nodes/GPSHatNode/driver/GPSHatDriver/include/<a class="el" href="GPSHatDriver_8h.html">GPSHatDriver.h</a></li>
 <li>nodes/GPSHatNode/driver/GPSHatDriver/src/GPSHatDriver.cpp</li>
 </ul>
 </div><!-- contents -->
+<div class="ttc" id="aclassros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd_html_a7a1323df27e66fc61da3dc7d529b79fda696b031073e74bf2cb98e5ef201d4aa3"><div class="ttname"><a href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fda696b031073e74bf2cb98e5ef201d4aa3">ros_hats::GPSHatDriver::StatusType::UNKNOWN</a></div><div class="ttdeci">@ UNKNOWN</div></div>
+<div class="ttc" id="aclassros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd_html_a7a1323df27e66fc61da3dc7d529b79fda6aaac758332a8320840ac0e5f8fc28e2"><div class="ttname"><a href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fda6aaac758332a8320840ac0e5f8fc28e2">ros_hats::GPSHatDriver::StatusType::FIX</a></div><div class="ttdeci">@ FIX</div></div>
+<div class="ttc" id="aclassros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd_html_a7a1323df27e66fc61da3dc7d529b79fdaa80630704b93114ed9e817a3f53f59c7"><div class="ttname"><a href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fdaa80630704b93114ed9e817a3f53f59c7">ros_hats::GPSHatDriver::StatusType::NO_FIX</a></div><div class="ttdeci">@ NO_FIX</div></div>
+<div class="ttc" id="aclassros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd_html_a7a1323df27e66fc61da3dc7d529b79fda062435f4ccd2a307bb27ba288339ccbb"><div class="ttname"><a href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fda062435f4ccd2a307bb27ba288339ccbb">ros_hats::GPSHatDriver::StatusType::DGPS_FIX</a></div><div class="ttdeci">@ DGPS_FIX</div></div>
+<div class="ttc" id="aclassros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786_html_aac44d4cd6aa1dfac3e1b12716819e786aa80630704b93114ed9e817a3f53f59c7"><div class="ttname"><a href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786aa80630704b93114ed9e817a3f53f59c7">ros_hats::GPSHatDriver::FixType::NO_FIX</a></div><div class="ttdeci">@ NO_FIX</div></div>
+<div class="ttc" id="aclassros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786_html_aac44d4cd6aa1dfac3e1b12716819e786a696b031073e74bf2cb98e5ef201d4aa3"><div class="ttname"><a href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786a696b031073e74bf2cb98e5ef201d4aa3">ros_hats::GPSHatDriver::FixType::UNKNOWN</a></div><div class="ttdeci">@ UNKNOWN</div></div>
+<div class="ttc" id="aclassros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786_html_aac44d4cd6aa1dfac3e1b12716819e786a8b433e3f63d83e78dfbfe6da3ff61b3e"><div class="ttname"><a href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786a8b433e3f63d83e78dfbfe6da3ff61b3e">ros_hats::GPSHatDriver::FixType::FIX_2D</a></div><div class="ttdeci">@ FIX_2D</div></div>
+<div class="ttc" id="aclassros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786_html_aac44d4cd6aa1dfac3e1b12716819e786afe9d4917e4a7ce384d66ac027f8117bd"><div class="ttname"><a href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786afe9d4917e4a7ce384d66ac027f8117bd">ros_hats::GPSHatDriver::FixType::NOT_SEEN</a></div><div class="ttdeci">@ NOT_SEEN</div></div>
+<div class="ttc" id="aclassros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786_html_aac44d4cd6aa1dfac3e1b12716819e786a5eddc8631075de75c679f84846de5d51"><div class="ttname"><a href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786a5eddc8631075de75c679f84846de5d51">ros_hats::GPSHatDriver::FixType::FIX_3D</a></div><div class="ttdeci">@ FIX_3D</div></div>
+<div class="ttc" id="aclassros__hats_1_1GPSHatDriver_a9abbf23ae4ac9c706c50b2d5dbbe9760_html_a9abbf23ae4ac9c706c50b2d5dbbe9760"><div class="ttname"><a href="classros__hats_1_1GPSHatDriver_a9abbf23ae4ac9c706c50b2d5dbbe9760.html#a9abbf23ae4ac9c706c50b2d5dbbe9760">ros_hats::GPSHatDriver::process_data</a></div><div class="ttdeci">bool process_data(struct gps_data_t *data)</div><div class="ttdoc">Process the incoming GPS Data.</div><div class="ttdef"><b>Definition:</b> GPSHatDriver.cpp:54</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

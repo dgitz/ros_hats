@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['i2c_70',['I2C',['../classRaspberryPiDefinition_add1f596a4b6e9c0396d9200c54c66887.html#add1f596a4b6e9c0396d9200c54c66887afb87bf1fc88386ca21395991f90fff95',1,'RaspberryPiDefinition']]]
+  ['major_5frelease_5fversion_30',['MAJOR_RELEASE_VERSION',['../classros__hats_1_1GPSHatNode.html#a133dcaefa0df83ec577d096ed53413e9',1,'ros_hats::GPSHatNode']]],
+  ['minor_5frelease_5fversion_31',['MINOR_RELEASE_VERSION',['../classros__hats_1_1GPSHatNode.html#a24a391d3f1e8931c314484c7ee621263',1,'ros_hats::GPSHatNode']]]
 ];

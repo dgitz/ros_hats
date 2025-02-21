@@ -1,7 +1,4 @@
 var searchData=
 [
-  ['channel_113',['Channel',['../classChannel.html',1,'']]],
-  ['channelconfig_114',['ChannelConfig',['../structChannelConfig.html',1,'']]],
-  ['channeldataconfig_115',['ChannelDataConfig',['../structChannelDataConfig.html',1,'']]],
-  ['channeldefinition_116',['ChannelDefinition',['../classChannelDefinition.html',1,'']]]
+  ['hatdefinition_54',['HatDefinition',['../classros__hats_1_1HatDefinition.html',1,'ros_hats']]]
 ];

@@ -1,7 +1,0 @@
-<map id="ServoHat" name="ServoHat">
-<area shape="rect" id="node1" title="ServoHat class Basic container for a ServoHat." alt="" coords="177,199,259,225"/>
-<area shape="rect" id="node2" href="$classHat.html" title="Hat class Basic container for a Hat." alt="" coords="65,109,110,136"/>
-<area shape="rect" id="node3" href="$structRaspberryPiDefinition_1_1RaspberryPi.html" title=" " alt="" coords="5,5,169,47"/>
-<area shape="rect" id="node4" href="$classAdafruit16ChServoHat.html" title=" " alt="" coords="135,109,301,136"/>
-<area shape="rect" id="node5" href="$structHatConfig.html" title=" " alt="" coords="325,109,412,136"/>
-</map>
