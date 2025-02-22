@@ -79,6 +79,7 @@ class ServoHatDriver
      * @return true
      * @return false
      */
+     void setServoValue(int pin_number, int v);
     bool finish();
     
     std::string pretty();
@@ -87,7 +88,7 @@ class ServoHatDriver
     void setPWMFreq(int freq);
 
     void setPWM(int pin_number, int on, int off);
-    void setServoValue(int pin_number, int v);
+    
     void resetAllPWM(int on, int off);
 
     void resetAllServo();
