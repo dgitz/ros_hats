@@ -1,0 +1,3 @@
+add_library(mockServoHatDriver MockServoHatDriver.cpp)
+target_link_libraries(mockServoHatDriver ${catkin_LIBRARIES} logger prettyUtility convertUtility)
+add_subdirectory(test)

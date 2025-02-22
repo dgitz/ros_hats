@@ -1,1 +1,6 @@
-add_subdirectory(ServoHatDriver)
+if (${CMAKE_HOST_SYSTEM_PROCESSOR} STREQUAL armv7l)
+    add_subdirectory(ServoHatDriver)
+else()
+    add_subdirectory(MockServoHatDriver)
+endif()
+add_subdirectory(exec)

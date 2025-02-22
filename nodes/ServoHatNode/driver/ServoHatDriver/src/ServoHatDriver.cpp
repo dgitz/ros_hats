@@ -46,7 +46,7 @@ std::string ServoHatDriver::pretty() {
     return str;
 }
 void ServoHatDriver::setServoValue(int channel, int v) {
-    if((v < MIN_SERVO_VALUE) || (v > MAX_SERVO_VALUE)) {
+    if ((v < MIN_SERVO_VALUE) || (v > MAX_SERVO_VALUE)) {
         logger->log_warn("Commanded Servo Value: " + std::to_string(v) + " Out of Bounds!");
         return;
     }
@@ -69,7 +69,6 @@ void ServoHatDriver::setPWMFreq(int freq) {
 
     wiringPiI2CWriteReg8(servoHatFd, (int)Adafruit16ChServoHatConstant::MODE1, oldmode | 0x80);
 }
-
 
 void ServoHatDriver::resetAllServo() {
 }

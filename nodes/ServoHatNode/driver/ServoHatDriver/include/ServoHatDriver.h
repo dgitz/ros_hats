@@ -13,6 +13,8 @@
 #include <eros_utility/PrettyUtility.h>
 #include <wiringPiI2C.h>
 
+#include "IServoHatDriver.h"
+
 //! ros_hats Namespace
 namespace ros_hats {
 /**
@@ -20,21 +22,9 @@ namespace ros_hats {
  * @details Connects to an instance of a Servo Hat
  *
  */
-class ServoHatDriver
+class ServoHatDriver : public IServoHatDriver
 {
    public:
-   static constexpr int MIN_SERVO_VALUE = 500;
-static constexpr int MAX_SERVO_VALUE = 1500;
-
-    /**
-     * @brief Container for housing full output of GPSHatDriver
-     *
-     */
-     
-    struct ServoHatDriverContainer {
-        ros::Time timestamp;
-       
-    };
     enum class Adafruit16ChServoHatConstant {
         MODE1 = 0x00,
         MODE2 = 0x01,
@@ -58,40 +48,18 @@ static constexpr int MAX_SERVO_VALUE = 1500;
     };
     ServoHatDriver();
     virtual ~ServoHatDriver();
-    /**
-     * @brief Initialize GPS Hat Driver
-     *
-     * @param logger
-     * @return true
-     * @return false
-     */
-    bool init(eros::Logger* logger,int address=0x40);
-    /**
-     * @brief Update Servo Hat
-     * @details 
-     *
-     * @param dt Delta Time in seconds.
-     * @return true
-     * @return false
-     */
-    bool update(double dt);
-    
-    /**
-     * @brief Finish and Close Driver
-     *
-     * @return true
-     * @return false
-     */
-     void setServoValue(int pin_number, int v);
-    bool finish();
-    
-    std::string pretty();
+    bool init(eros::Logger* logger, int address = 0x40) override;
+    bool update(double dt) override;
+    void setServoValue(int pin_number, int v) override;
+    bool finish() override;
+
+    std::string pretty() override;
 
    private:
     void setPWMFreq(int freq);
 
     void setPWM(int pin_number, int on, int off);
-    
+
     void resetAllPWM(int on, int off);
 
     void resetAllServo();
