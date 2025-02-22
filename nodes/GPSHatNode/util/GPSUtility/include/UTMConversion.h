@@ -15,11 +15,12 @@
 #include <map>
 #include <string>
 #include <vector>
-namespace ros_hats {
 /**
- * @brief UTMConversion between Geographic and UTM Coordinates
+ * @brief GPS Utility Namespace
  *
  */
+namespace ros_hats::gps_utility {
+
 class Ellipsoid
 {
    public:
@@ -35,7 +36,10 @@ class Ellipsoid
     double equatorialRadius;
     double eccentricitySquared;
 };
-
+/**
+ * @brief UTMConversion between Geographic and UTM Coordinates
+ *
+ */
 class UTMConversion
 {
    public:
@@ -43,11 +47,10 @@ class UTMConversion
     virtual ~UTMConversion() {
     }
     std::vector<std::string> get_ellipsoids_supported();
-    GeograpicCoordinates convert(UTMCoordinates utm);
     UTMCoordinates convert(std::string ellipsoid_name, GeograpicCoordinates geo);
     std::string compute_zone_letter(double latitude);
 
    private:
     std::map<std::string, Ellipsoid> ellipsoid_map;
 };
-}  // namespace ros_hats
+}  // namespace ros_hats::gps_utility

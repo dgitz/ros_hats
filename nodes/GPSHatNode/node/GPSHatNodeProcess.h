@@ -40,7 +40,7 @@ class GPSHatNodeProcess : public eros::BaseNodeProcess
     nav_msgs::Odometry convertPose(GPSHatDriver::GPSHatDriverContainer hat_output);
 
    private:
-    UTMConversion utm_converter;
+    gps_utility::UTMConversion utm_converter;
     GPSHatDriver* driver;
     sensor_msgs::NavSatFix latest_nav_sat_fix;
     nav_msgs::Odometry latest_odom;

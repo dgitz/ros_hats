@@ -1,6 +1,6 @@
 include_directories(
  driver/GPSHatDriver/include/
- util/
+ util/GPSUtility/include/
   ${catkin_INCLUDE_DIRS}
 
 )

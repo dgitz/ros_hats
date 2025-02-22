@@ -1,14 +1,10 @@
 #include "UTMConversion.h"
 
 #include <math.h>
-namespace ros_hats {
+namespace ros_hats::gps_utility {
 UTMConversion::UTMConversion() {
     ellipsoid_map.insert(
         std::pair<std::string, Ellipsoid>("WGS-84", Ellipsoid("WGS-84", 6378137, 0.00669438)));
-}
-GeograpicCoordinates UTMConversion::convert(UTMCoordinates utm) {
-    GeograpicCoordinates geo;
-    return geo;
 }
 UTMCoordinates UTMConversion::convert(std::string ellipsoid_name, GeograpicCoordinates geo) {
     UTMCoordinates utm;
@@ -145,4 +141,4 @@ std::string UTMConversion::compute_zone_letter(double latitude) {
         return "Z";  // This is here as an error flag to show that the latitudeitude is
                      // outside the UTM limits
 }
-}  // namespace ros_hats
+}  // namespace ros_hats::gps_utility

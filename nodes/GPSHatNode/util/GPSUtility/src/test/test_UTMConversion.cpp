@@ -3,8 +3,9 @@
 #include <gtest/gtest.h>
 #include <stdio.h>
 
-#include "../UTMConversion.h"
+#include "UTMConversion.h"
 using namespace ros_hats;
+using namespace ros_hats::gps_utility;
 TEST(BasicTest, TestDefinitions) {
     UTMConversion SUT;
     EXPECT_GT(SUT.get_ellipsoids_supported().size(), 0);

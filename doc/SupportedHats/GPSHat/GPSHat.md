@@ -59,6 +59,7 @@ cgps -s
 ### Class Diagrams
 ![](../../../nodes/GPSHatNode/doc/output/GPSHatNodeClassDiagram.png)
 ![](../../../nodes/GPSHatNode/driver/GPSHatDriver/doc/output/GPSHatDriverClassDiagram.png)
+![](../../../nodes/GPSHatNode/util/GPSUtility/doc/output/GPSUtilityClassDiagram.png)
 
 ### Sequence Diagrams
 ![](../../../nodes/GPSHatNode/doc/output/GPSHatNodeSequenceDiagram.png)

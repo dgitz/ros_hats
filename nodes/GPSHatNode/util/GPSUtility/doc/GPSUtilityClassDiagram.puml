@@ -1,0 +1,18 @@
+@startuml
+namespace ros_hats {
+    class UTMCoordinates
+    class GeographicCoordinates
+namespace gps_utility {
+    class Ellipsoid #LimeGreen {
+        +string ellipsoidName
+        +ouble equatorialRadius
+        +double eccentricitySquared
+    }
+    class UTMConversion #LimeGreen {
+        +string[] get_ellipsoids_supported();
+        +UTMCoordinates convert(string ellipsoid_name, GeograpicCoordinates geo)
+        +string compute_zone_letter(double latitude)
+    }
+}
+}
+@enduml
