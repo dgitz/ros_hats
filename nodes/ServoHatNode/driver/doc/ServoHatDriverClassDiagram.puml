@@ -1,0 +1,39 @@
+@startuml
+title Servo Hat Driver Class Diagram
+package eros {
+    class Logger
+}
+namespace ros_hats{
+interface IServoHatDriver #Orange {
+    +{abstract} bool init(Logger logger, address)
+    +{abstract} bool update(double dt)
+    +{abstract} void setServoValue(int pin_number, int value)
+    +{abstract} bool finish()
+    +{abstract} string pretty()
+
+}
+class ServoHatDriver #Orange {
+    +bool init(Logger logger, address)
+    +bool update(double dt)
+    +void setServoValue(int pin_number, int value)
+    +bool finish()
+    +string pretty()
+}
+note right of ServoHatDriver 
+ARMV7L
+end note
+IServoHatDriver <|-- ServoHatDriver
+class MockServoHatDriver #Orange {
+    +bool init(Logger logger, address)
+    +bool update(double dt)
+    +void setServoValue(int pin_number, int value)
+    +bool finish()
+    +string pretty()
+
+}
+note right of MockServoHatDriver 
+X86_64
+end note
+IServoHatDriver <|-- MockServoHatDriver
+}
+@enduml

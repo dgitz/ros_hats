@@ -1,0 +1,3 @@
+catkin_add_gtest(test_ServoHatDriver test_ServoHatDriver.cpp)
+target_link_libraries(test_ServoHatDriver ${catkin_LIBRARIES} ${Boost_LIBRARIES} logger servoHatDriver)
+add_dependencies(test_ServoHatDriver eros_generate_messages_cpp)
