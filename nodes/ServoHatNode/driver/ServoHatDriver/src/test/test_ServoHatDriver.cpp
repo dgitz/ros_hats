@@ -8,7 +8,7 @@ using namespace eros;
 using namespace ros_hats;
 
 TEST(BasicTest, TestOperation) {
-    Logger* logger = new Logger("DEBUG", "UnitTestGPSHatDriver");
+    Logger* logger = new Logger("DEBUG", "UnitTestServoHatDriver");
     ServoHatDriver SUT;
     SUT.init(logger);
 

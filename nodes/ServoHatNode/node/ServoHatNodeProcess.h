@@ -1,7 +1,7 @@
 /**
  * @file ServoHatNodeProcess.h
  * @author David Gitz
- * @brief GPS Hat Node Process for Node
+ * @brief Servo Hat Node Process for Node
  * @date 2025-02-21
  *
  * @copyright Copyright (c) 2025
@@ -15,6 +15,11 @@
 #include <sensor_msgs/NavSatStatus.h>
 
 #include "IServoHatDriver.h"
+#ifdef ARCHITECTURE_ARMV7L
+#include "ServoHatDriver.h"
+#else
+#include "MockServoHatDriver.h"
+#endif
 namespace ros_hats {
 /*! \class ServoHatNodeProcess ServoHatNodeProcess.h "ServoHatNodeProcess.h"
  *  \brief */

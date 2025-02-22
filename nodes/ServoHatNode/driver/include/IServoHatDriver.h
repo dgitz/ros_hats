@@ -26,7 +26,7 @@ class IServoHatDriver
     }
     virtual ~IServoHatDriver(){};
     /**
-     * @brief Initialize GPS Hat Driver
+     * @brief Initialize Servo Hat Driver
      *
      * @param logger
      * @return true

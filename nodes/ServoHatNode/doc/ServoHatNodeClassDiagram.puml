@@ -4,6 +4,9 @@ title Servo Hat Node Class Diagram
 package ros {
   class Subscriber
 }
+package std_msgs {
+  class uint16_t <<(M,#FFFF00)>>
+}
 package eros {
   class BaseNode
   class BaseNodeProcess
@@ -19,7 +22,7 @@ package ros_hats {
       +const eros::System::MainSystem DIAGNOSTIC_SYSTEM
       +const eros::System::SubSystem DIAGNOSTIC_SUBSYSTEM
       +const eros::System::Component DIAGNOSTIC_COMPONENT
-      +GPSHatNodeProcess* get_process()
+      +ServoHatNodeProcess* get_process()
       +bool start()
       +eros::eros_diagnostic::Diagnostic finish_initialization()
       +bool run_loop1()
@@ -35,8 +38,11 @@ package ros_hats {
       +bool changenodestate_service(eros::srv_change_nodestate::Request& req, eros::srv_change_nodestate::Response& res)
       +system_commandAction_Callback(const eros::system_commandGoalConstPtr& goal)
       +command_Callback(const eros::command::ConstPtr& t_msg)
+      +servomsg_Callback(const std_msgs::uint16_t::ConstPtr& t_msg)
+      +bool new_servo_command(std::string topic_name,std_msgs::uint16_t msg)
 
       -ServoHatNodeProcess* process;
+      -ros::Subscriber[] servo_channel_subs
   }
   class ServoHatNodeProcess #Orange {
       +eros::eros_diagnostic::Diagnostic finish_initialization()
@@ -45,6 +51,9 @@ package ros_hats {
       +std::vector<eros::eros_diagnostic::Diagnostic> new_commandmsg(eros::command msg)
       +std::vector<eros::eros_diagnostic::Diagnostic> check_programvariables()
       +cleanup()
+      +bool new_servo_command(std::string channel_name,std_msgs::uint16_t msg)
+      +uint8_t lookup_pinumber(std::string channel_name)
+
       -IServoHatDriver driver
 
   }

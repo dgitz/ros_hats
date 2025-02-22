@@ -1,26 +1,26 @@
-/*! \file test_GPSHatNodeProcess.cpp
+/*! \file test_ServoHatNodeProcess.cpp
  */
 #include <gtest/gtest.h>
 #include <stdio.h>
 
-#include "../GPSHatNodeProcess.h"
+#include "../ServoHatNodeProcess.h"
 using namespace eros;
 namespace ros_hats {
-class GPSHatNodeProcessTester : public GPSHatNodeProcess
+class ServoHatNodeProcessTester : public ServoHatNodeProcess
 {
    public:
-    GPSHatNodeProcessTester() {
+    ServoHatNodeProcessTester() {
     }
-    ~GPSHatNodeProcessTester() {
+    ~ServoHatNodeProcessTester() {
     }
 };
 }  // namespace ros_hats
 using namespace ros_hats;
 TEST(BasicTest, TestOperation) {
-    Logger* logger = new Logger("DEBUG", "UnitTestGPSHatNodeProcess");
-    GPSHatNodeProcessTester* tester = new GPSHatNodeProcessTester;
-    tester->initialize("UnitTestGPSHatNodeProcess",
-                       "UnitTestGPSHatNodeProcess",
+    Logger* logger = new Logger("DEBUG", "UnitTestServoHatNodeProcess");
+    ServoHatNodeProcessTester* tester = new ServoHatNodeProcessTester;
+    tester->initialize("UnitTestServoHatNodeProcess",
+                       "UnitTestServoHatNodeProcess",
                        "MyHost",
                        System::MainSystem::SIMROVER,
                        System::SubSystem::ENTIRE_SYSTEM,

@@ -1,7 +1,7 @@
 /**
  * @file ServoHatNode.h
  * @author David Gitz
- * @brief  GPS Hat Node
+ * @brief  Servo Hat Node
  * @date 2025-02-21
  *
  * @copyright Copyright (c) 2025
@@ -46,7 +46,7 @@ class ServoHatNode : public eros::BaseNode
     const eros::System::SubSystem DIAGNOSTIC_SUBSYSTEM = eros::System::SubSystem::ENTIRE_SYSTEM;
 
     /*! \brief What Component this Node falls under.*/
-    const eros::System::Component DIAGNOSTIC_COMPONENT = eros::System::Component::TODO;
+    const eros::System::Component DIAGNOSTIC_COMPONENT = eros::System::Component::GPIO;
     ServoHatNode();
     ~ServoHatNode();
     ServoHatNodeProcess* get_process() {

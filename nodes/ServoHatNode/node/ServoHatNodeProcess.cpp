@@ -8,7 +8,11 @@ ServoHatNodeProcess::~ServoHatNodeProcess() {
 }
 eros::eros_diagnostic::Diagnostic ServoHatNodeProcess::finish_initialization() {
     eros::eros_diagnostic::Diagnostic diag = get_root_diagnostic();
-    // driver = new GPSHatDriver;
+#ifdef ARCHITECTURE_ARMV7L
+    driver = new ServoHatDriver;
+#else
+    driver = new MockServoHatDriver;
+#endif
     driver->init(logger);
     return diag;
 }

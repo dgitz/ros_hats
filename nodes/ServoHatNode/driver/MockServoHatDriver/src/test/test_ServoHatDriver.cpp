@@ -1,15 +1,15 @@
-/*! \file test_ServoHatDriver.cpp
+/*! \file test_MockServoHatDriver.cpp
  */
 #include <gtest/gtest.h>
 #include <stdio.h>
 
-#include "ServoHatDriver.h"
+#include "MockServoHatDriver.h"
 using namespace eros;
 using namespace ros_hats;
 
 TEST(BasicTest, TestOperation) {
-    Logger* logger = new Logger("DEBUG", "UnitTestGPSHatDriver");
-    ServoHatDriver SUT;
+    Logger* logger = new Logger("DEBUG", "UnitTestMockServoHatDriver");
+    MockServoHatDriver SUT;
     SUT.init(logger);
 
     double timeToRun = 10.0;
@@ -22,7 +22,7 @@ TEST(BasicTest, TestOperation) {
         timer += dt;
     }
 
-    // delete logger;
+    delete logger;
 }
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);

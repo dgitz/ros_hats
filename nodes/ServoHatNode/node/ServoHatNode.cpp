@@ -6,7 +6,7 @@ ServoHatNode::ServoHatNode()
     : system_command_action_server(
           *n.get(),
           read_robotnamespace() + "SystemCommandAction",
-          boost::bind(&GPSHatNode::system_commandAction_Callback, this, _1),
+          boost::bind(&ServoHatNode::system_commandAction_Callback, this, _1),
           false) {
     system_command_action_server.start();
 }
@@ -45,7 +45,7 @@ bool ServoHatNode::changenodestate_service(eros::srv_change_nodestate::Request &
 bool ServoHatNode::start() {
     initialize_diagnostic(DIAGNOSTIC_SYSTEM, DIAGNOSTIC_SUBSYSTEM, DIAGNOSTIC_COMPONENT);
     bool status = false;
-    process = new GPSHatNodeProcess();
+    process = new ServoHatNodeProcess();
     set_basenodename(BASE_NODE_NAME);
     initialize_firmware(
         MAJOR_RELEASE_VERSION, MINOR_RELEASE_VERSION, BUILD_NUMBER, FIRMWARE_DESCRIPTION);
@@ -76,7 +76,7 @@ bool ServoHatNode::start() {
     diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::DATA_STORAGE);
     diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::SYSTEM_RESOURCE);
     diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::COMMUNICATIONS);
-    diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::TODO);
+    diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::ACTUATORS);
     process->enable_diagnostics(diagnostic_types);
     process->finish_initialization();
     diagnostic = finish_initialization();
@@ -107,7 +107,7 @@ bool ServoHatNode::start() {
 eros::eros_diagnostic::Diagnostic ServoHatNode::read_launchparameters() {
     eros::eros_diagnostic::Diagnostic diag = diagnostic;
     command_sub = n->subscribe<eros::command>(
-        get_robotnamespace() + "SystemCommand", 10, &GPSHatNode::command_Callback, this);
+        get_robotnamespace() + "SystemCommand", 10, &ServoHatNode::command_Callback, this);
     get_logger()->log_notice("Configuration Files Loaded.");
     return diag;
 }
@@ -128,25 +128,25 @@ eros::eros_diagnostic::Diagnostic ServoHatNode::finish_initialization() {
                                       eros::Level::Type::INFO,
                                       eros::eros_diagnostic::Message::NOERROR,
                                       "All Configuration Files Loaded.");
-    diag = process->update_diagnostic(eros::eros_diagnostic::DiagnosticType::TODO,
+    diag = process->update_diagnostic(eros::eros_diagnostic::DiagnosticType::ACTUATORS,
                                       eros::Level::Type::WARN,
                                       eros::eros_diagnostic::Message::INITIALIZING,
-                                      "GPS Initializing...");
+                                      "Servo Hat Initializing...");
     return diag;
 }
-bool GPSHatNode::run_loop1() {
+bool ServoHatNode::run_loop1() {
     return true;
 }
-bool GPSHatNode::run_loop2() {
+bool ServoHatNode::run_loop2() {
     return true;
 }
-bool GPSHatNode::run_loop3() {
+bool ServoHatNode::run_loop3() {
     return true;
 }
-bool GPSHatNode::run_001hz() {
+bool ServoHatNode::run_001hz() {
     return true;
 }
-bool GPSHatNode::run_01hz() {
+bool ServoHatNode::run_01hz() {
     return true;
 }
 bool ServoHatNode::run_01hz_noisy() {
@@ -221,7 +221,7 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
         // LCOV_EXCL_STOP
     }
-    std::thread thread(&ros_hats::GPSHatNode::thread_loop, node);
+    std::thread thread(&ros_hats::ServoHatNode::thread_loop, node);
     while ((status == true) and (kill_node == false)) {
         status = node->update(node->get_process()->get_nodestate());
     }
