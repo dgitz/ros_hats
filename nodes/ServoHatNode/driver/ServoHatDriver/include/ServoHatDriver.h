@@ -23,11 +23,14 @@ namespace ros_hats {
 class ServoHatDriver
 {
    public:
-    
+   static constexpr int MIN_SERVO_VALUE = 500;
+static constexpr int MAX_SERVO_VALUE = 1500;
+
     /**
      * @brief Container for housing full output of GPSHatDriver
      *
      */
+     
     struct ServoHatDriverContainer {
         ros::Time timestamp;
        

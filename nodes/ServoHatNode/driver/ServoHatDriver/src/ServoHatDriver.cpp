@@ -6,6 +6,8 @@ ServoHatDriver::~ServoHatDriver() {
     finish();
 }
 bool ServoHatDriver::finish() {
+    logger->log_warn("Finish");
+    resetAllPWM(0, 0);
     return true;
 }
 bool ServoHatDriver::init(eros::Logger* _logger, int address) {
@@ -43,6 +45,15 @@ std::string ServoHatDriver::pretty() {
     str = "Not Implemented Yet";
     return str;
 }
+void ServoHatDriver::setServoValue(int channel, int v) {
+    if((v < MIN_SERVO_VALUE) || (v > MAX_SERVO_VALUE)) {
+        logger->log_warn("Commanded Servo Value: " + std::to_string(v) + " Out of Bounds!");
+        return;
+    }
+    int on = 0;
+    int off = v / 3.90;
+    setPWM(channel, on, off);
+}
 void ServoHatDriver::setPWMFreq(int freq) {
     float prescaleval = 25000000;
     prescaleval /= 4096.0;
@@ -59,11 +70,7 @@ void ServoHatDriver::setPWMFreq(int freq) {
     wiringPiI2CWriteReg8(servoHatFd, (int)Adafruit16ChServoHatConstant::MODE1, oldmode | 0x80);
 }
 
-void ServoHatDriver::setServoValue(int channel, int v) {
-    int on = 0;
-    int off = v / 3.90;
-    setPWM(channel, on, off);
-}
+
 void ServoHatDriver::resetAllServo() {
 }
 void ServoHatDriver::setPWM(int channel, int on, int off) {
