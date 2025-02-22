@@ -1,6 +1,7 @@
 /**
  * @file UTMConversion.h
  * @author David Gitz
+ * @ref https://oceancolor.gsfc.nasa.gov/docs/ocssw/LatLong-UTMconversion_8cpp_source.html
  * @brief
  * @date 2025-02-21
  *

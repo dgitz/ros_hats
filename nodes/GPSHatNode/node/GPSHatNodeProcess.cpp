@@ -1,4 +1,7 @@
 #include "GPSHatNodeProcess.h"
+
+#include <math.h>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 namespace ros_hats {
 GPSHatNodeProcess::GPSHatNodeProcess() {
 }
@@ -95,6 +98,20 @@ nav_msgs::Odometry GPSHatNodeProcess::convertPose(GPSHatDriver::GPSHatDriverCont
     odom.pose.covariance[0] = hat_output.latitude_accuracy_m;
     odom.pose.covariance[7] = hat_output.longitude_accuracy_m;
     odom.pose.covariance[14] = hat_output.altitude_accuracy_m;
+    // TODO:  altitude
+    double heading_deg = hat_output.course_deg;
+    if (isnan(heading_deg)) {
+        tf2::Quaternion quat_tf;
+        quat_tf.setRPY(0, 0, 0.0);
+        odom.pose.pose.orientation = tf2::toMsg(quat_tf);
+        odom.pose.covariance[35] = -1.0;
+    }
+    else {
+        tf2::Quaternion quat_tf;
+        quat_tf.setRPY(0, 0, hat_output.course_deg * M_PI / 180.0);
+        odom.pose.pose.orientation = tf2::toMsg(quat_tf);
+        odom.pose.covariance[35] = hat_output.course_accuracy_deg * M_PI / 180.0;
+    }
 
     return odom;
 }

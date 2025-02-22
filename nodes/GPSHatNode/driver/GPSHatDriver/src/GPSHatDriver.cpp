@@ -61,6 +61,8 @@ bool GPSHatDriver::process_data(struct gps_data_t* data) {
     new_gps_data.latitude_accuracy_m = data->fix.epy;
     new_gps_data.longitude_accuracy_m = data->fix.epx;
     new_gps_data.altitude_accuracy_m = data->fix.epv;
+    new_gps_data.course_deg = data->fix.track;
+    new_gps_data.course_accuracy_deg = data->fix.epd;
     // GCOVR_EXCL_START
     switch (data->fix.mode) {
         case MODE_NOT_SEEN: new_gps_data.fix_type = FixType::NOT_SEEN; break;

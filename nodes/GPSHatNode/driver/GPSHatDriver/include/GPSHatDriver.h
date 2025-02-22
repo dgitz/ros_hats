@@ -90,6 +90,8 @@ class GPSHatDriver
         double latitude_accuracy_m{-1.0};
         double longitude_accuracy_m{-1.0};
         double altitude_accuracy_m{-1.0};
+        double course_deg{0.0};
+        double course_accuracy_deg{-1.0};
         FixType fix_type{FixType::UNKNOWN};
         StatusType status_type{StatusType::UNKNOWN};
         static std::string pretty(GPSHatDriverContainer data) {
