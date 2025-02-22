@@ -17,6 +17,9 @@ void GPSHatNodeProcess::reset() {
 eros::eros_diagnostic::Diagnostic GPSHatNodeProcess::update(double t_dt, double t_ros_time) {
     eros::eros_diagnostic::Diagnostic diag = base_update(t_dt, t_ros_time);
     driver->update(t_dt);
+    auto gps_data = driver->get_gps_data();
+    latest_nav_sat_fix = convertGPS(gps_data);
+    latest_odom = convertPose(gps_data);
     return diag;
 }
 std::vector<eros::eros_diagnostic::Diagnostic> GPSHatNodeProcess::new_commandmsg(
@@ -36,7 +39,8 @@ std::string GPSHatNodeProcess::pretty() {
     str += driver->pretty();
     return str;
 }
-sensor_msgs::NavSatFix GPSHatNodeProcess::convert(GPSHatDriver::GPSHatDriverContainer hat_output) {
+sensor_msgs::NavSatFix GPSHatNodeProcess::convertGPS(
+    GPSHatDriver::GPSHatDriverContainer hat_output) {
     sensor_msgs::NavSatFix gps_data;
     gps_data.header.stamp = hat_output.timestamp;
     gps_data.header.frame_id = "geographic";
@@ -61,8 +65,8 @@ sensor_msgs::NavSatFix GPSHatNodeProcess::convert(GPSHatDriver::GPSHatDriverCont
             break;
     }
     if (gps_data_valid == true) {
-        gps_data.latitude = hat_output.latitude;
-        gps_data.longitude = hat_output.longitude;
+        gps_data.latitude = hat_output.geographic_coordinates.latitude_deg;
+        gps_data.longitude = hat_output.geographic_coordinates.longitude_deg;
         gps_data.altitude = hat_output.altitude;
         gps_data.position_covariance[0] = hat_output.latitude_accuracy_m;
         gps_data.position_covariance[4] = hat_output.longitude_accuracy_m;
@@ -80,8 +84,25 @@ sensor_msgs::NavSatFix GPSHatNodeProcess::convert(GPSHatDriver::GPSHatDriverCont
     }
     return gps_data;
 }
+
+nav_msgs::Odometry GPSHatNodeProcess::convertPose(GPSHatDriver::GPSHatDriverContainer hat_output) {
+    nav_msgs::Odometry odom;
+    odom.header.stamp = hat_output.timestamp;
+    odom.header.frame_id = "utm";
+    UTMCoordinates utm = utm_converter.convert("WGS-84", hat_output.geographic_coordinates);
+    odom.pose.pose.position.x = utm.easting_m;
+    odom.pose.pose.position.y = utm.northing_m;
+    odom.pose.covariance[0] = hat_output.latitude_accuracy_m;
+    odom.pose.covariance[7] = hat_output.longitude_accuracy_m;
+    odom.pose.covariance[14] = hat_output.altitude_accuracy_m;
+
+    return odom;
+}
+nav_msgs::Odometry GPSHatNodeProcess::get_gps_pose_data() {
+    return latest_odom;
+}
 sensor_msgs::NavSatFix GPSHatNodeProcess::get_gps_data() {
-    sensor_msgs::NavSatFix nav_sat_fix = convert(driver->get_gps_data());
+    sensor_msgs::NavSatFix nav_sat_fix = convertGPS(driver->get_gps_data());
     if ((nav_sat_fix.status.status == sensor_msgs::NavSatStatus::STATUS_GBAS_FIX) ||
         (nav_sat_fix.status.status == sensor_msgs::NavSatStatus::STATUS_SBAS_FIX)) {
         update_diagnostic(eros::eros_diagnostic::DiagnosticType::POSE,

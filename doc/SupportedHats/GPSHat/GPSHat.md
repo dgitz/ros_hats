@@ -67,5 +67,7 @@ cgps -s
 # References
 
 - https://learn.adafruit.com/adafruit-ultimate-gps-hat-for-raspberry-pi/use-gpsd
+- https://coordinates-converter.com/
+- https://www.maptools.com/tutorials/grid_zone_details?srsltid=AfmBOoqMKkQXVdJQLBMaqlb2ICIEMEHwRpKl0Rq2ew3gpPtT0V72TQ2O
 
 # Troubleshooting

@@ -12,6 +12,7 @@
 #include <eros_utility/ConvertUtility.h>
 #include <eros_utility/PrettyUtility.h>
 #include <gps.h>
+#include <ros_hats/CoordinateDefinitions.h>
 
 #include "libgpsmm.h"
 //! ros_hats Namespace
@@ -84,8 +85,7 @@ class GPSHatDriver
      */
     struct GPSHatDriverContainer {
         ros::Time timestamp;
-        double latitude{0.0};
-        double longitude{0.0};
+        GeograpicCoordinates geographic_coordinates;
         double altitude{0.0};
         double latitude_accuracy_m{-1.0};
         double longitude_accuracy_m{-1.0};
@@ -97,8 +97,9 @@ class GPSHatDriver
             str = "GPS: T=" + std::to_string(data.timestamp.toSec());
             str += " Status: " + StatusTypeString(data.status_type);
             str += " Fix: " + FixTypeString(data.fix_type);
-            str += " Lat: " + std::to_string(data.latitude) +
-                   " (Deg) Long: " + std::to_string(data.longitude) + " (Deg)";
+            str += " Lat: " + std::to_string(data.geographic_coordinates.latitude_deg) +
+                   " (Deg) Long: " + std::to_string(data.geographic_coordinates.longitude_deg) +
+                   " (Deg)";
             return str;
         }
     };

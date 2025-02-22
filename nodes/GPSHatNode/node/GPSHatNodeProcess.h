@@ -10,10 +10,12 @@
 #pragma once
 #include <eros/BaseNodeProcess.h>
 #include <eros_diagnostic/Diagnostic.h>
+#include <nav_msgs/Odometry.h>
 #include <sensor_msgs/NavSatFix.h>
 #include <sensor_msgs/NavSatStatus.h>
 
 #include "GPSHatDriver.h"
+#include "UTMConversion.h"
 namespace ros_hats {
 /*! \class GPSHatNodeProcess GPSHatNodeProcess.h "GPSHatNodeProcess.h"
  *  \brief */
@@ -33,9 +35,14 @@ class GPSHatNodeProcess : public eros::BaseNodeProcess
     }
     std::string pretty() override;
     sensor_msgs::NavSatFix get_gps_data();
-    static sensor_msgs::NavSatFix convert(GPSHatDriver::GPSHatDriverContainer hat_output);
+    nav_msgs::Odometry get_gps_pose_data();
+    static sensor_msgs::NavSatFix convertGPS(GPSHatDriver::GPSHatDriverContainer hat_output);
+    nav_msgs::Odometry convertPose(GPSHatDriver::GPSHatDriverContainer hat_output);
 
    private:
+    UTMConversion utm_converter;
     GPSHatDriver* driver;
+    sensor_msgs::NavSatFix latest_nav_sat_fix;
+    nav_msgs::Odometry latest_odom;
 };
 }  // namespace ros_hats

@@ -116,7 +116,8 @@ eros::eros_diagnostic::Diagnostic GPSHatNode::finish_initialization() {
     std::string srv_nodestate_topic = "srv_nodestate_change";
     nodestate_srv =
         n->advertiseService(srv_nodestate_topic, &GPSHatNode::changenodestate_service, this);
-    gps_data_pub = n->advertise<sensor_msgs::NavSatFix>(robot_namespace + "/robot/gps", 20);
+    gps_data_pub = n->advertise<sensor_msgs::NavSatFix>(robot_namespace + "/robot/gps_fix", 20);
+    gps_pose_pub = n->advertise<nav_msgs::Odometry>(robot_namespace + "/robot/gps_pose", 20);
     diag = process->update_diagnostic(eros::eros_diagnostic::DiagnosticType::COMMUNICATIONS,
                                       eros::Level::Type::INFO,
                                       eros::eros_diagnostic::Message::NOERROR,
@@ -191,6 +192,7 @@ bool GPSHatNode::run_10hz() {
     update_ready_to_arm(process->get_ready_to_arm());
 
     gps_data_pub.publish(process->get_gps_data());
+    gps_pose_pub.publish(process->get_gps_pose_data());
     return true;
 }
 void GPSHatNode::thread_loop() {

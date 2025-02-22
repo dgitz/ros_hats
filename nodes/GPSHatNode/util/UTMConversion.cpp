@@ -1,33 +1,10 @@
 #include "UTMConversion.h"
+
+#include <math.h>
 namespace ros_hats {
 UTMConversion::UTMConversion() {
     ellipsoid_map.insert(
-        std::pair<std::string, Ellipsoid>("Airy", Ellipsoid("Airy", 6377563, 0.00667054)));
-    /*
-
-    Ellipsoid(2, "Australian National", 6378160, 0.006694542),
-    Ellipsoid(3, "Bessel 1841", 6377397, 0.006674372),
-    Ellipsoid(4, "Bessel 1841 (Nambia) ", 6377484, 0.006674372),
-    Ellipsoid(5, "Clarke 1866", 6378206, 0.006768658),
-    Ellipsoid(6, "Clarke 1880", 6378249, 0.006803511),
-    Ellipsoid(7, "Everest", 6377276, 0.006637847),
-    Ellipsoid(8, "Fischer 1960 (Mercury) ", 6378166, 0.006693422),
-    Ellipsoid(9, "Fischer 1968", 6378150, 0.006693422),
-    Ellipsoid(10, "GRS 1967", 6378160, 0.006694605),
-    Ellipsoid(11, "GRS 1980", 6378137, 0.00669438),
-    Ellipsoid(12, "Helmert 1906", 6378200, 0.006693422),
-    Ellipsoid(13, "Hough", 6378270, 0.00672267),
-    Ellipsoid(14, "International", 6378388, 0.00672267),
-    Ellipsoid(15, "Krassovsky", 6378245, 0.006693422),
-    Ellipsoid(16, "Modified Airy", 6377340, 0.00667054),
-    Ellipsoid(17, "Modified Everest", 6377304, 0.006637847),
-    Ellipsoid(18, "Modified Fischer 1960", 6378155, 0.006693422),
-    Ellipsoid(19, "South American 1969", 6378160, 0.006694542),
-    Ellipsoid(20, "WGS 60", 6378165, 0.006693422),
-    Ellipsoid(21, "WGS 66", 6378145, 0.006694542),
-    Ellipsoid(22, "WGS-72", 6378135, 0.006694318),
-    Ellipsoid(23, "WGS-84", 6378137, 0.00669438)};
-    */
+        std::pair<std::string, Ellipsoid>("WGS-84", Ellipsoid("WGS-84", 6378137, 0.00669438)));
 }
 GeograpicCoordinates UTMConversion::convert(UTMCoordinates utm) {
     GeograpicCoordinates geo;
@@ -46,8 +23,8 @@ UTMCoordinates UTMConversion::convert(std::string ellipsoid_name, GeograpicCoord
     // Lat and Long are in decimal degrees
     // Written by Chuck Gantz- chuck.gantz@globalstar.com
 
-    double a = ellipsoid_it.second.equatorialRadius;
-    double eccSquared = ellipsoid_it.second.eccentricitySquared;
+    double a = ellipsoid_it->second.equatorialRadius;
+    double eccSquared = ellipsoid_it->second.eccentricitySquared;
     double k0 = 0.9996;
 
     double LongOrigin;
@@ -55,21 +32,21 @@ UTMCoordinates UTMConversion::convert(std::string ellipsoid_name, GeograpicCoord
     double N, T, C, A, M;
 
     // Make sure the longitude is between -180.00 .. 179.9
-    double LongTemp =
-        (geo.longitude + 180) - int((geo.longitude + 180) / 360) * 360 - 180;  // -180.00 .. 179.9;
+    double LongTemp = (geo.longitude_deg + 180) - int((geo.longitude_deg + 180) / 360) * 360 -
+                      180;  // -180.00 .. 179.9;
 
-    double LatRad = geo.latitude * deg2rad;
-    double LongRad = LongTemp * deg2rad;
+    double LatRad = geo.latitude_deg * M_PI / 180.0;
+    double LongRad = LongTemp * M_PI / 180.0;
     double LongOriginRad;
     int ZoneNumber;
 
     ZoneNumber = int((LongTemp + 180) / 6) + 1;
 
-    if (Lat >= 56.0 && Lat < 64.0 && LongTemp >= 3.0 && LongTemp < 12.0)
+    if (geo.longitude_deg >= 56.0 && geo.longitude_deg < 64.0 && LongTemp >= 3.0 && LongTemp < 12.0)
         ZoneNumber = 32;
 
     // Special zones for Svalbard
-    if (Lat >= 72.0 && Lat < 84.0) {
+    if (geo.longitude_deg >= 72.0 && geo.longitude_deg < 84.0) {
         if (LongTemp >= 0.0 && LongTemp < 9.0)
             ZoneNumber = 31;
         else if (LongTemp >= 9.0 && LongTemp < 21.0)
@@ -80,10 +57,41 @@ UTMCoordinates UTMConversion::convert(std::string ellipsoid_name, GeograpicCoord
             ZoneNumber = 37;
     }
     LongOrigin = (ZoneNumber - 1) * 6 - 180 + 3;  //+3 puts origin in middle of zone
-    LongOriginRad = LongOrigin * deg2rad;
+    LongOriginRad = LongOrigin * M_PI / 180.0;
 
     // compute the UTM Zone from the latitude and longitude
-    sprintf(UTMZone, "%d%c", ZoneNumber, UTMLetterDesignator(Lat));
+    utm.utm_zone = std::to_string(ZoneNumber) + compute_zone_letter(geo.longitude_deg);
+    eccPrimeSquared = (eccSquared) / (1 - eccSquared);
+
+    N = a / sqrt(1 - eccSquared * sin(LatRad) * sin(LatRad));
+    T = tan(LatRad) * tan(LatRad);
+    C = eccPrimeSquared * cos(LatRad) * cos(LatRad);
+    A = cos(LatRad) * (LongRad - LongOriginRad);
+
+    M = a *
+        ((1 - eccSquared / 4 - 3 * eccSquared * eccSquared / 64 -
+          5 * eccSquared * eccSquared * eccSquared / 256) *
+             LatRad -
+         (3 * eccSquared / 8 + 3 * eccSquared * eccSquared / 32 +
+          45 * eccSquared * eccSquared * eccSquared / 1024) *
+             sin(2 * LatRad) +
+         (15 * eccSquared * eccSquared / 256 + 45 * eccSquared * eccSquared * eccSquared / 1024) *
+             sin(4 * LatRad) -
+         (35 * eccSquared * eccSquared * eccSquared / 3072) * sin(6 * LatRad));
+    utm.easting_m = (double)(k0 * N *
+                                 (A + (1 - T + C) * A * A * A / 6 +
+                                  (5 - 18 * T + T * T + 72 * C - 58 * eccPrimeSquared) * A * A * A *
+                                      A * A / 120) +
+                             500000.0);
+
+    utm.northing_m =
+        (double)(k0 * (M + N * tan(LatRad) *
+                               (A * A / 2 + (5 - T + 9 * C + 4 * C * C) * A * A * A * A / 24 +
+                                (61 - 58 * T + T * T + 600 * C - 330 * eccPrimeSquared) * A * A *
+                                    A * A * A * A / 720)));
+    if (geo.latitude_deg < 0) {
+        utm.northing_m += 10000000.0;  // 10000000 meter offset for southern hemisphere
+    }
     return utm;
 }
 std::vector<std::string> UTMConversion::get_ellipsoids_supported() {

@@ -11,8 +11,8 @@
 #include <string>
 namespace ros_hats {
 struct GeograpicCoordinates {
-    double latitude{0.0};
-    double longitude{0.0};
+    double latitude_deg{0.0};
+    double longitude_deg{0.0};
 };
 struct UTMCoordinates {
     double northing_m{0.0};

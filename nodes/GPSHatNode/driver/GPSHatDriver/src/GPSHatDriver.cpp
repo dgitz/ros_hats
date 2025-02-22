@@ -55,8 +55,8 @@ bool GPSHatDriver::process_data(struct gps_data_t* data) {
     GPSHatDriverContainer new_gps_data;
 
     new_gps_data.timestamp = convert_time(data->online);
-    new_gps_data.latitude = data->fix.latitude;
-    new_gps_data.longitude = data->fix.longitude;
+    new_gps_data.geographic_coordinates.latitude_deg = data->fix.latitude;
+    new_gps_data.geographic_coordinates.longitude_deg = data->fix.longitude;
     new_gps_data.altitude = data->fix.altitude;
     new_gps_data.latitude_accuracy_m = data->fix.epy;
     new_gps_data.longitude_accuracy_m = data->fix.epx;

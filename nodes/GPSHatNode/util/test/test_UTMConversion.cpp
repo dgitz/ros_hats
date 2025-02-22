@@ -25,27 +25,27 @@ TEST(BasicTest, TestUnsupportedStates) {
     EXPECT_EQ(utm.easting_m, 0.0);
 }
 TEST(BasicTest, TestConversion) {
+    UTMConversion SUT;
     // Test Peoria IL Coordinates
+    GeograpicCoordinates geo;
+    geo.latitude_deg = 40.693861;
+    geo.longitude_deg = -89.589101;
 
-    double latitude = 40.693861;
-    double longitude = -89.589101;
-    double expected_easting_m = 281236.968;
-    double expected_northing_m = 4507997.592;
-    double northing_m;
-    double easting_m;
+    UTMCoordinates utm_expected;
+    utm_expected.easting_m = 281236.968;
+    utm_expected.northing_m = 4507997.592;
 
-    // LLtoUTM(23, latitude, longitude, northing_m, easting_m, zone);
-    EXPECT_TRUE(true);
-    /*
+    UTMCoordinates utm = SUT.convert("WGS-84", geo);
+
     printf("Lat: %f Long: %f Northing: %f/%f Easting: %f/%f\n",
-           latitude,
-           longitude,
-           northing_m,
-           expected_northing_m,
-           easting_m,
-           expected_easting_m);
-    std::cout << zone << std::endl;
-    */
+           geo.latitude_deg,
+           geo.longitude_deg,
+           utm.northing_m,
+           utm_expected.northing_m,
+           utm.easting_m,
+           utm_expected.easting_m);
+    EXPECT_NEAR(utm.northing_m, utm_expected.northing_m, 1e-3);
+    EXPECT_NEAR(utm.easting_m, utm_expected.easting_m, 1e-3);
 }
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);
