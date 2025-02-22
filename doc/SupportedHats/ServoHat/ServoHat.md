@@ -28,7 +28,6 @@ This will give output similiar to:
 ![](../../output/Legend.png)
 ### Class Diagrams
 ![](../../../nodes/ServoHatNode/doc/output/ServoHatNodeClassDiagram.png)
-![](../../../nodes/ServoHatNode/doc/output/ServoHatNodeSequenceDiagram.png)
 ![](../../../nodes/ServoHatNode/driver/doc/output/ServoHatDriverClassDiagram.png)
 
 ### Sequence Diagrams
