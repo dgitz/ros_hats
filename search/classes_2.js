@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['raspberrypidefinition_55',['RaspberryPiDefinition',['../classros__hats_1_1RaspberryPiDefinition.html',1,'ros_hats']]]
+  ['hatdefinition_62',['HatDefinition',['../classros__hats_1_1HatDefinition.html',1,'ros_hats']]]
 ];

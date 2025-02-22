@@ -1,7 +1,9 @@
 <map id="ros_hats::GPSHatNodeProcessTester" name="ros_hats::GPSHatNodeProcessTester">
-<area shape="rect" id="node1" title=" " alt="" coords="43,275,262,316"/>
-<area shape="rect" id="node2" href="$classros__hats_1_1GPSHatNodeProcess.html" title=" " alt="" coords="43,199,262,225"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,109,180,136"/>
-<area shape="rect" id="node4" href="$classros__hats_1_1GPSHatDriver.html" title="GPSHatDriver Class." alt="" coords="204,109,379,136"/>
-<area shape="rect" id="node5" href="$structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html" title="Container for housing full output of GPSHatDriver." alt="" coords="200,5,383,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="171,379,390,420"/>
+<area shape="rect" id="node2" href="$classros__hats_1_1GPSHatNodeProcess.html" title=" " alt="" coords="171,303,390,329"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,206,180,233"/>
+<area shape="rect" id="node4" href="$classros__hats_1_1gps__utility_1_1UTMConversion.html" title="UTMConversion between Geographic and UTM Coordinates." alt="" coords="204,199,357,240"/>
+<area shape="rect" id="node5" href="$classros__hats_1_1GPSHatDriver.html" title="GPSHatDriver Class." alt="" coords="381,206,556,233"/>
+<area shape="rect" id="node6" href="$structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html" title="Container for housing full output of GPSHatDriver." alt="" coords="377,95,560,136"/>
+<area shape="rect" id="node7" href="$structros__hats_1_1GeograpicCoordinates.html" title=" " alt="" coords="354,5,583,32"/>
 </map>

@@ -113,31 +113,33 @@ false </dd></dl>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    GPSHatDriverContainer new_gps_data;</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    new_gps_data.timestamp = convert_time(data-&gt;online);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    new_gps_data.latitude = data-&gt;fix.latitude;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    new_gps_data.longitude = data-&gt;fix.longitude;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    new_gps_data.geographic_coordinates.latitude_deg = data-&gt;fix.latitude;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    new_gps_data.geographic_coordinates.longitude_deg = data-&gt;fix.longitude;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    new_gps_data.altitude = data-&gt;fix.altitude;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    new_gps_data.latitude_accuracy_m = data-&gt;fix.epy;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    new_gps_data.longitude_accuracy_m = data-&gt;fix.epx;</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    new_gps_data.altitude_accuracy_m = data-&gt;fix.epv;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="comment">// GCOVR_EXCL_START</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">switch</span> (data-&gt;fix.mode) {</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">case</span> MODE_NOT_SEEN: new_gps_data.fix_type = <a class="code" href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786afe9d4917e4a7ce384d66ac027f8117bd">FixType::NOT_SEEN</a>; <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">case</span> MODE_NO_FIX: new_gps_data.fix_type = <a class="code" href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786aa80630704b93114ed9e817a3f53f59c7">FixType::NO_FIX</a>; <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">case</span> MODE_2D: new_gps_data.fix_type = <a class="code" href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786a8b433e3f63d83e78dfbfe6da3ff61b3e">FixType::FIX_2D</a>; <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">case</span> MODE_3D: new_gps_data.fix_type = <a class="code" href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786a5eddc8631075de75c679f84846de5d51">FixType::FIX_3D</a>; <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">default</span>: <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">switch</span> (data-&gt;status) {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">case</span> STATUS_NO_FIX: new_gps_data.status_type = <a class="code" href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fdaa80630704b93114ed9e817a3f53f59c7">StatusType::NO_FIX</a>; <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">case</span> STATUS_FIX: new_gps_data.status_type = <a class="code" href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fda6aaac758332a8320840ac0e5f8fc28e2">StatusType::FIX</a>; <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">case</span> STATUS_DGPS_FIX: new_gps_data.status_type = <a class="code" href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fda062435f4ccd2a307bb27ba288339ccbb">StatusType::DGPS_FIX</a>; <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">default</span>: <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="comment">// GCOVR_EXCL_STOP</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    gps_data = new_gps_data;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    new_gps_data.course_deg = data-&gt;fix.track;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    new_gps_data.course_accuracy_deg = data-&gt;fix.epd;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="comment">// GCOVR_EXCL_START</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">switch</span> (data-&gt;fix.mode) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">case</span> MODE_NOT_SEEN: new_gps_data.fix_type = <a class="code" href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786afe9d4917e4a7ce384d66ac027f8117bd">FixType::NOT_SEEN</a>; <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">case</span> MODE_NO_FIX: new_gps_data.fix_type = <a class="code" href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786aa80630704b93114ed9e817a3f53f59c7">FixType::NO_FIX</a>; <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">case</span> MODE_2D: new_gps_data.fix_type = <a class="code" href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786a8b433e3f63d83e78dfbfe6da3ff61b3e">FixType::FIX_2D</a>; <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">case</span> MODE_3D: new_gps_data.fix_type = <a class="code" href="classros__hats_1_1GPSHatDriver_aac44d4cd6aa1dfac3e1b12716819e786.html#aac44d4cd6aa1dfac3e1b12716819e786a5eddc8631075de75c679f84846de5d51">FixType::FIX_3D</a>; <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">default</span>: <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">switch</span> (data-&gt;status) {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">case</span> STATUS_NO_FIX: new_gps_data.status_type = <a class="code" href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fdaa80630704b93114ed9e817a3f53f59c7">StatusType::NO_FIX</a>; <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">case</span> STATUS_FIX: new_gps_data.status_type = <a class="code" href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fda6aaac758332a8320840ac0e5f8fc28e2">StatusType::FIX</a>; <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">case</span> STATUS_DGPS_FIX: new_gps_data.status_type = <a class="code" href="classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fda062435f4ccd2a307bb27ba288339ccbb">StatusType::DGPS_FIX</a>; <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">default</span>: <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="comment">// GCOVR_EXCL_STOP</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    gps_data = new_gps_data;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
 </div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">

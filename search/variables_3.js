@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['major_5frelease_5fversion_78',['MAJOR_RELEASE_VERSION',['../classros__hats_1_1GPSHatNode.html#a133dcaefa0df83ec577d096ed53413e9',1,'ros_hats::GPSHatNode']]],
-  ['minor_5frelease_5fversion_79',['MINOR_RELEASE_VERSION',['../classros__hats_1_1GPSHatNode.html#a24a391d3f1e8931c314484c7ee621263',1,'ros_hats::GPSHatNode']]]
+  ['major_5frelease_5fversion_90',['MAJOR_RELEASE_VERSION',['../classros__hats_1_1GPSHatNode.html#a133dcaefa0df83ec577d096ed53413e9',1,'ros_hats::GPSHatNode']]],
+  ['minor_5frelease_5fversion_91',['MINOR_RELEASE_VERSION',['../classros__hats_1_1GPSHatNode.html#a24a391d3f1e8931c314484c7ee621263',1,'ros_hats::GPSHatNode']]]
 ];

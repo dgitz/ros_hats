@@ -86,11 +86,13 @@ Collaboration diagram for ros_hats::GPSHatNodeProcessTester:</div>
 <div class="dyncontent">
 <div class="center"><img src="classros__hats_1_1GPSHatNodeProcessTester__coll__graph.png" border="0" usemap="#ros__hats_1_1GPSHatNodeProcessTester_coll__map" alt="Collaboration graph"/></div>
 <map name="ros__hats_1_1GPSHatNodeProcessTester_coll__map" id="ros__hats_1_1GPSHatNodeProcessTester_coll__map">
-<area shape="rect" title=" " alt="" coords="43,275,262,316"/>
-<area shape="rect" href="classros__hats_1_1GPSHatNodeProcess.html" title=" " alt="" coords="43,199,262,225"/>
-<area shape="rect" title=" " alt="" coords="5,109,180,136"/>
-<area shape="rect" href="classros__hats_1_1GPSHatDriver.html" title="GPSHatDriver Class." alt="" coords="204,109,379,136"/>
-<area shape="rect" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html" title="Container for housing full output of GPSHatDriver." alt="" coords="200,5,383,47"/>
+<area shape="rect" title=" " alt="" coords="171,379,390,420"/>
+<area shape="rect" href="classros__hats_1_1GPSHatNodeProcess.html" title=" " alt="" coords="171,303,390,329"/>
+<area shape="rect" title=" " alt="" coords="5,206,180,233"/>
+<area shape="rect" href="classros__hats_1_1gps__utility_1_1UTMConversion.html" title="UTMConversion between Geographic and UTM Coordinates." alt="" coords="204,199,357,240"/>
+<area shape="rect" href="classros__hats_1_1GPSHatDriver.html" title="GPSHatDriver Class." alt="" coords="381,206,556,233"/>
+<area shape="rect" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html" title="Container for housing full output of GPSHatDriver." alt="" coords="377,95,560,136"/>
+<area shape="rect" href="structros__hats_1_1GeograpicCoordinates.html" title=" " alt="" coords="354,5,583,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -121,10 +123,16 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>pretty</b> () 
 <tr class="memitem:a49059a1e4757eda05c4c0d6776773fe7 inherit pub_methods_classros__hats_1_1GPSHatNodeProcess"><td class="memItemLeft" align="right" valign="top"><a id="a49059a1e4757eda05c4c0d6776773fe7"></a>
 sensor_msgs::NavSatFix&#160;</td><td class="memItemRight" valign="bottom"><b>get_gps_data</b> ()</td></tr>
 <tr class="separator:a49059a1e4757eda05c4c0d6776773fe7 inherit pub_methods_classros__hats_1_1GPSHatNodeProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f207d314072fce257f8c4baee19cf8a inherit pub_methods_classros__hats_1_1GPSHatNodeProcess"><td class="memItemLeft" align="right" valign="top"><a id="a1f207d314072fce257f8c4baee19cf8a"></a>
+nav_msgs::Odometry&#160;</td><td class="memItemRight" valign="bottom"><b>get_gps_pose_data</b> ()</td></tr>
+<tr class="separator:a1f207d314072fce257f8c4baee19cf8a inherit pub_methods_classros__hats_1_1GPSHatNodeProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8812ccdc61edc047310ae5e451c0f7b inherit pub_methods_classros__hats_1_1GPSHatNodeProcess"><td class="memItemLeft" align="right" valign="top"><a id="ac8812ccdc61edc047310ae5e451c0f7b"></a>
+nav_msgs::Odometry&#160;</td><td class="memItemRight" valign="bottom"><b>convertPose</b> (<a class="el" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html">GPSHatDriver::GPSHatDriverContainer</a> hat_output)</td></tr>
+<tr class="separator:ac8812ccdc61edc047310ae5e451c0f7b inherit pub_methods_classros__hats_1_1GPSHatNodeProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_methods_classros__hats_1_1GPSHatNodeProcess"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classros__hats_1_1GPSHatNodeProcess')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classros__hats_1_1GPSHatNodeProcess.html">ros_hats::GPSHatNodeProcess</a></td></tr>
-<tr class="memitem:a536108a04b249082659c42eb98e86110 inherit pub_static_methods_classros__hats_1_1GPSHatNodeProcess"><td class="memItemLeft" align="right" valign="top"><a id="a536108a04b249082659c42eb98e86110"></a>
-static sensor_msgs::NavSatFix&#160;</td><td class="memItemRight" valign="bottom"><b>convert</b> (<a class="el" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html">GPSHatDriver::GPSHatDriverContainer</a> hat_output)</td></tr>
-<tr class="separator:a536108a04b249082659c42eb98e86110 inherit pub_static_methods_classros__hats_1_1GPSHatNodeProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8040e1ef9465a426738fd1c666e3b5ba inherit pub_static_methods_classros__hats_1_1GPSHatNodeProcess"><td class="memItemLeft" align="right" valign="top"><a id="a8040e1ef9465a426738fd1c666e3b5ba"></a>
+static sensor_msgs::NavSatFix&#160;</td><td class="memItemRight" valign="bottom"><b>convertGPS</b> (<a class="el" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html">GPSHatDriver::GPSHatDriverContainer</a> hat_output)</td></tr>
+<tr class="separator:a8040e1ef9465a426738fd1c666e3b5ba inherit pub_static_methods_classros__hats_1_1GPSHatNodeProcess"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>nodes/GPSHatNode/node/test/<a class="el" href="test__GPSHatNodeProcess_8cpp.html">test_GPSHatNodeProcess.cpp</a></li>

@@ -89,10 +89,12 @@ Collaboration diagram for ros_hats::GPSHatNodeProcess:</div>
 <div class="dyncontent">
 <div class="center"><img src="classros__hats_1_1GPSHatNodeProcess__coll__graph.png" border="0" usemap="#ros__hats_1_1GPSHatNodeProcess_coll__map" alt="Collaboration graph"/></div>
 <map name="ros__hats_1_1GPSHatNodeProcess_coll__map" id="ros__hats_1_1GPSHatNodeProcess_coll__map">
-<area shape="rect" title=" " alt="" coords="43,199,262,225"/>
-<area shape="rect" title=" " alt="" coords="5,109,180,136"/>
-<area shape="rect" href="classros__hats_1_1GPSHatDriver.html" title="GPSHatDriver Class." alt="" coords="204,109,379,136"/>
-<area shape="rect" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html" title="Container for housing full output of GPSHatDriver." alt="" coords="200,5,383,47"/>
+<area shape="rect" title=" " alt="" coords="171,303,390,329"/>
+<area shape="rect" title=" " alt="" coords="5,206,180,233"/>
+<area shape="rect" href="classros__hats_1_1gps__utility_1_1UTMConversion.html" title="UTMConversion between Geographic and UTM Coordinates." alt="" coords="204,199,357,240"/>
+<area shape="rect" href="classros__hats_1_1GPSHatDriver.html" title="GPSHatDriver Class." alt="" coords="381,206,556,233"/>
+<area shape="rect" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html" title="Container for housing full output of GPSHatDriver." alt="" coords="377,95,560,136"/>
+<area shape="rect" href="structros__hats_1_1GeograpicCoordinates.html" title=" " alt="" coords="354,5,583,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -122,18 +124,33 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>pretty</b> () 
 <tr class="memitem:a49059a1e4757eda05c4c0d6776773fe7"><td class="memItemLeft" align="right" valign="top"><a id="a49059a1e4757eda05c4c0d6776773fe7"></a>
 sensor_msgs::NavSatFix&#160;</td><td class="memItemRight" valign="bottom"><b>get_gps_data</b> ()</td></tr>
 <tr class="separator:a49059a1e4757eda05c4c0d6776773fe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f207d314072fce257f8c4baee19cf8a"><td class="memItemLeft" align="right" valign="top"><a id="a1f207d314072fce257f8c4baee19cf8a"></a>
+nav_msgs::Odometry&#160;</td><td class="memItemRight" valign="bottom"><b>get_gps_pose_data</b> ()</td></tr>
+<tr class="separator:a1f207d314072fce257f8c4baee19cf8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8812ccdc61edc047310ae5e451c0f7b"><td class="memItemLeft" align="right" valign="top"><a id="ac8812ccdc61edc047310ae5e451c0f7b"></a>
+nav_msgs::Odometry&#160;</td><td class="memItemRight" valign="bottom"><b>convertPose</b> (<a class="el" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html">GPSHatDriver::GPSHatDriverContainer</a> hat_output)</td></tr>
+<tr class="separator:ac8812ccdc61edc047310ae5e451c0f7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a536108a04b249082659c42eb98e86110"><td class="memItemLeft" align="right" valign="top"><a id="a536108a04b249082659c42eb98e86110"></a>
-static sensor_msgs::NavSatFix&#160;</td><td class="memItemRight" valign="bottom"><b>convert</b> (<a class="el" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html">GPSHatDriver::GPSHatDriverContainer</a> hat_output)</td></tr>
-<tr class="separator:a536108a04b249082659c42eb98e86110"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8040e1ef9465a426738fd1c666e3b5ba"><td class="memItemLeft" align="right" valign="top"><a id="a8040e1ef9465a426738fd1c666e3b5ba"></a>
+static sensor_msgs::NavSatFix&#160;</td><td class="memItemRight" valign="bottom"><b>convertGPS</b> (<a class="el" href="structros__hats_1_1GPSHatDriver_1_1GPSHatDriverContainer.html">GPSHatDriver::GPSHatDriverContainer</a> hat_output)</td></tr>
+<tr class="separator:a8040e1ef9465a426738fd1c666e3b5ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:a30add059e17720e6757f9291d1f7dfa4"><td class="memItemLeft" align="right" valign="top"><a id="a30add059e17720e6757f9291d1f7dfa4"></a>
+<a class="el" href="classros__hats_1_1gps__utility_1_1UTMConversion.html">gps_utility::UTMConversion</a>&#160;</td><td class="memItemRight" valign="bottom"><b>utm_converter</b></td></tr>
+<tr class="separator:a30add059e17720e6757f9291d1f7dfa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36a7157e247381ed107f434766d0ac6a"><td class="memItemLeft" align="right" valign="top"><a id="a36a7157e247381ed107f434766d0ac6a"></a>
 <a class="el" href="classros__hats_1_1GPSHatDriver.html">GPSHatDriver</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>driver</b></td></tr>
 <tr class="separator:a36a7157e247381ed107f434766d0ac6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7491a103fdafaeeee82c2d0e94d03eaf"><td class="memItemLeft" align="right" valign="top"><a id="a7491a103fdafaeeee82c2d0e94d03eaf"></a>
+sensor_msgs::NavSatFix&#160;</td><td class="memItemRight" valign="bottom"><b>latest_nav_sat_fix</b></td></tr>
+<tr class="separator:a7491a103fdafaeeee82c2d0e94d03eaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dbb0858e92762c223c5a99815cd4fe9"><td class="memItemLeft" align="right" valign="top"><a id="a6dbb0858e92762c223c5a99815cd4fe9"></a>
+nav_msgs::Odometry&#160;</td><td class="memItemRight" valign="bottom"><b>latest_odom</b></td></tr>
+<tr class="separator:a6dbb0858e92762c223c5a99815cd4fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>nodes/GPSHatNode/node/<a class="el" href="GPSHatNodeProcess_8h.html">GPSHatNodeProcess.h</a></li>
