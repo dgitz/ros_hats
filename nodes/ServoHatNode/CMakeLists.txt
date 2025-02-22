@@ -15,4 +15,4 @@ else()
 endif()
 
 add_subdirectory(driver)
-#add_subdirectory(node)
+add_subdirectory(node)
