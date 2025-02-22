@@ -60,13 +60,20 @@ alt loops
         node -> process++: update(0.1, now)
         process -> driver++: update(0.1)
         driver --> process--
-        process --> node--
-        node -> process++: get_gps_data()
         process -> driver++: get_gps_data()
         driver --> process--: gps_data
-        process --> node--: gps_data
-        node -> user: publish(gps_data)
-        process --> node: diag
+        process -> process++: convertGPS(gps_data)
+        process --> process--: latest_nav_sat_fix
+        process -> process++: convertPose(gps_data)
+        process -> process--: latest_odom
+        process --> node--: diag        
+        node -> process++: get_gps_data()
+        process --> node--: latest_nav_sat_fix
+        node -> user: publish(latest_nav_sat_fix)
+        node -> process++: get_gps_pose_data()
+        process --> node--: latest_odom
+        node -> user: publish(latest_odom)
+  
         alt if diag.level >= NOTICE
             node -> logger: log_diagnostic(diag)
         end

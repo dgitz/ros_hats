@@ -46,6 +46,7 @@ sudo apt install gpsd libgps-dev
 ## Software Design
 ![](doc/output/Legend.png)
 ![](doc/output/ROSHatsPackageDiagram.png)
+![](include/doc/output/RosHatsDefinitionClassDiagram.png)
 
 ## [Development Instructions](doc/Development/DevelopmentInstructions.md)
 

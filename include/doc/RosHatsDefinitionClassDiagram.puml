@@ -1,0 +1,45 @@
+@startuml
+title ROS Hats Definitions Class Diagram
+namespace ros_hats {
+    class HatDefinition #LimeGreen {
+        +{static} string HatTypeString(HatType v)
+        +{static} HatType HatTypeEnum(string v)
+    }
+    enum HatType #LimeGreen {
+        UNKNOWN
+        SERVO_HAT
+        RELAY_HAT
+        ARDUINO_HAT
+        GPS_HAT
+        END_OF_LIST
+    }
+    HatDefinition +-- HatType
+    class RaspberryPiDefinition  #LimeGreen {
+        +{static} RaspberryPiModel RaspberryPiModelFromVersion(std::string v)
+        +{static} string RaspberryPiModelString(RaspberryPiModel v)
+    }
+    enum RaspberryPiModel  #LimeGreen {
+        UNKNOWN
+        RASPBERRYPI_2_MODEL_B
+        RASPBERRYPI_3_MODEL_B
+        RASPBERRYPI_3_MODEL_APLUS
+        RASPBERRYPI_3_MODEL_BPLUS
+        RASPBERRYPI_4_MODEL_B
+        RASPBERRYPI_ZER0
+        RASPBERRYPI_ZERO_W
+        RASPBERRYPI_ZERO_WH
+        RASPBERRYPI_400
+        END_OF_LIST
+    }
+    RaspberryPiDefinition +-- RaspberryPiModel
+    struct GeograpicCoordinates  #LimeGreen {
+        +double latitude_deg
+        +double longitude_deg
+    }
+    struct UTMCoordinates  #LimeGreen {
+        +double northing_m
+        +double easting_m
+        +std::string utm_zone
+    }
+}
+@enduml
