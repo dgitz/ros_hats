@@ -3,7 +3,10 @@
 ## How It Works
 The GPS Hat [available from Adafruit here](https://www.adafruit.com/product/2324) can connect to a Raspberry Pi and publish GPS Position information.
 
-The GPS Hat Node will publish a topic of type [sensor_msgs/NavSatFix](https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/NavSatFix.html).
+The GPS Hat Node will perform the following:
+- Publish a topic of type [sensor_msgs/NavSatFix](https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/NavSatFix.html).
+- With these Geographic Coordinates, will convert these coordinates to UTM
+- Publish a topic of type [nav_msgs/Odometry](https://docs.ros.org/en/noetic/api/nav_msgs/html/msg/Odometry.html) with a frame as `utm`.
 
 ## Setup Instructions
 To setup the GPS Hat on your Device, follow the [Adafruit Instructions here](https://learn.adafruit.com/adafruit-ultimate-gps-hat-for-raspberry-pi).
@@ -13,6 +16,9 @@ To setup the GPS Hat on your Device, follow the [Adafruit Instructions here](htt
 The GPS Hat Node can be used to connect to a GPS Device and publish GPS data over ROS.
 #### Configuration
 A reference launch file for the node can be found at [GPS Hat Node Launch](../../../nodes/GPSHatNode/launch/gps_hat_node.launch).
+
+### Rviz
+When this node is running, you can add a plugin of type `nav_msgs/Odometry` to Rviz and visualize your GPS's reported pose.
 
 ### Test Driver
 A Test Executable for the GPS Hat Driver can be ran by running:
