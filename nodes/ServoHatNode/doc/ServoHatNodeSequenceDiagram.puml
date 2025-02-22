@@ -1,0 +1,89 @@
+@startuml
+title Servo Hat Node Sequence Diagram
+actor User as user
+participant ServoHatNode as node
+participant ServoHatNodeProcess as process
+participant ServoHatDriver as driver
+participant Logger as logger
+
+alt initialize
+    activate node
+    node -> node++: start()
+    node -> node: initialize_diagnostic
+    node -> process++: ServoHatNodeProcess()
+    node -> node: preinitialize_basenode()
+    node -> process: enable_diagnostics()
+    node -> process++: finish_initialization()
+    process -> driver++: init()
+    process --> node--
+    node -> node: finish_initialization()
+    node -> node: rescan_nodes()
+    node -> process: request_statechange(RUNNING,override=true)
+    node--
+end
+
+alt message_callback
+end
+
+alt loops
+    alt loop1
+        node -> node++: run_loop1
+        node--
+    end
+    alt loop2
+        node -> node++: run_loop2
+        node--
+    end
+    alt loop3
+        node -> node++: run_loop3
+        node--
+    end
+    alt run_001hz
+        node -> node++: run_001hz
+        node--
+    end
+    alt run_01hz
+        node -> node++: run_001hz
+        node--
+    end
+    alt run_01hz_noisy
+        node -> process: pretty()
+        process --> node: str
+        node -> logger: log_debug(str)
+    end
+    alt run_1hz
+        node -> process: get_latest_diagnostics()
+        process --> node: latest_diagnostics
+        node -> user: publish(latest_diagnostics)
+    end
+    alt run_10hz
+        node -> process++: update(0.1, now)
+        process -> driver++: update(0.1)
+        driver --> process--
+        process -> driver++: get_gps_data()
+        driver --> process--: gps_data
+        process -> process++: convertGPS(gps_data)
+        process --> process--: latest_nav_sat_fix
+        process -> process++: convertPose(gps_data)
+        process -> process--: latest_odom
+        process --> node--: diag        
+        node -> process++: get_gps_data()
+        process --> node--: latest_nav_sat_fix
+        node -> user: publish(latest_nav_sat_fix)
+        node -> process++: get_gps_pose_data()
+        process --> node--: latest_odom
+        node -> user: publish(latest_odom)
+  
+        alt if diag.level >= NOTICE
+            node -> logger: log_diagnostic(diag)
+        end
+        node -> process: get_diagnostics()
+        process --> node: diagnostics
+        node -> node: update_diagnostics(diagnostics)
+        node -> process: get_ready_to_arm()
+        process --> node: ready_to_arm
+        node -> node: update_ready_to_arm(ready_to_arm)
+
+    end
+end
+@enduml

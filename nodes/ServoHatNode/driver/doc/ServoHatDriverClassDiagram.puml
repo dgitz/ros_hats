@@ -1,0 +1,22 @@
+@startuml
+title Servo Hat Driver Class Diagram
+namespace ros_hats{
+interface IServoHatDriver #Orange {
+
+}
+class ServoHatDriver #Orange {
+
+}
+note right of ServoHatDriver 
+ARMV7L
+end note
+IServoHatDriver <|-- ServoHatDriver
+class MockServoHatDriver #Orange {
+
+}
+note right of MockServoHatDriver 
+X86_64
+end note
+IServoHatDriver <|-- MockServoHatDriver
+}
+@enduml
