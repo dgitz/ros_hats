@@ -104,13 +104,11 @@ nav_msgs::Odometry GPSHatNodeProcess::convertPose(GPSHatDriver::GPSHatDriverCont
         tf2::Quaternion quat_tf;
         quat_tf.setRPY(0, 0, 0.0);
         odom.pose.pose.orientation = tf2::toMsg(quat_tf);
-        odom.pose.covariance[35] = -1.0;
     }
     else {
         tf2::Quaternion quat_tf;
         quat_tf.setRPY(0, 0, hat_output.course_deg * M_PI / 180.0);
         odom.pose.pose.orientation = tf2::toMsg(quat_tf);
-        odom.pose.covariance[35] = hat_output.course_accuracy_deg * M_PI / 180.0;
     }
 
     return odom;
