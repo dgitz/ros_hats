@@ -1,0 +1,41 @@
+@startuml
+title Servo Hat Driver Sequence Diagram
+actor User as user
+participant IServoHatDriver as interface
+participant BaseServoHatDriver as base
+participant SpecificDriver as driver
+
+alt initialize
+user -> driver++
+driver -> interface++
+user -> interface++: init(logger)
+interface -> driver++: init(logger)
+driver --> interface--: status
+interface --> user--: status
+end
+
+alt update
+user -> interface++: update(delta_time)
+interface -> base++: update(delta_time)
+base --> interface--: status
+interface --> user--: status
+end
+
+alt new_servo_command
+user -> interface++: setServoValue(channel,value)
+interface -> driver++: setServoValue(channel,value)
+driver -> base++: setServlValue(channel,value)
+base --> driver--: status
+driver --> interface--: status
+interface --> user--: status
+end
+
+alt pretty
+user -> interface++: pretty(mode)
+interface -> driver++: pretty(mode)
+driver -> base++: pretty(mode)
+base --> driver--: str
+driver --> interface--: str
+interface --> user--: str
+end
+@enduml

@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
     bool reset = false;
     int channel = 0;
     int value = 0;
-    std::string mode = "";
+    std::string mode = "direct";  // default
     for (;;) {
         switch (getopt(argc,
                        argv,
@@ -25,6 +25,7 @@ int main(int argc, char* argv[]) {
                                      // is not a switch
         {
             case 'r': reset = true; break;
+
             case 'c': channel = atoi(optarg); continue;
             case 'm': mode = optarg; break;
             case 'v': value = atoi(optarg); break;
@@ -42,10 +43,14 @@ int main(int argc, char* argv[]) {
     driver = new MockServoHatDriver();
 #endif
     driver->init(logger);
-    double delta_time_sec = 0.1;
+    logger->log_notice(driver->pretty());
+    logger->log_notice(driver->pretty("simple"));
+    double delta_time_sec = 0.01;
     if (reset == true) {
         for (uint8_t ch = 0; ch < 16; ++ch) { driver->setServoValue(ch, 1000); }
         logger->log_notice("Reset Complete");
+        delete logger;
+        delete driver;
         return 0;
     }
     else if (mode == "direct") {
@@ -55,15 +60,16 @@ int main(int argc, char* argv[]) {
     }
     else {
         logger->log_error("Mode: " + mode + " Not Supported!");
+        delete logger;
+        delete driver;
         return 1;
     }
 
     bool direction = true;
+
     while (true) {
         driver->update(delta_time_sec);
         usleep(delta_time_sec * 1000000);
-        logger->log_debug("Channel: " + std::to_string(channel) +
-                          " Value: " + std::to_string(value));
         if (mode == "ramp") {
             if (value >= IServoHatDriver::MAX_SERVO_VALUE) {
                 direction = false;
@@ -72,16 +78,17 @@ int main(int argc, char* argv[]) {
                 direction = true;
             }
             if (direction == true) {
-                value += 50;
+                value += 5;
             }
             else {
-                value -= 50;
+                value -= 5;
             }
         }
         else if (mode == "direct") {  // Default, nothing to do here
         }
 
         driver->setServoValue(channel, value);
+        logger->log_debug(driver->pretty("simple"));
     }
 
     logger->log_debug("Servo Hat Driver Finished.");
