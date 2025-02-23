@@ -79,6 +79,18 @@ bool ServoHatNode::start() {
     diagnostic_types.push_back(eros::eros_diagnostic::DiagnosticType::ACTUATORS);
     process->enable_diagnostics(diagnostic_types);
     process->finish_initialization();
+    auto channels = process->get_channels();
+    for (auto channel : channels) {
+        ros::Subscriber sub = n->subscribe<std_msgs::UInt16>(
+            channel.second.name,
+            10,
+            boost::bind(&ServoHatNode::channel_Callback, this, _1, channel.second.name));
+        /*
+         ros::Subscriber sub = n->subscribe<eros::ready_to_arm>(
+        topic, 10, boost::bind(&SafetyNode::ReadyToArmCallback, this, _1, topic));
+        */
+        channel_subs.push_back(sub);
+    }
     diagnostic = finish_initialization();
     if (diagnostic.level > eros::Level::Type::WARN) {
         // No practical way to unit test
@@ -133,6 +145,10 @@ eros::eros_diagnostic::Diagnostic ServoHatNode::finish_initialization() {
                                       eros::eros_diagnostic::Message::INITIALIZING,
                                       "Servo Hat Initializing...");
     return diag;
+}
+void ServoHatNode::channel_Callback(const std_msgs::UInt16::ConstPtr &t_msg,
+                                    const std::string &channel_name) {
+    logger->log_warn("Channel: " + channel_name + " V: " + std::to_string(t_msg->data));
 }
 bool ServoHatNode::run_loop1() {
     return true;

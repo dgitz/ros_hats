@@ -9,7 +9,7 @@ bool MockServoHatDriver::finish() {
     logger->log_warn("Finish");
     return true;
 }
-bool MockServoHatDriver::init(eros::Logger* _logger, int address) {
+bool MockServoHatDriver::init(eros::Logger* _logger, int /* address*/) {
     logger = _logger;
     logger->log_warn("This is a Mock of the Servo Hat!");
     channel_map.insert(std::pair<uint8_t, Channel>(

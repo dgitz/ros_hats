@@ -10,9 +10,7 @@
 #pragma once
 #include <eros/BaseNodeProcess.h>
 #include <eros_diagnostic/Diagnostic.h>
-#include <nav_msgs/Odometry.h>
-#include <sensor_msgs/NavSatFix.h>
-#include <sensor_msgs/NavSatStatus.h>
+#include <std_msgs/UInt16.h>
 
 #include "IServoHatDriver.h"
 #ifdef ARCHITECTURE_ARMV7L
@@ -38,6 +36,9 @@ class ServoHatNodeProcess : public eros::BaseNodeProcess
         return;
     }
     std::string pretty() override;
+    std::map<uint8_t, IServoHatDriver::Channel> get_channels() {
+        return driver->get_channels();
+    }
 
    private:
     IServoHatDriver* driver;

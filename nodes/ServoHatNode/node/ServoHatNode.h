@@ -31,13 +31,13 @@ class ServoHatNode : public eros::BaseNode
     const uint16_t MAJOR_RELEASE_VERSION = 0;
 
     /*! \brief The Minor Release Version of the Node.*/
-    const uint16_t MINOR_RELEASE_VERSION = 0;
+    const uint16_t MINOR_RELEASE_VERSION = 1;
 
     /*! \brief The Build Number of the Node.*/
     const uint16_t BUILD_NUMBER = 0;
 
     /*! \brief A Description of the Firmware.*/
-    const std::string FIRMWARE_DESCRIPTION = "Latest Rev: 22-Feb-2025";
+    const std::string FIRMWARE_DESCRIPTION = "Latest Rev: 23-Feb-2025";
 
     /*! \brief What System this Node falls under.*/
     const eros::System::MainSystem DIAGNOSTIC_SYSTEM = eros::System::MainSystem::ROVER;
@@ -69,11 +69,13 @@ class ServoHatNode : public eros::BaseNode
                                  eros::srv_change_nodestate::Response& res);
     void system_commandAction_Callback(const eros::system_commandGoalConstPtr& goal);
     void command_Callback(const eros::command::ConstPtr& t_msg);
+    void channel_Callback(const std_msgs::UInt16::ConstPtr& t_msg, const std::string& channel_name);
     std::string pretty() override;
 
    private:
     eros::eros_diagnostic::Diagnostic read_launchparameters();
     ServoHatNodeProcess* process;
     actionlib::SimpleActionServer<eros::system_commandAction> system_command_action_server;
+    std::vector<ros::Subscriber> channel_subs;
 };
 }  // namespace ros_hats
