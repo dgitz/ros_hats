@@ -80,13 +80,16 @@ Inheritance diagram for ros_hats::IServoHatDriver:</div>
 <div class="center"><img src="classros__hats_1_1IServoHatDriver__inherit__graph.png" border="0" usemap="#ros__hats_1_1IServoHatDriver_inherit__map" alt="Inheritance graph"/></div>
 <map name="ros__hats_1_1IServoHatDriver_inherit__map" id="ros__hats_1_1IServoHatDriver_inherit__map">
 <area shape="rect" title=" " alt="" coords="134,5,323,32"/>
-<area shape="rect" href="classros__hats_1_1MockServoHatDriver.html" title="MockServoHatDriver Class." alt="" coords="5,80,225,107"/>
-<area shape="rect" href="classros__hats_1_1ServoHatDriver.html" title="ServoHatDriver Class." alt="" coords="249,80,435,107"/>
+<area shape="rect" href="classros__hats_1_1BaseServoHatDriver.html" title=" " alt="" coords="120,80,337,107"/>
+<area shape="rect" href="classros__hats_1_1MockServoHatDriver.html" title="MockServoHatDriver Class." alt="" coords="5,155,225,181"/>
+<area shape="rect" href="classros__hats_1_1ServoHatDriver.html" title="ServoHatDriver Class." alt="" coords="249,155,435,181"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structros__hats_1_1IServoHatDriver_1_1Channel.html">Channel</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structros__hats_1_1IServoHatDriver_1_1ServoHatDriverContainer.html">ServoHatDriverContainer</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -98,21 +101,27 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a389c5a2c34fce0fc2b15a1306252ad85"><td class="memItemLeft" align="right" valign="top"><a id="a389c5a2c34fce0fc2b15a1306252ad85"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>update</b> (double dt)=0</td></tr>
 <tr class="separator:a389c5a2c34fce0fc2b15a1306252ad85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a979dbb912b4f35e3bdd6924d646fa4fb"><td class="memItemLeft" align="right" valign="top"><a id="a979dbb912b4f35e3bdd6924d646fa4fb"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>setServoValue</b> (int pin_number, int v)=0</td></tr>
-<tr class="separator:a979dbb912b4f35e3bdd6924d646fa4fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a32109fef557a22c5a422045fed52d2"><td class="memItemLeft" align="right" valign="top"><a id="a8a32109fef557a22c5a422045fed52d2"></a>
+virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>setServoValue</b> (int pin_number, int v)=0</td></tr>
+<tr class="separator:a8a32109fef557a22c5a422045fed52d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51f9014258ff9945b8109e976991da5b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classros__hats_1_1IServoHatDriver_a51f9014258ff9945b8109e976991da5b.html#a51f9014258ff9945b8109e976991da5b">finish</a> ()=0</td></tr>
 <tr class="memdesc:a51f9014258ff9945b8109e976991da5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finish and Close Driver.  <a href="classros__hats_1_1IServoHatDriver_a51f9014258ff9945b8109e976991da5b.html#a51f9014258ff9945b8109e976991da5b">More...</a><br /></td></tr>
 <tr class="separator:a51f9014258ff9945b8109e976991da5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16614b8c37f5532bca62cae3bdfa2348"><td class="memItemLeft" align="right" valign="top"><a id="a16614b8c37f5532bca62cae3bdfa2348"></a>
-virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>pretty</b> ()=0</td></tr>
-<tr class="separator:a16614b8c37f5532bca62cae3bdfa2348"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef8681812b428fc1dd53df487eb3f8b3"><td class="memItemLeft" align="right" valign="top"><a id="aef8681812b428fc1dd53df487eb3f8b3"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>pretty</b> (std::string mode=&quot;&quot;)=0</td></tr>
+<tr class="separator:aef8681812b428fc1dd53df487eb3f8b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b32372b5589784e5a8c78e694394938"><td class="memItemLeft" align="right" valign="top"><a id="a5b32372b5589784e5a8c78e694394938"></a>
+virtual std::map&lt; uint8_t, <a class="el" href="structros__hats_1_1IServoHatDriver_1_1Channel.html">Channel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>get_channels</b> ()=0</td></tr>
+<tr class="separator:a5b32372b5589784e5a8c78e694394938"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a9705b15d4c1dc43013404cd7226d5620"><td class="memItemLeft" align="right" valign="top"><a id="a9705b15d4c1dc43013404cd7226d5620"></a>
 static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><b>MIN_SERVO_VALUE</b> = 500</td></tr>
 <tr class="separator:a9705b15d4c1dc43013404cd7226d5620"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13e924b44d5d2051bf431e6774ee850f"><td class="memItemLeft" align="right" valign="top"><a id="a13e924b44d5d2051bf431e6774ee850f"></a>
+static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><b>MEDIUM_SERVO_VALUE</b> = 1000</td></tr>
+<tr class="separator:a13e924b44d5d2051bf431e6774ee850f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a923e5abe1f78d155c2b9d630065ae329"><td class="memItemLeft" align="right" valign="top"><a id="a923e5abe1f78d155c2b9d630065ae329"></a>
 static constexpr int&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_SERVO_VALUE</b> = 1500</td></tr>
 <tr class="separator:a923e5abe1f78d155c2b9d630065ae329"><td class="memSeparator" colspan="2">&#160;</td></tr>

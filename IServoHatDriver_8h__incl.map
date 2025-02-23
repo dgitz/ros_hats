@@ -1,6 +1,5 @@
 <map id="nodes/ServoHatNode/driver/include/IServoHatDriver.h" name="nodes/ServoHatNode/driver/include/IServoHatDriver.h">
-<area shape="rect" id="node1" title=" " alt="" coords="123,5,358,47"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,95,116,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="141,95,341,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="365,95,553,121"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,240,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="15,95,126,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="151,95,201,121"/>
 </map>

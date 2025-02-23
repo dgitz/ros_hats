@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mockservohatdriver_78',['MockServoHatDriver',['../classros__hats_1_1MockServoHatDriver.html',1,'ros_hats']]]
+  ['hatdefinition_80',['HatDefinition',['../classros__hats_1_1HatDefinition.html',1,'ros_hats']]]
 ];

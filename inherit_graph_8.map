@@ -1,5 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="node1" href="$classros__hats_1_1IServoHatDriver.html" title=" " alt="" coords="5,31,195,57"/>
-<area shape="rect" id="node2" href="$classros__hats_1_1MockServoHatDriver.html" title="MockServoHatDriver Class." alt="" coords="243,5,463,32"/>
-<area shape="rect" id="node3" href="$classros__hats_1_1ServoHatDriver.html" title="ServoHatDriver Class." alt="" coords="260,56,445,83"/>
+<area shape="rect" id="node2" href="$classros__hats_1_1BaseServoHatDriver.html" title=" " alt="" coords="243,31,460,57"/>
+<area shape="rect" id="node3" href="$classros__hats_1_1MockServoHatDriver.html" title="MockServoHatDriver Class." alt="" coords="508,5,728,32"/>
+<area shape="rect" id="node4" href="$classros__hats_1_1ServoHatDriver.html" title="ServoHatDriver Class." alt="" coords="525,56,711,83"/>
 </map>

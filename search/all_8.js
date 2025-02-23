@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['major_5frelease_5fversion_34',['MAJOR_RELEASE_VERSION',['../classros__hats_1_1GPSHatNode.html#a133dcaefa0df83ec577d096ed53413e9',1,'ros_hats::GPSHatNode::MAJOR_RELEASE_VERSION()'],['../classros__hats_1_1ServoHatNode.html#a7d9c62845e9a45a7116fb9640cf4d34b',1,'ros_hats::ServoHatNode::MAJOR_RELEASE_VERSION()']]],
-  ['minor_5frelease_5fversion_35',['MINOR_RELEASE_VERSION',['../classros__hats_1_1GPSHatNode.html#a24a391d3f1e8931c314484c7ee621263',1,'ros_hats::GPSHatNode::MINOR_RELEASE_VERSION()'],['../classros__hats_1_1ServoHatNode.html#aa60e753e97399761ae76e9eb53c4a2a0',1,'ros_hats::ServoHatNode::MINOR_RELEASE_VERSION()']]],
-  ['mockservohatdriver_36',['MockServoHatDriver',['../classros__hats_1_1MockServoHatDriver.html',1,'ros_hats']]],
-  ['mockservohatdriver_2eh_37',['MockServoHatDriver.h',['../MockServoHatDriver_8h.html',1,'']]]
+  ['init_34',['init',['../classros__hats_1_1GPSHatDriver_a10cf067d1becaefafc663ee9088e46cb.html#a10cf067d1becaefafc663ee9088e46cb',1,'ros_hats::GPSHatDriver::init()'],['../classros__hats_1_1IServoHatDriver_a4f2bc5f1702cb9cfd690178116ebf579.html#a4f2bc5f1702cb9cfd690178116ebf579',1,'ros_hats::IServoHatDriver::init()'],['../classros__hats_1_1MockServoHatDriver_a95a98108f3d4868ea4b6ab06581fb53f.html#a95a98108f3d4868ea4b6ab06581fb53f',1,'ros_hats::MockServoHatDriver::init()'],['../classros__hats_1_1ServoHatDriver_a40bc8b54b3cf113119693c85299d6952.html#a40bc8b54b3cf113119693c85299d6952',1,'ros_hats::ServoHatDriver::init()']]],
+  ['iservohatdriver_35',['IServoHatDriver',['../classros__hats_1_1IServoHatDriver.html',1,'ros_hats']]],
+  ['iservohatdriver_2eh_36',['IServoHatDriver.h',['../IServoHatDriver_8h.html',1,'']]]
 ];

@@ -1,4 +1,5 @@
 <map id="ros_hats::MockServoHatDriver" name="ros_hats::MockServoHatDriver">
-<area shape="rect" id="node1" title="MockServoHatDriver Class." alt="" coords="5,80,225,107"/>
-<area shape="rect" id="node2" href="$classros__hats_1_1IServoHatDriver.html" title=" " alt="" coords="21,5,210,32"/>
+<area shape="rect" id="node1" title="MockServoHatDriver Class." alt="" coords="5,155,225,181"/>
+<area shape="rect" id="node2" href="$classros__hats_1_1BaseServoHatDriver.html" title=" " alt="" coords="7,80,224,107"/>
+<area shape="rect" id="node3" href="$classros__hats_1_1IServoHatDriver.html" title=" " alt="" coords="21,5,210,32"/>
 </map>

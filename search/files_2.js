@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['iservohatdriver_2eh_93',['IServoHatDriver.h',['../IServoHatDriver_8h.html',1,'']]]
+  ['hatdefinition_2eh_97',['HatDefinition.h',['../HatDefinition_8h.html',1,'']]]
 ];

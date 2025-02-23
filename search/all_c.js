@@ -1,14 +1,11 @@
 var searchData=
 [
-  ['servo_5fhat_49',['SERVO_HAT',['../classros__hats_1_1HatDefinition_a9d9bbe5a9d7d73a52751eacd49e51e03.html#a9d9bbe5a9d7d73a52751eacd49e51e03a23892d49d3a0ab96feb6520607424c6e',1,'ros_hats::HatDefinition']]],
-  ['servohatdriver_50',['ServoHatDriver',['../classros__hats_1_1ServoHatDriver.html',1,'ros_hats']]],
-  ['servohatdriver_2eh_51',['ServoHatDriver.h',['../ServoHatDriver_8h.html',1,'']]],
-  ['servohatdrivercontainer_52',['ServoHatDriverContainer',['../structros__hats_1_1IServoHatDriver_1_1ServoHatDriverContainer.html',1,'ros_hats::IServoHatDriver']]],
-  ['servohatnode_53',['ServoHatNode',['../classros__hats_1_1ServoHatNode.html',1,'ros_hats']]],
-  ['servohatnode_2eh_54',['ServoHatNode.h',['../ServoHatNode_8h.html',1,'']]],
-  ['servohatnodeprocess_55',['ServoHatNodeProcess',['../classros__hats_1_1ServoHatNodeProcess.html',1,'ros_hats']]],
-  ['servohatnodeprocess_2eh_56',['ServoHatNodeProcess.h',['../ServoHatNodeProcess_8h.html',1,'']]],
-  ['servohatnodeprocesstester_57',['ServoHatNodeProcessTester',['../classros__hats_1_1ServoHatNodeProcessTester.html',1,'ros_hats']]],
-  ['statustype_58',['StatusType',['../classros__hats_1_1GPSHatDriver_a7a1323df27e66fc61da3dc7d529b79fd.html#a7a1323df27e66fc61da3dc7d529b79fd',1,'ros_hats::GPSHatDriver']]],
-  ['statustypestring_59',['StatusTypeString',['../classros__hats_1_1GPSHatDriver_a6a1db26b0090dc353d0c6e3b72eeeb7d.html#a6a1db26b0090dc353d0c6e3b72eeeb7d',1,'ros_hats::GPSHatDriver']]]
+  ['gps_5futility_44',['gps_utility',['../namespaceros__hats_1_1gps__utility.html',1,'ros_hats']]],
+  ['ros_20hats_45',['ROS Hats',['../index.html',1,'']]],
+  ['raspberrypi_5f2_5fmodel_5fb_46',['RASPBERRYPI_2_MODEL_B',['../classros__hats_1_1RaspberryPiDefinition_a2bc0a2f7128bf099b1e45cb940dc105d.html#a2bc0a2f7128bf099b1e45cb940dc105da61bf21a388585c9d314e9272d3e7b4ce',1,'ros_hats::RaspberryPiDefinition']]],
+  ['raspberrypidefinition_47',['RaspberryPiDefinition',['../classros__hats_1_1RaspberryPiDefinition.html',1,'ros_hats']]],
+  ['raspberrypidefinition_2eh_48',['RaspberryPiDefinition.h',['../RaspberryPiDefinition_8h.html',1,'']]],
+  ['raspberrypimodel_49',['RaspberryPiModel',['../classros__hats_1_1RaspberryPiDefinition_a2bc0a2f7128bf099b1e45cb940dc105d.html#a2bc0a2f7128bf099b1e45cb940dc105d',1,'ros_hats::RaspberryPiDefinition']]],
+  ['relay_5fhat_50',['RELAY_HAT',['../classros__hats_1_1HatDefinition_a9d9bbe5a9d7d73a52751eacd49e51e03.html#a9d9bbe5a9d7d73a52751eacd49e51e03ac9ad9927ffb4d3c42777bf02a7a9d6b2',1,'ros_hats::HatDefinition']]],
+  ['ros_5fhats_51',['ros_hats',['../namespaceros__hats.html',1,'']]]
 ];
