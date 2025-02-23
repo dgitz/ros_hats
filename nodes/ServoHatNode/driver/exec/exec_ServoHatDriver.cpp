@@ -4,45 +4,91 @@
 #include "MockServoHatDriver.h"
 #endif
 using namespace ros_hats;
+void printHelp() {
+    printf("Tester for Servo Hat Driver\n");
+    printf("-h This Menu.\n");
+    printf("-r Reset all Channels.\n");
+    printf("-c Channel Number.\n");
+    printf("-m Mode: ramp,direct.\n");
+    printf("-v Value to Set.\n");
+}
+int main(int argc, char* argv[]) {
+    eros::Logger* logger = new eros::Logger("DEBUG", "exec_ServoHatDriver");
+    bool reset = false;
+    int channel = 0;
+    int value = 0;
+    std::string mode = "direct";  // default
+    for (;;) {
+        switch (getopt(argc,
+                       argv,
+                       "rc:m:v:h"))  // note the colon (:) to indicate that 'b' has a parameter and
+                                     // is not a switch
+        {
+            case 'r': reset = true; break;
 
-int main() {
+            case 'c': channel = atoi(optarg); continue;
+            case 'm': mode = optarg; break;
+            case 'v': value = atoi(optarg); break;
+            case '?': printHelp(); return 0;
+            case 'h': printHelp(); return 0;
+            default: printHelp(); return 0;
+        }
+
+        break;
+    }
     IServoHatDriver* driver;
 #ifdef ARCHITECTURE_ARMV7L
     driver = new ServoHatDriver();
 #else
     driver = new MockServoHatDriver();
 #endif
-
-    eros::Logger* logger = new eros::Logger("DEBUG", "exec_ServoHatDriver");
-    logger->log_debug("Starting Servo Hat Driver");
-
-    bool status = driver->init(logger);
-    if (status == false) {
-        logger->log_error("Unable to initialize Driver!  Exiting.");
+    driver->init(logger);
+    logger->log_notice(driver->pretty());
+    logger->log_notice(driver->pretty("simple"));
+    double delta_time_sec = 0.01;
+    if (reset == true) {
+        for (uint8_t ch = 0; ch < 16; ++ch) { driver->setServoValue(ch, 1000); }
+        logger->log_notice("Reset Complete");
+        delete logger;
+        delete driver;
+        return 0;
+    }
+    else if (mode == "direct") {
+    }
+    else if (mode == "ramp") {
+        value = IServoHatDriver::MIN_SERVO_VALUE;
+    }
+    else {
+        logger->log_error("Mode: " + mode + " Not Supported!");
+        delete logger;
+        delete driver;
         return 1;
     }
-    double delta_time_sec = 0.1;
-    int value = IServoHatDriver::MIN_SERVO_VALUE - 100;
+
     bool direction = true;
+
     while (true) {
         driver->update(delta_time_sec);
         usleep(delta_time_sec * 1000000);
-        logger->log_warn(driver->pretty());
-        if (value >= IServoHatDriver::MAX_SERVO_VALUE + 100) {
-            direction = false;
+        if (mode == "ramp") {
+            if (value >= IServoHatDriver::MAX_SERVO_VALUE) {
+                direction = false;
+            }
+            else if (value <= IServoHatDriver::MIN_SERVO_VALUE) {
+                direction = true;
+            }
+            if (direction == true) {
+                value += 5;
+            }
+            else {
+                value -= 5;
+            }
         }
-        if (value <= IServoHatDriver::MIN_SERVO_VALUE - 100) {
-            direction = true;
-        }
-        if (direction) {
-            value += 50;
-        }
-        else {
-            value -= 50;
+        else if (mode == "direct") {  // Default, nothing to do here
         }
 
-        logger->log_debug("V: " + std::to_string(value));
-        driver->setServoValue(0, value);
+        driver->setServoValue(channel, value);
+        logger->log_debug(driver->pretty("simple"));
     }
 
     logger->log_debug("Servo Hat Driver Finished.");

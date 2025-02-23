@@ -26,7 +26,6 @@ bool ServoHatDriver::init(eros::Logger* _logger, int address) {
     if (mode1 < 0) {
         return false;
     }
-    // printf("model: %d\n",model);
     mode1 = mode1 & ~(int)Adafruit16ChServoHatConstant::SLEEP;
     if (mode1 < 0) {
         return false;
@@ -34,25 +33,27 @@ bool ServoHatDriver::init(eros::Logger* _logger, int address) {
     wiringPiI2CWriteReg8(servoHatFd, (int)Adafruit16ChServoHatConstant::MODE1, mode1);
 
     setPWMFreq(60);
+    for (uint8_t ch = 0; ch < 16; ++ch) {
+        channel_map.insert(std::pair<uint8_t, Channel>(
+            ch, Channel(ch, "CH" + std::to_string(ch), IServoHatDriver::MEDIUM_SERVO_VALUE)));
+    }
 
     return true;
 }
-bool ServoHatDriver::update(double dt) {
-    return true;
-}
-std::string ServoHatDriver::pretty() {
-    std::string str;
-    str = "Not Implemented Yet";
+std::string ServoHatDriver::pretty(std::string mode) {
+    std::string str = "ServoHatDriver" + BaseServoHatDriver::pretty(mode);
     return str;
 }
-void ServoHatDriver::setServoValue(int channel, int v) {
-    if ((v < MIN_SERVO_VALUE) || (v > MAX_SERVO_VALUE)) {
-        logger->log_warn("Commanded Servo Value: " + std::to_string(v) + " Out of Bounds!");
-        return;
+bool ServoHatDriver::setServoValue(int channel, int v) {
+    if (BaseServoHatDriver::setServoValue(channel, v) == false) {
+        logger->log_warn("Not able to set Channel: " + std::to_string(channel));
+        return false;
     }
+
     int on = 0;
     int off = v / 3.90;
     setPWM(channel, on, off);
+    return true;
 }
 void ServoHatDriver::setPWMFreq(int freq) {
     float prescaleval = 25000000;

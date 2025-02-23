@@ -13,7 +13,7 @@
 #include <eros_utility/PrettyUtility.h>
 #include <wiringPiI2C.h>
 
-#include "IServoHatDriver.h"
+#include "BaseServoHatDriver.h"
 
 //! ros_hats Namespace
 namespace ros_hats {
@@ -22,7 +22,7 @@ namespace ros_hats {
  * @details Connects to an instance of a Servo Hat
  *
  */
-class ServoHatDriver : public IServoHatDriver
+class ServoHatDriver : public BaseServoHatDriver
 {
    public:
     enum class Adafruit16ChServoHatConstant {
@@ -49,11 +49,10 @@ class ServoHatDriver : public IServoHatDriver
     ServoHatDriver();
     virtual ~ServoHatDriver();
     bool init(eros::Logger* logger, int address = 0x40) override;
-    bool update(double dt) override;
-    void setServoValue(int pin_number, int v) override;
+    bool setServoValue(int pin_number, int v) override;
     bool finish() override;
 
-    std::string pretty() override;
+    std::string pretty(std::string mode) override;
 
    private:
     void setPWMFreq(int freq);
