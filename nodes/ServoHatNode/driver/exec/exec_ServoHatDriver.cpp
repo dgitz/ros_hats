@@ -8,14 +8,14 @@ void printHelp() {
     printf("Tester for Servo Hat Driver\n");
     printf("-h This Menu.\n");
     printf("-c Channel Number.\n");
-    printf("-m Mode: Ramp,Direct.\n");
+    printf("-m Mode: ramp,direct.\n");
     printf("-v Value to Set.\n");
 }
 int main(int argc, char* argv[]) {
     eros::Logger* logger = new eros::Logger("DEBUG", "exec_ServoHatDriver");
     int channel = 0;
     int value = 0;
-    bool ramp = false;
+    std::string mode = "";
     for (;;) {
         switch (getopt(argc,
                        argv,
@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
                                     // is not a switch
         {
             case 'c': channel = atoi(optarg); continue;
-            case 'm': ramp = true; break;
+            case 'm': mode = optarg; break;
             case 'v': value = atoi(optarg); break;
             case '?': printHelp(); return 0;
             case 'h': printHelp(); return 0;
@@ -38,18 +38,25 @@ int main(int argc, char* argv[]) {
 #else
     driver = new MockServoHatDriver();
 #endif
+    logger->log_warn("Mode: " + mode);
     driver->init(logger);
     double delta_time_sec = 0.1;
-    if (ramp == true) {
+    if (mode == "direct") {}
+    else if (mode == "ramp") {
         value = IServoHatDriver::MIN_SERVO_VALUE;
     }
+    else {
+        logger->log_error("Mode: " + mode + " Not Supported!");
+        return 1;
+    }
+
     bool direction = true;
     while (true) {
         driver->update(delta_time_sec);
         usleep(delta_time_sec * 1000000);
         logger->log_debug("Channel: " + std::to_string(channel) +
                           " Value: " + std::to_string(value));
-        if (ramp == true) {
+        if (mode == "ramp") {
             if (value >= IServoHatDriver::MAX_SERVO_VALUE) {
                 direction = false;
             }
@@ -62,6 +69,8 @@ int main(int argc, char* argv[]) {
             else {
                 value -= 50;
             }
+        }
+        else if (mode == "direct") {  // Default, nothing to do here
         }
 
         driver->setServoValue(channel, value);
