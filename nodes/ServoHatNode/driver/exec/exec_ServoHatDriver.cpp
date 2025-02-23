@@ -7,21 +7,24 @@ using namespace ros_hats;
 void printHelp() {
     printf("Tester for Servo Hat Driver\n");
     printf("-h This Menu.\n");
+    printf("-r Reset all Channels.\n");
     printf("-c Channel Number.\n");
     printf("-m Mode: ramp,direct.\n");
     printf("-v Value to Set.\n");
 }
 int main(int argc, char* argv[]) {
     eros::Logger* logger = new eros::Logger("DEBUG", "exec_ServoHatDriver");
+    bool reset = false;
     int channel = 0;
     int value = 0;
     std::string mode = "";
     for (;;) {
         switch (getopt(argc,
                        argv,
-                       "c:m:v:h"))  // note the colon (:) to indicate that 'b' has a parameter and
-                                    // is not a switch
+                       "rc:m:v:h"))  // note the colon (:) to indicate that 'b' has a parameter and
+                                     // is not a switch
         {
+            case 'r': reset = true; break;
             case 'c': channel = atoi(optarg); continue;
             case 'm': mode = optarg; break;
             case 'v': value = atoi(optarg); break;
@@ -38,10 +41,15 @@ int main(int argc, char* argv[]) {
 #else
     driver = new MockServoHatDriver();
 #endif
-    logger->log_warn("Mode: " + mode);
     driver->init(logger);
     double delta_time_sec = 0.1;
-    if (mode == "direct") {}
+    if (reset == true) {
+        for (uint8_t ch = 0; ch < 16; ++ch) { driver->setServoValue(ch, 1000); }
+        logger->log_notice("Reset Complete");
+        return 0;
+    }
+    else if (mode == "direct") {
+    }
     else if (mode == "ramp") {
         value = IServoHatDriver::MIN_SERVO_VALUE;
     }
