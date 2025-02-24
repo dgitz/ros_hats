@@ -12,6 +12,10 @@ bool ServoHatDriver::finish() {
 }
 bool ServoHatDriver::init(eros::Logger* _logger, int address) {
     logger = _logger;
+    if (_logger == nullptr) {
+        printf("dumb A\n");
+        return false;
+    }
     servoHatFd = wiringPiI2CSetup(address);
     resetAllPWM(0, 0);
 
@@ -34,8 +38,9 @@ bool ServoHatDriver::init(eros::Logger* _logger, int address) {
 
     setPWMFreq(60);
     for (uint8_t ch = 0; ch < 16; ++ch) {
-        channel_map.insert(std::pair<uint8_t, Channel>(
-            ch, Channel(ch, "CH" + std::to_string(ch), IServoHatDriver::MEDIUM_SERVO_VALUE)));
+        std::string channel_name = "CH" + std::to_string(ch);
+        channel_map.insert(std::pair<std::string, ChannelDefinition>(
+            channel_name, ChannelDefinition(channel_name, ch)));
     }
 
     return true;
@@ -49,7 +54,7 @@ bool ServoHatDriver::setServoValue(int channel, int v) {
         logger->log_warn("Not able to set Channel: " + std::to_string(channel));
         return false;
     }
-
+    logger->log_notice("Setting Pin: " + std::to_string(channel) + " V: " + std::to_string(v));
     int on = 0;
     int off = v / 3.90;
     setPWM(channel, on, off);

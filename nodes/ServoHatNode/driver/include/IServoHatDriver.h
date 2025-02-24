@@ -15,14 +15,12 @@ namespace ros_hats {
 class IServoHatDriver
 {
    public:
-    struct Channel {
-        Channel(uint8_t pin_number, std::string name, uint16_t value)
-            : pin_number(pin_number), name(name), value(value) {
+    struct ChannelDefinition {
+        ChannelDefinition(std::string name, uint8_t pin_number)
+            : name(name), pin_number(pin_number) {
         }
-
-        uint8_t pin_number;
         std::string name;
-        uint16_t value;
+        uint8_t pin_number;
     };
     static constexpr int MIN_SERVO_VALUE = 500;
     static constexpr int MEDIUM_SERVO_VALUE = 1000;
@@ -54,6 +52,6 @@ class IServoHatDriver
      */
     virtual bool finish() = 0;
     virtual std::string pretty(std::string mode = "") = 0;
-    virtual std::map<uint8_t, Channel> get_channels() = 0;
+    virtual std::map<std::string, ChannelDefinition> get_channels() = 0;
 };
 }  // namespace ros_hats

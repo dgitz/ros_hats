@@ -27,7 +27,14 @@ int main(int argc, char* argv[]) {
             case 'r': reset = true; break;
 
             case 'c': channel = atoi(optarg); continue;
-            case 'm': mode = optarg; break;
+            case 'm':
+                mode = optarg;
+                if (mode == "ramp") {
+                    break;
+                }
+                else {
+                    continue;
+                };
             case 'v': value = atoi(optarg); break;
             case '?': printHelp(); return 0;
             case 'h': printHelp(); return 0;
@@ -42,7 +49,11 @@ int main(int argc, char* argv[]) {
 #else
     driver = new MockServoHatDriver();
 #endif
-    driver->init(logger);
+    if (driver->init(logger) == false) {
+        logger->log_error("Unable to initialize ServoHatDriver. Exiting.\n");
+
+        return 1;
+    }
     logger->log_notice(driver->pretty());
     logger->log_notice(driver->pretty("simple"));
     double delta_time_sec = 0.01;
@@ -68,6 +79,7 @@ int main(int argc, char* argv[]) {
     bool direction = true;
 
     while (true) {
+        printf("running\n");
         driver->update(delta_time_sec);
         usleep(delta_time_sec * 1000000);
         if (mode == "ramp") {
